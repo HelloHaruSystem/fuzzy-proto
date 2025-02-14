@@ -12,7 +12,13 @@ public class Tome : Item
         this.magicType = magicType;
         this.usesLeft = 10;
         this.magicDamage = 20;
-    } 
+    }
+
+    // TODO: Implement a method when you use the Tome
+    public override void use()
+    {
+        throw new NotImplementedException();
+    }
     
     // getters and setters
     // TODO: duplicate code with weapon make tome a weapon type?

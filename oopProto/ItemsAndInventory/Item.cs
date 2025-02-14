@@ -10,10 +10,8 @@ public abstract class Item
     }
 
     // TODO: Implement a proper use method
-    protected void use()
-    {
-        
-    }
+    public abstract void use();
+    
     
     // getters and setters
     private string ItemName => this.itemName;
