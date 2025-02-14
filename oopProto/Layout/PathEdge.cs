@@ -1,4 +1,6 @@
-﻿namespace oopProto.Layout;
+﻿using System;
+
+namespace oopProto.Layout;
 
 // non weighted and bidirectional!
 public class PathEdge
