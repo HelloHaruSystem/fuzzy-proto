@@ -1,4 +1,6 @@
-﻿namespace oopProto.ItemsAndInventory;
+﻿using oopProto.Entities;
+
+namespace oopProto.ItemsAndInventory;
 
 public class Weapon : Item
 {
@@ -14,15 +16,13 @@ public class Weapon : Item
         this.isRanged = isRanged;
     }
     
-    // TODO: add a proper hit method
-    public string hit()
+    // TODO: add a proper use method
+    public override void use()
     {
-        string hitOrMiss = "";
-        this.usesLeft--;
-        
-        return $"{hitOrMiss}\nUses: {this.usesLeft}";
+            
+        throw new NotImplementedException();
     }
-    
+
     // getters and setters
     public int Damage => this.damage;
     public int UsesLeft => this.usesLeft;

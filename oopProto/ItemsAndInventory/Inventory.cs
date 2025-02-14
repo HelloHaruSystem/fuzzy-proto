@@ -29,6 +29,12 @@ public class Inventory
         }
     }
 
+    // TODO: implement the swap method!
+    public void swapItems(Item itemToReplace, Item newItem)
+    {
+        throw new NotImplementedException();
+    }
+
     public void RemoveItem(Item item)
     {
         this.items.Remove(item);

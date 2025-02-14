@@ -1,6 +1,6 @@
 ﻿namespace oopProto.Entities;
 
-public class Monster
+public class Monster : Entity
 {
     
 }
