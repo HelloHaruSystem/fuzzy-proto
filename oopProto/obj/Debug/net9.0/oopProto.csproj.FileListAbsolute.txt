@@ -12,3 +12,4 @@ C:\Users\hac\code\oopGame\oopProto\oopProto\obj\Debug\net9.0\refint\oopProto.dll
 C:\Users\hac\code\oopGame\oopProto\oopProto\obj\Debug\net9.0\oopProto.pdb
 C:\Users\hac\code\oopGame\oopProto\oopProto\obj\Debug\net9.0\oopProto.genruntimeconfig.cache
 C:\Users\hac\code\oopGame\oopProto\oopProto\obj\Debug\net9.0\ref\oopProto.dll
+C:\Users\hac\code\oopGame\oopProto\oopProto\obj\Debug\net9.0\oopProto.sourcelink.json
