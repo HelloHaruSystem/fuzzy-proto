@@ -2,5 +2,9 @@
 
 public class GameUi
 {
-    
+
+    public void StartGame()
+    {
+        
+    }
 }
