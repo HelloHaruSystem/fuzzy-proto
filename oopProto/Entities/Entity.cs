@@ -13,7 +13,7 @@ public abstract class Entity
         this.currentHp = maxHp;
     }
 
-    public void recieveDamage(int damage)
+    public void RecieveDamage(int damage)
     {
         currentHp -= damage;
         if (currentHp < 0)
@@ -22,7 +22,7 @@ public abstract class Entity
         }
     }
 
-    public void recieveHeal(int heal)
+    public void RecieveHeal(int heal)
     {
         currentHp += heal;
         if (currentHp > maxHp)

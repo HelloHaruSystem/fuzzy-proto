@@ -23,7 +23,7 @@ public class GameUi
         
         while (this.running)
         {
-            playerPane();
+            PlayerPane();
             
             
             
@@ -34,7 +34,7 @@ public class GameUi
         Console.ReadLine();
     }
 
-    private void playerPane()
+    private void PlayerPane()
     {
         Console.WriteLine(this.playerService.GetPlayer());
     }

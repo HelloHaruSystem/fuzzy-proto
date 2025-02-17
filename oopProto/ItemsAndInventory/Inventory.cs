@@ -30,7 +30,7 @@ public class Inventory
     }
 
     // TODO: implement the swap method!
-    public void swapItems(Item itemToReplace, Item newItem)
+    public void SwapItems(Item itemToReplace, Item newItem)
     {
         throw new NotImplementedException();
     }
@@ -41,7 +41,7 @@ public class Inventory
         currentCapacity--;
     }
 
-    public void showInventory()
+    public void ShowInventory()
     {
         Console.WriteLine("Items:");
         for (int i = 0; i < items.Count; i++)
@@ -55,7 +55,7 @@ public class Inventory
         }
     }
 
-    public void addMaxCapacity(int increasedCapacity)
+    public void AddMaxCapacity(int increasedCapacity)
     {
         this.maxCapacity += increasedCapacity;
     }

@@ -10,7 +10,7 @@ public abstract class Item
     }
 
     // TODO: Implement a proper use method
-    public abstract void use();
+    public abstract void Use();
     
     
     // getters and setters

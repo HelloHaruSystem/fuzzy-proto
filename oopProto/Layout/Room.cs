@@ -12,7 +12,7 @@ public class Room
     private Room west;
     List<Item> items = new List<Item>();
 
-    public Room(string roomName, string description, Room north, Room south, Room east, Room west, List<Item> items)
+    public Room(string roomName, string description, Room north, Room south, Room east, Room west)
     {
         this.roomName = roomName;
         this.description = description;
@@ -20,7 +20,7 @@ public class Room
         this.south = south;
         this.east = east;
         this.west = west;
-        this.items = items;
+        this.items = null;
     }
 
     // getters and setters

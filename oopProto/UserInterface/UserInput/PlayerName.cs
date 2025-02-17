@@ -3,7 +3,7 @@
 public class PlayerName
 {
 
-    public static string makePlayerName()
+    public static string MakePlayerName()
     {
         string playerName = string.Empty;
         bool validPlayerName = false;

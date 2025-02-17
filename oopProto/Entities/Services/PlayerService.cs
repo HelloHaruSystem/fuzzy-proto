@@ -9,7 +9,7 @@ public class PlayerService
         this.player = new Player();
     }
     
-    public void moveRoom(String direction)
+    public void MoveRoom(String direction)
     {
         string directionString = direction.ToLower();
         
@@ -33,15 +33,15 @@ public class PlayerService
     }
     
     //TODO: move to service class
-    public void showInventory()
+    public void ShowInventory()
     {
-        this.player.PlayerInventory.showInventory();
+        this.player.PlayerInventory.ShowInventory();
     }
     
     // getters and setters
     public Player GetPlayer() => this.player;
     
-    public void setPlayerName(String playerName)
+    public void SetPlayerName(String playerName)
     {
         this.player.Name = playerName;
     }

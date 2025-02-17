@@ -16,8 +16,14 @@ public class Weapon : Item
         this.isRanged = isRanged;
     }
     
+    // getters and setters
+    public int Damage => this.damage;
+    public int UsesLeft => this.usesLeft;
+    public bool IsRanged => this.isRanged;
+    
+    // override methods
     // TODO: add a proper use method
-    public override void use()
+    public override void Use()
     {
         
         
@@ -29,13 +35,7 @@ public class Weapon : Item
         
         throw new NotImplementedException();
     }
-
-    // getters and setters
-    public int Damage => this.damage;
-    public int UsesLeft => this.usesLeft;
-    public bool IsRanged => this.isRanged;
     
-    // override methods
     public override string ToString()
     {
         return $"{itemName}: Damage: {damage}, UsesLeft: {usesLeft}";
