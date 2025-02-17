@@ -32,16 +32,18 @@ public class PlayerService
         }
     }
     
-    public Player GetPlayer() => this.player;
-    
     //TODO: move to service class
     public void showInventory()
     {
         this.player.PlayerInventory.showInventory();
     }
-
+    
+    // getters and setters
+    public Player GetPlayer() => this.player;
+    
     public void setPlayerName(String playerName)
     {
-        this.player.PlayerName = playerName;
+        this.player.Name = playerName;
     }
+    
 }

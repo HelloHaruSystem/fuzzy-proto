@@ -20,7 +20,7 @@ public class StartMenu
         Console.WriteLine("Welcome adventurer!\n");
         playerName = PlayerName.makePlayerName();
        
-        playerService.GetPlayer().PlayerName = playerName;
+        playerService.GetPlayer().Name = playerName;
         playerService.GetPlayer().CurrentRoom = startRoom;
     }
     

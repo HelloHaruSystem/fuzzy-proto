@@ -25,9 +25,13 @@ public class GameUi
         {
             playerPane();
             
-
+            
+            
+            
             this.running = false;
         }
+        
+        Console.ReadLine();
     }
 
     private void playerPane()
@@ -38,7 +42,7 @@ public class GameUi
     private void Introduction()
     {
         Console.Clear();
-        Console.WriteLine($"Welcome {this.playerService.GetPlayer().PlayerName}!");
+        Console.WriteLine($"Welcome {this.playerService.GetPlayer().Name}!");
         Console.WriteLine($"Are you ready to explore the forgotten castle?");
         Console.WriteLine("If so...\nPress any key to continue...");
         

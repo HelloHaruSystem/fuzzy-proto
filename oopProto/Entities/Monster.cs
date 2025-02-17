@@ -4,8 +4,8 @@ namespace oopProto.Entities;
 
 public class Monster : Entity
 {
-    private string monsterName;
-    int monsterStrength;
+    private string name;
+    int strength;
     private Weapon equipedWeapon;
     private int spriteId;
     
@@ -13,21 +13,15 @@ public class Monster : Entity
     public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon) : base()
     {
         this.maxHp = maxHp;
-        this.monsterName = monsterName;
-        this.monsterStrength = monsterStrength;
+        this.name = monsterName;
+        this.strength = monsterStrength;
         this.equipedWeapon = equipedWeapon;
         
     }
-
-    public void Attack(Player player)
-    {
-        int dealtDmg = monsterStrength + equipedWeapon.Damage;
-       
-        player.recieveDamage(dealtDmg);
-    }
     
     // getters and setters
-    public string MonsterName { get => monsterName; set => monsterName = value; }
+    public string Name { get => name; set => name = value; }
     public Weapon EquipedWeapon { get => equipedWeapon; set => equipedWeapon = value; }
+    public int Strength { get => Strength; set => Strength = value; }
     public int SpriteID { get => spriteId; set => spriteId = value; }
 }

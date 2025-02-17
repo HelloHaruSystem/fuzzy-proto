@@ -6,7 +6,7 @@ namespace oopProto.Entities;
 
 public sealed class Player : Entity
 {
-    private  string playerName;
+    private  string name;
     private  Inventory playerInventory;
     private  Weapon equipedWeapon;
     private  Room currentRoom;
@@ -15,24 +15,24 @@ public sealed class Player : Entity
     {
         this.maxHp = 200;
         this.currentHp = this.maxHp;
-        this.playerName = "Player";
+        this.name = "Player";
         this.playerInventory = new Inventory();
         this.equipedWeapon = new Weapon("Wooden Sword", 5, 256, false);
         this.currentRoom = null;
     }
     
     // getters and setters
-    public string PlayerName { get => playerName; set => playerName = value; }
+    public string Name { get => name; set => name = value; }
     public Inventory PlayerInventory { get => playerInventory; set => playerInventory = value; }
     public Weapon EquipedWeapon { get => equipedWeapon; set => equipedWeapon = value; }
     public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
     
     // override methods
-    public string ToString()
+    public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.Append($"{this.PlayerName}\n");
+        sb.Append($"{this.name}\n");
         sb.Append($"HP: {this.CurrentHp}/{this.MaxHp}\t wep: {this.EquipedWeapon}\n");
         sb.Append($"Current Map: {this.CurrentRoom}\n");
         sb.Append($"Room description: {this.CurrentRoom.Description}\n");
