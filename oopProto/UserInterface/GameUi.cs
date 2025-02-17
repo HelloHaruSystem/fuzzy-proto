@@ -10,13 +10,14 @@ public class GameUi
     public GameUi()
     {
         this.running = false;
+        this.playerService = new PlayerService();
     }
     
     public void StartGame()
     {
         running = true;
         Console.Clear();
-        StartMenu.Start();
+        StartMenu.Start(this.playerService);
         this.Introduction();
         Console.Clear();
         
@@ -36,6 +37,7 @@ public class GameUi
     
     private void Introduction()
     {
+        Console.Clear();
         Console.WriteLine($"Welcome {this.playerService.GetPlayer().PlayerName}!");
         Console.WriteLine($"Are you ready to explore the forgotten castle?");
         Console.WriteLine("If so...\nPress any key to continue...");
