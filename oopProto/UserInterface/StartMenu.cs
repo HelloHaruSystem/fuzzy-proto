@@ -6,7 +6,6 @@ namespace oopProto.UserInterface;
 
 public class StartMenu
 {
-
     
     public static void Start(PlayerService playerService)
     {
