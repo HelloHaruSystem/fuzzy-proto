@@ -11,8 +11,17 @@ public class RoomService
     public RoomService()
     {
         rooms = new List<Room>();
-        // rooms = LoadRooms();    add theres later
-        //currentRoom = rooms[0];  add theres later
+        LoadRooms();
+        currentRoom = rooms[0];
+    }
+    
+    // test method
+    public void testRooms()
+    {
+        foreach (Room r in rooms)
+        {
+            Console.WriteLine(r);
+        }
     }
     
     // this should be removed when the constructor is finished this is just for testing
@@ -21,10 +30,54 @@ public class RoomService
         currentRoom = room;
     }
 
-    // TODO: implement
-    private List<Room> LoadRooms()
+    // adds a driction to a room
+    public void SetAdjcentRooms(String direction, int roomId, int roomIdToAdd)
     {
-        throw new NotImplementedException();
+        direction = direction.ToLower();
+        
+        // iterate over rooms where the id matches
+        Room room = rooms.Find(r => r.RoomId == roomId);
+        Room roomToAdd = rooms.Find(r => r.RoomId == roomIdToAdd);
+
+        // add that room to the specified direction
+        switch (direction)
+        {
+            case "north":
+                room.North = roomToAdd;
+                break;
+            case "south":
+                room.South = roomToAdd;
+                break;
+            case "east":
+                room.East = roomToAdd;
+                break;
+            case "west":
+                room.West = roomToAdd;
+                break;
+            default:
+                throw new ArgumentException("Invalid direction");
+        }
+    }
+
+    // TODO: implement
+    private void LoadRooms()
+    {
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Resources/Rooms.csv");
+
+        try
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] roomLines = lines[i].Split(',');
+
+                this.rooms.Add(new Room(int.Parse(roomLines[0]), roomLines[1], roomLines[2]));
+            }
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine("Error loading rooms from csv\n" + e.Message);
+        }
     }
     
     // TODO implement
