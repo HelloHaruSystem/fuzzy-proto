@@ -12,7 +12,8 @@ public class RoomService
     {
         rooms = new List<Room>();
         LoadRooms();
-        currentRoom = rooms[0];
+        LoadDirections();
+        currentRoom = this.rooms.Find(r => r.RoomId == 1);
     }
     
     // test method
@@ -20,7 +21,26 @@ public class RoomService
     {
         foreach (Room r in rooms)
         {
-            Console.WriteLine(r);
+            if (r.North != null)
+            {
+                Console.WriteLine(r.North);
+            }
+            if (r.South != null)
+            {
+                Console.WriteLine(r.South);
+            }
+
+            if (r.East != null)
+            {
+                Console.WriteLine(r.East);
+            }
+
+            if (r.West != null)
+            {
+                Console.WriteLine(r.West);
+            }
+
+            Console.WriteLine();
         }
     }
     
@@ -30,36 +50,69 @@ public class RoomService
         currentRoom = room;
     }
 
-    // adds a driction to a room
-    public void SetAdjcentRooms(String direction, int roomId, int roomIdToAdd)
+    public void LoadDirections()
     {
-        direction = direction.ToLower();
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Resources/RoomsConnection.csv");
         
-        // iterate over rooms where the id matches
-        Room room = rooms.Find(r => r.RoomId == roomId);
-        Room roomToAdd = rooms.Find(r => r.RoomId == roomIdToAdd);
-
-        // add that room to the specified direction
-        switch (direction)
+        try
         {
-            case "north":
-                room.North = roomToAdd;
-                break;
-            case "south":
-                room.South = roomToAdd;
-                break;
-            case "east":
-                room.East = roomToAdd;
-                break;
-            case "west":
-                room.West = roomToAdd;
-                break;
-            default:
-                throw new ArgumentException("Invalid direction");
+            string[] lines = File.ReadAllLines(filePath);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] connectionLines = lines[i].Split(',');
+
+                SetAdjcentRooms(int.Parse(connectionLines[0]), int.Parse(connectionLines[1]), 
+                    int.Parse(connectionLines[2]), int.Parse(connectionLines[3]), int.Parse(connectionLines[4]));
+            }
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine("Error loading rooms from csv\n" + e.Message);
         }
     }
 
-    // TODO: implement
+    // adds a Direction to a room
+    public void SetAdjcentRooms(int roomID, int northId, int southId, int eastId, int westId)
+    {
+        Room room = rooms.Find(r => r.RoomId == roomID);
+        
+        if (northId != 0)
+        {
+            room.North = rooms.Find(r => r.RoomId == northId);
+        }
+        else
+        {
+            room.North = null;
+        }
+
+        if (southId != 0)
+        {
+            room.South = rooms.Find(r => r.RoomId == southId);
+        }
+        else
+        {
+            room.South = null;
+        }
+
+        if (eastId != 0)
+        {
+            room.East = rooms.Find(r => r.RoomId == eastId);
+        }
+        else
+        {
+            room.East = null;
+        }
+
+        if (westId != 0)
+        {
+            room.West = rooms.Find(r => r.RoomId == westId);
+        }
+        else
+        {
+            room.West = null;
+        }
+    }
+    
     private void LoadRooms()
     {
         string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Resources/Rooms.csv");
