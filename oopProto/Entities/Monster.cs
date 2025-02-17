@@ -7,6 +7,8 @@ public class Monster : Entity
     private string monsterName;
     int monsterStrength;
     private Weapon equipedWeapon;
+    private int spriteId;
+    
 
     public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon) : base()
     {
@@ -14,6 +16,7 @@ public class Monster : Entity
         this.monsterName = monsterName;
         this.monsterStrength = monsterStrength;
         this.equipedWeapon = equipedWeapon;
+        
     }
 
     public void Attack(Player player)
@@ -26,4 +29,5 @@ public class Monster : Entity
     // getters and setters
     public string MonsterName { get => monsterName; set => monsterName = value; }
     public Weapon EquipedWeapon { get => equipedWeapon; set => equipedWeapon = value; }
+    public int SpriteID { get => spriteId; set => spriteId = value; }
 }

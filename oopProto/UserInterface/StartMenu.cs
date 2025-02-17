@@ -10,9 +10,9 @@ public class StartMenu
 {
 
     
-    public static Player Start()
+    public static void Start()
     {
-        Room startRoom = new Room("Castle Entrance", "Entrance to the castle", null, null, null, null, new List<Item>());
+        Room startRoom = new Room("Castle Entrance", "Entrance to the castle there is a big door to the north!", null, null, null, null, new List<Item>());
         Room secondRoom = new Room("Castle Great Hall", "Second room", null, startRoom, null, null, new List<Item>());
         startRoom.North = secondRoom;
         
@@ -21,8 +21,6 @@ public class StartMenu
         Console.WriteLine("Welcome adventurer!\n");
         playerName = PlayerName.makePlayerName();
         // CreateNewGame.CreateGame(playerName);
-        
-        return new Player(playerName, startRoom);
     }
     
 }

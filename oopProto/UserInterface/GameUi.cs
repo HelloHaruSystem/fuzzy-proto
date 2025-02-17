@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using oopProto.Entities;
+using oopProto.Entities.Services;
 
 namespace oopProto.UserInterface;
 
 public class GameUi
 {
     private bool running;
-    private Player player;
+    PlayerService playerService;
 
     public GameUi()
     {
@@ -17,16 +18,14 @@ public class GameUi
     {
         running = true;
         Console.Clear();
-        this.player = StartMenu.Start();
-        // this.Introduction();
+        StartMenu.Start();
+        this.Introduction();
         Console.Clear();
         
-        Console.WriteLine(this.playerPane());
-
         while (this.running)
         {
+            Console.WriteLine(this.playerPane());
             
-
 
             this.running = false;
         }
@@ -34,21 +33,16 @@ public class GameUi
 
     private string playerPane()
     {
-        StringBuilder sb = new StringBuilder();
-
-        sb.Append($"{this.player.PlayerName}\n");
-        sb.Append($"HP: {player.CurrentHp}/{player.MaxHp}\t wep: {player.EquipedWeapon}\n");
-        sb.Append($"Current Map: {player.CurrentRoom}\n");
-        sb.Append($"Room description: {player.CurrentRoom.Description}\n");
-        
-        return sb.ToString();
+        Console.WriteLine(this.playerService.GetPlayer());
     }
-
-    // TODO: add Introduction method
+    
     public void Introduction()
     {
-        // print introduction
-        throw new NotImplementedException();
+        Console.WriteLine($"Welcome {PlayerService.GetPlayer().PlayerName}!}");
+        Console.WriteLine($"Are you ready to explore the forgotten castle?");
+        Console.WriteLine("If so...\nPress any key to continue...");
+        
+        Console.ReadKey();
     }
     
 }
