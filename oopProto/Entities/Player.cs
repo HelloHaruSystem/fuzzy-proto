@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using oopProto.ItemsAndInventory;
+﻿using oopProto.ItemsAndInventory;
 using oopProto.Layout;
 
 namespace oopProto.Entities;
@@ -14,6 +13,7 @@ public class Player : Entity
     public Player(string name, Room startRoom) : base ()
     {
         this.maxHp = 200;
+        this.currentHp = this.maxHp;
         this.playerName = name;
         this.playerInventory = new Inventory();
         this.equipedWeapon = new Weapon("Wooden Sword", 5, 256, false);
@@ -51,4 +51,6 @@ public class Player : Entity
     // getters and setters
     public string PlayerName { get => playerName; set => playerName = value; }
     public Inventory PlayerInventory { get => playerInventory; set => playerInventory = value; }
+    public Weapon EquipedWeapon { get => equipedWeapon; set => equipedWeapon = value; }
+    public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
 }

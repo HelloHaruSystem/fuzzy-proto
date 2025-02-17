@@ -34,4 +34,10 @@ public class Weapon : Item
     public int Damage => this.damage;
     public int UsesLeft => this.usesLeft;
     public bool IsRanged => this.isRanged;
+    
+    // override methods
+    public override string ToString()
+    {
+        return $"{itemName}: Damage: {damage}, UsesLeft: {usesLeft}";
+    }
 }

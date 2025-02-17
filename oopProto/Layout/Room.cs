@@ -4,6 +4,7 @@ namespace oopProto.Layout;
 
 public class Room
 {
+    private string roomName;
     private string description;
     private Room north;
     private Room south;
@@ -11,8 +12,9 @@ public class Room
     private Room west;
     List<Item> items = new List<Item>();
 
-    public Room(string description, Room north, Room south, Room east, Room west, List<Item> items)
+    public Room(string roomName, string description, Room north, Room south, Room east, Room west, List<Item> items)
     {
+        this.roomName = roomName;
         this.description = description;
         this.north = north;
         this.south = south;
@@ -23,9 +25,15 @@ public class Room
 
     // getters and setters
     public string Description { get => description; set => description = value; }
-    public Room North => north;
-    public Room South => south;
-    public Room East => east;
-    public Room West => west;
+    public Room North { get => north; set => north = value; }
+    public Room South { get => south; set => south = value; }
+    public Room East { get => east; set => east = value; }
+    public Room West { get => west; set => west = value; }
     public List<Item> Items => items;
+    
+    // override methods
+    public override string ToString()
+    {
+        return $"{this.roomName}";
+    }
 }

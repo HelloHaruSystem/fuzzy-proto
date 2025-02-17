@@ -1,5 +1,6 @@
 ﻿using oopProto.ItemsAndInventory;
 using oopProto.Layout;
+using oopProto.UserInterface;
 
 namespace oopProto;
 
@@ -7,6 +8,8 @@ class Driver
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello World!");
+        GameUi ui = new GameUi();
+        
+        ui.StartGame();
     }
 }
