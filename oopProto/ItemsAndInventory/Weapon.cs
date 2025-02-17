@@ -19,6 +19,8 @@ public class Weapon : Item
     // TODO: add a proper use method
     public override void use()
     {
+        
+        
         usesLeft--;
         if (usesLeft == 0)
         {
