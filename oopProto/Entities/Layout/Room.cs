@@ -10,7 +10,7 @@ public class Room
     private Room south;
     private Room east;
     private Room west;
-    List<Item> items = new List<Item>();
+    private List<Item> items;
 
     public Room(string roomName, string description, Room north, Room south, Room east, Room west)
     {
@@ -20,7 +20,7 @@ public class Room
         this.south = south;
         this.east = east;
         this.west = west;
-        this.items = null;
+        this.items = new List<Item>();
     }
 
     // getters and setters
@@ -34,6 +34,6 @@ public class Room
     // override methods
     public override string ToString()
     {
-        return $"{this.roomName}";
+        return $"Room name: {this.roomName}\nRoom description: {this.description}";
     }
 }

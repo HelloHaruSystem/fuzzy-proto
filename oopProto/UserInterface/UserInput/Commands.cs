@@ -6,7 +6,7 @@ namespace oopProto.Entities.GameLogic;
 
 public class Commands
 {
-    public static void SelectCommand(PlayerService playerService)
+    public static void SelectCommand(PlayerService playerService, RoomService roomService)
     {
         bool validInput = false;
         string userInput = Console.ReadLine().ToLower();
@@ -21,19 +21,19 @@ public class Commands
                     ShowCommands();
                     break;
                 case "go north":
-                    playerService.MoveRoom("north");
+                    roomService.MoveRoom("north");
                     validInput = true;
                     break;
                 case "go east":
-                    playerService.MoveRoom("east");
+                    roomService.MoveRoom("east");
                     validInput = true;
                     break;
                 case "go south":
-                    playerService.MoveRoom("south");
+                    roomService.MoveRoom("south");
                     validInput = true;
                     break;
                 case "go west":
-                    playerService.MoveRoom("west");
+                    roomService.MoveRoom("west");
                     validInput = true;
                     break;
                 case "show inventory":

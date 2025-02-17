@@ -6,18 +6,20 @@ public class GameUi
 {
     private bool running;
     PlayerService playerService;
+    RoomService roomService;
 
     public GameUi()
     {
         this.running = false;
         this.playerService = new PlayerService();
+        this.roomService = new RoomService();
     }
     
     public void StartGame()
     {
         running = true;
         Console.Clear();
-        StartMenu.Start(this.playerService);
+        StartMenu.Start(this.playerService, this.roomService);
         this.Introduction();
         Console.Clear();
         
@@ -37,6 +39,7 @@ public class GameUi
     private void PlayerPane()
     {
         Console.WriteLine(this.playerService.GetPlayer());
+        Console.WriteLine(this.roomService.CurrentRoom);
     }
     
     private void Introduction()

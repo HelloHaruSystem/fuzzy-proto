@@ -11,29 +11,6 @@ public class PlayerService
         this.player = new Player();
     }
     
-    public void MoveRoom(String direction)
-    {
-        string directionString = direction.ToLower();
-        
-        switch (directionString)
-        {
-            case "north":
-                this.player.CurrentRoom = this.player.CurrentRoom.North;
-                break;
-            case "south":
-                this.player.CurrentRoom = this.player.CurrentRoom.South;
-                break;
-            case "east":
-                this.player.CurrentRoom = this.player.CurrentRoom.East;
-                break;
-            case "west":
-                this.player.CurrentRoom = this.player.CurrentRoom.West;
-                break;
-            default:
-                throw new Exception("Invalid direction");
-        }
-    }
-    
     // TODO: move Console.Write() and Console.WriteLine() methods to the ui
     public void ShowInventory()
     {
