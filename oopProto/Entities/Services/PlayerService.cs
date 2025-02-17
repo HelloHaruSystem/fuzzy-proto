@@ -32,7 +32,7 @@ public class PlayerService
         }
     }
     
-    public Player GetPlayer() => player;
+    public Player GetPlayer() => this.player;
     
     //TODO: move to service class
     public void showInventory()

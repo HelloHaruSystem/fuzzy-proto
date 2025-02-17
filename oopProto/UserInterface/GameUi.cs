@@ -1,6 +1,4 @@
-﻿using System.Text;
-using oopProto.Entities;
-using oopProto.Entities.Services;
+﻿using oopProto.Entities.Services;
 
 namespace oopProto.UserInterface;
 
@@ -24,21 +22,21 @@ public class GameUi
         
         while (this.running)
         {
-            Console.WriteLine(this.playerPane());
+            playerPane();
             
 
             this.running = false;
         }
     }
 
-    private string playerPane()
+    private void playerPane()
     {
         Console.WriteLine(this.playerService.GetPlayer());
     }
     
-    public void Introduction()
+    private void Introduction()
     {
-        Console.WriteLine($"Welcome {PlayerService.GetPlayer().PlayerName}!}");
+        Console.WriteLine($"Welcome {this.playerService.GetPlayer().PlayerName}!");
         Console.WriteLine($"Are you ready to explore the forgotten castle?");
         Console.WriteLine("If so...\nPress any key to continue...");
         
