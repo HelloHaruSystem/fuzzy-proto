@@ -54,6 +54,7 @@ public class Frame
         string playerInfo = playerService.GetPlayer().ToString();
         string roomInfo = roomService.CurrentRoom.ToString();
         
+        CleanPane(0, yEnd - 6, 5);
         
         Console.SetCursorPosition(xStart + 1, yEnd - 6);
         Console.WriteLine(oneLine);
@@ -70,8 +71,11 @@ public class Frame
     public void DirectionPane(RoomService roomService)
     {
         string[] pathLines = roomService.CurrentRoomAvailablePath().Split("\n");
-        int cursorX = xStart + (xEnd - xStart) / 2 - pathLines[3].Length / 2;
+        // int cursorX = xStart + (xEnd - xStart) / 2 - pathLines[3].Length / 2;
+        int cursorX = (xStart + xEnd) / 2 - 20;
         int cursorY = yEnd - 12;
+        
+        CleanPane(0, cursorY, 6);
         
         foreach (string line in pathLines)
         {
@@ -83,6 +87,8 @@ public class Frame
     
     public void TopTextPane()
     {
+        CleanPane(0, 1, 5);
+        
         Console.SetCursorPosition(xStart + 1, yStart + 1);
         Console.Write("Commands:");
         Console.SetCursorPosition(xStart + 1, yStart + 6);
@@ -91,6 +97,8 @@ public class Frame
     
     public void PlayerWrite(string title)
     {
+        CleanPane(0, 1, 5);
+        
         Console.SetCursorPosition(xStart + 1, yStart + 1);
         Console.Write(title);
         Console.SetCursorPosition(xStart + 2, yStart + 2);
@@ -98,11 +106,44 @@ public class Frame
 
     public void NpcWrite(string title, string text)
     {
+        CleanPane(0, 1, 5);
+        
+        string[] textLines = text.Split("\n");
+        int yTop = yStart + 2;
+        
         Console.SetCursorPosition(xStart + 1, yStart + 1);
         Console.Write(title);
-        Console.SetCursorPosition(xStart + 1, yStart + 2);
-        Console.Write(text);
 
+        foreach (string line in textLines)
+        {
+            Console.SetCursorPosition(xStart + 1, yTop);
+            Console.Write(line);
+            yTop++;
+        }
+        
+    }
+
+    private void CleanPane(int startX, int staryY,  int linesDown)
+    {
+        Console.ForegroundColor = ConsoleColor.Black;
+        for (int i = staryY; i <= linesDown; i++)
+        {
+            Console.SetCursorPosition(startX + 1, i);
+            Console.Write(oneLine);
+        }
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+
+    // TODO: implement!
+    public void DisplayRoomName(string roomName)
+    {
+        
+    }
+
+    //TODO: implement!
+    public void BattleFrame()
+    {
+        
     }
     
 }

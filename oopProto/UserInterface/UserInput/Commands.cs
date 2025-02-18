@@ -1,26 +1,27 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
 using oopProto.Entities.Services;
+using oopProto.UserInterface;
 
 namespace oopProto.Entities.GameLogic;
 
 public class Commands
 {
-    public static void SelectCommand(PlayerService playerService, RoomService roomService)
+    public static void SelectCommand(PlayerService playerService, RoomService roomService, Frame gameFrame)
     {
         bool validInput = false;
         string userInput = "";
         
-
+        gameFrame.NpcWrite("Enter Command:", "[1] to show list of commands\n> ");
+        
         while (!validInput)
         {
-            Console.Write("Enter command:\n[1] to show list of commands\n> ");
             userInput = Console.ReadLine().ToLower();
             
             switch (userInput)
             { 
                 case "1":
-                    ShowCommands();
+                    ShowCommands(gameFrame);
                     break;
                 case "go north":
                     roomService.MoveRoom("north");
@@ -52,16 +53,14 @@ public class Commands
         
     }
 
-    private static void ShowCommands()
+    private static void ShowCommands(Frame gameFrame)
     {
         StringBuilder commands = new StringBuilder();
-        commands.AppendLine("\"go north\" To go north");
-        commands.AppendLine("\"go east\" To go east");
-        commands.AppendLine("\"go south\" To go south");
-        commands.AppendLine("\"go west\" To go west");
-        commands.AppendLine("\"show inventory\" To show inventory");
+        commands.Append("\"go north\" To go north\t \"go east\" To go east\n");
+        commands.Append("\"go south\" To go south\t \"go west\" To go west\n" );
+        commands.Append("\"show inventory\" To show inventory\n> ");
         
-        Console.WriteLine(commands.ToString());
+        gameFrame.NpcWrite("Enter Command:", commands.ToString());
     }
     
 }

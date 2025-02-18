@@ -30,12 +30,13 @@ public class GameUi
         while (this.running)
         {
             gameFrame.Display(this.playerService, roomService);
-            Console.ReadLine();
+            Commands.SelectCommand(this.playerService, this.roomService, this.gameFrame);
 
 
 
         }
         
+        Console.Clear();
         Console.ReadLine();
     }
     
