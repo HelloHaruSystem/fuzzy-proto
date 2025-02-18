@@ -46,8 +46,8 @@ public class GameUi
     
     private void StartMenu(PlayerService playerService, RoomService roomService)
     {
-        //roomService.testRooms();
-        //Console.ReadKey();
+        Frame.DisplayGameFrame();
+        Console.ReadKey();
         Console.WriteLine(roomService.CurrentRoomAvailablePath());
         Console.ReadKey();
         
