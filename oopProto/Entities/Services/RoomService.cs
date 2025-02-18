@@ -12,104 +12,16 @@ public class RoomService
     {
         rooms = new List<Room>();
         LoadRooms();
-        LoadDirections();
         currentRoom = this.rooms.Find(r => r.RoomId == 1);
     }
     
     // test method
     public void testRooms()
     {
-        foreach (Room r in rooms)
+        foreach (Room r in this.rooms)
         {
-            if (r.North != null)
-            {
-                Console.WriteLine(r.North);
-            }
-            if (r.South != null)
-            {
-                Console.WriteLine(r.South);
-            }
-
-            if (r.East != null)
-            {
-                Console.WriteLine(r.East);
-            }
-
-            if (r.West != null)
-            {
-                Console.WriteLine(r.West);
-            }
-
-            Console.WriteLine();
-        }
-    }
-    
-    // this should be removed when the constructor is finished this is just for testing
-    public void SetCurrentRoom(Room room)
-    {
-        currentRoom = room;
-    }
-
-    public void LoadDirections()
-    {
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Resources/RoomsConnection.csv");
-        
-        try
-        {
-            string[] lines = File.ReadAllLines(filePath);
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string[] connectionLines = lines[i].Split(',');
-
-                SetAdjcentRooms(int.Parse(connectionLines[0]), int.Parse(connectionLines[1]), 
-                    int.Parse(connectionLines[2]), int.Parse(connectionLines[3]), int.Parse(connectionLines[4]));
-            }
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine("Error loading rooms from csv\n" + e.Message);
-        }
-    }
-
-    // adds a Direction to a room
-    public void SetAdjcentRooms(int roomID, int northId, int southId, int eastId, int westId)
-    {
-        Room room = rooms.Find(r => r.RoomId == roomID);
-        
-        if (northId != 0)
-        {
-            room.North = rooms.Find(r => r.RoomId == northId);
-        }
-        else
-        {
-            room.North = null;
-        }
-
-        if (southId != 0)
-        {
-            room.South = rooms.Find(r => r.RoomId == southId);
-        }
-        else
-        {
-            room.South = null;
-        }
-
-        if (eastId != 0)
-        {
-            room.East = rooms.Find(r => r.RoomId == eastId);
-        }
-        else
-        {
-            room.East = null;
-        }
-
-        if (westId != 0)
-        {
-            room.West = rooms.Find(r => r.RoomId == westId);
-        }
-        else
-        {
-            room.West = null;
+            Console.Write(r.RoomId + " ");
+            Console.WriteLine($"North: {r.NorthId} South: {r.SouthId} East: {r.EastId} West: {r.WestId}");
         }
     }
     
@@ -124,7 +36,9 @@ public class RoomService
             {
                 string[] roomLines = lines[i].Split(',');
 
-                this.rooms.Add(new Room(int.Parse(roomLines[0]), roomLines[1], roomLines[2]));
+                this.rooms.Add(new Room(int.Parse(roomLines[0]), roomLines[1], roomLines[2],
+                    int.Parse(roomLines[3]), int.Parse(roomLines[4]), int.Parse(roomLines[5]),
+                    int.Parse(roomLines[6])));
             }
         }
         catch (IOException e)
@@ -146,16 +60,16 @@ public class RoomService
         switch (directionString)
         {
             case "north":
-                this.CurrentRoom = this.CurrentRoom.North;
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.NorthId);
                 break;
             case "south":
-                this.CurrentRoom = this.CurrentRoom.South;
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.SouthId);
                 break;
             case "east":
-                this.CurrentRoom = this.CurrentRoom.East;
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.EastId);
                 break;
             case "west":
-                this.CurrentRoom = this.CurrentRoom.West;
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.WestId);
                 break;
             default:
                 throw new Exception("Invalid direction");

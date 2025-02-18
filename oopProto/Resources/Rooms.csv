@@ -1,18 +1,18 @@
-﻿1,Castle Entrance,The Entrance to a mysterious castle!
-2,The Great Hall,The Great hall the central room in the castle
-3,Garden Entrance,The Entrance to the garden
-4,Rose Garden,The castles old rose garden
-5,English Garden, The castle English Garden
-6,The Withered Garden,A Dark and Withered Garden
-7,Central Staircase,a long staircase leading to the second floor
-8,Second Floor,The second floor of the castle
-9,Guest quarters, The haunted guest quarters
-10,Dinning Hall,The old dusty dinning hall
-11,Castle Tower, The top tower of the castle
-12,Dungeon entrance,what could be in the castle dungeon?
-13,Jailers room,The jailers quarters
-14,Jailers bathroom,Even the jailers need a bath
-15,Prison,The prison inside the castles dungeon
-16,Hole in the wall,Theres a hole in the wall where could i lead?
-17,Cavern Entrance,On the other side of the hole in the wall was a huge cavern
-28,Dragons lair,A dragon is sleeping in the middle of the cavern
+﻿1,Castle Entrance,The Entrance to a mysterious castle!,2,0,0,0
+2,The Great Hall,The Great hall the central room in the castle,7,1,3,12
+3,Garden Entrance,The Entrance to the garden,4,0,0,2
+4,Rose Garden,The castles old rose garden,6,3,0,5
+5,English Garden, The castle English Garden,0,0,4,0
+6,The Withered Garden,A Dark and Withered Garden,0,4,0,0
+7,Central Staircase,a long staircase leading to the second floor,8,2,0,0
+8,Second Floor,The second floor of the castle,11,7,10,9
+9,Guest quarters, The haunted guest quarters,0,0,8,0
+10,Dinning Hall,The old dusty dinning hall,0,0,0,8
+11,Castle Tower, The top tower of the castle,0,8,0,0
+12,Dungeon entrance,what could be in the castle dungeon?,0,0,2,13
+13,Jailers room,The jailers quarters,0,15,12,14
+14,Jailers bathroom,Even the jailers need a bath,0,0,13,0
+15,Prison,The prison inside the castles dungeon,13,16,0,0
+16,Hole in the wall,Theres a hole in the wall where could i lead?,15,17,0,0
+17,Cavern Entrance,On the other side of the hole in the wall was a huge cavern,16,0,0,18
+18,Dragons lair,A dragon is sleeping in the middle of the cavern,0,0,17,0
