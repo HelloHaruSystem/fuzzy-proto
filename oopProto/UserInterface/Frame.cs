@@ -2,14 +2,10 @@
 
 public class Frame
 {
-    public static void DisplayGameFrame()
+    public static void DisplayGameFrame(int xStart, int xEnd, int yStart, int yEnd)
     {
-        const int xStart = 240;
-        const int xEnd = 240;
-        const int yStart = 140;
-        const int yEnd = 140;
-
         Console.ForegroundColor = ConsoleColor.Red;
+        
         for (int x = xStart; x <= xEnd; x++)
         {
             Console.SetCursorPosition(x, yStart);

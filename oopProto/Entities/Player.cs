@@ -28,6 +28,6 @@ public sealed class Player : Entity
     // override methods
     public override string ToString()
     {
-        return $"{this.name}\nHP: {this.CurrentHp}/{this.MaxHp}\t wep: {this.EquipedWeapon}\n";
+        return $"\t\t{this.name}\tHP: {this.CurrentHp}/{this.MaxHp}\t\twep: {this.EquipedWeapon}";
     }
 }
