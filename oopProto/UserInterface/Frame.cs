@@ -20,10 +20,14 @@ public class Frame
     public void Display(PlayerService playerService, RoomService roomService)
     {
         DisplayGameFrame();
-        PlayerPane(playerService, roomService);
-        DirectionPane(roomService);
+        
         TopTextPane();
         PlayerWrite("Enter Command:");
+        DisplayRoomName(roomService.CurrentRoom.RoomName);
+        BattleFrame();
+        //battleframe();
+        DirectionPane(roomService);
+        PlayerPane(playerService, roomService);
     }
         
     public void DisplayGameFrame()
@@ -62,8 +66,7 @@ public class Frame
         Console.Write("Player Info:");
         Console.SetCursorPosition(xStart + 3, yEnd - 4);
         Console.Write(playerInfo);
-        Console.SetCursorPosition(xStart + 3, yEnd - 2);
-        Console.Write("Room name: " + roomService.CurrentRoom.RoomName);
+        
         Console.SetCursorPosition(xStart + 3, yEnd - 1);
         Console.Write("Room description: " + roomService.CurrentRoom.Description);
     }
@@ -123,27 +126,58 @@ public class Frame
         
     }
 
-    private void CleanPane(int startX, int staryY,  int linesDown)
+    // TODO: CleanPane seems to be bugged! fix pls
+    private void CleanPane(int startX, int startY,  int linesDown)
     {
         Console.ForegroundColor = ConsoleColor.Black;
-        for (int i = staryY; i <= linesDown; i++)
+        for (int i = startY; i <= linesDown; i++)
         {
             Console.SetCursorPosition(startX + 1, i);
             Console.Write(oneLine);
         }
         Console.ForegroundColor = ConsoleColor.White;
     }
-
-    // TODO: implement!
+    
     public void DisplayRoomName(string roomName)
     {
+        string roomInfo = "| Room: " + roomName + " |";
+        int nameX = xStart + (xEnd - xStart) / 2 - roomInfo.Length / 2;
+        int nameY = yStart + 7;
+        
+        CleanPane(0, nameY, 2);
+        
+        Console.SetCursorPosition(nameX, nameY);
+        Console.Write(roomInfo);
+        nameY++;
+        nameX = 1;
+        Console.SetCursorPosition(nameX, nameY);
+        Console.Write(oneLine);
         
     }
-
-    //TODO: implement!
+    
     public void BattleFrame()
     {
+        int startX = xStart + 1, endX = xEnd - 1, startY = 9, endY = yEnd - 13;
         
+        Console.ForegroundColor = ConsoleColor.Green;
+        
+        for (int x = startX; x <= endX; x++)
+        {
+            Console.SetCursorPosition(x, startY);
+            Console.Write('-');
+            Console.SetCursorPosition(x, endY);
+            Console.Write('-');
+        }
+
+        for (int y = startY; y <= endY; y++)
+        {
+            Console.SetCursorPosition(startX, y);
+            Console.Write('|');
+            Console.SetCursorPosition(endX, y);
+            Console.Write('|');
+        }
+        
+        Console.ForegroundColor = ConsoleColor.White;
     }
     
 }
