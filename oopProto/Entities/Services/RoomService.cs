@@ -54,6 +54,7 @@ public class RoomService
         throw new NotImplementedException();
     }
     
+    // TODO: make it so that if the player tries to go a direction that doesn't exist the program wont crash
     public void MoveRoom(String direction)
     {
         string directionString = direction.ToLower();
@@ -79,20 +80,20 @@ public class RoomService
 
     public string CurrentRoomAvailablePath()
     {
-        bool north = false, south = false, east = false, west = false;
+        string northPath = "", southPath = "", eastPath = "", westPath = "";
         string currentRoomAvailablePath = "";
+
+        if (this.currentRoom.NorthId != 0) northPath = "North-Path"; else northPath = " No-Paths ";
+        if (this.currentRoom.SouthId != 0) southPath = "South-Path"; else southPath = " No-Paths ";
+        if (this.currentRoom.EastId != 0) eastPath = "East-Path"; else eastPath = " No-Paths";
+        if (this.currentRoom.WestId != 0) westPath = "West-Path"; else westPath = "No-Paths ";
         
-        if (this.currentRoom.NorthId != 0) north = true;
-        if (this.currentRoom.SouthId != 0) south = true;
-        if (this.currentRoom.EastId != 0) east = true;
-        if (this.currentRoom.WestId != 0) west = true;
-        
-        currentRoomAvailablePath = $"Available Paths:                           \n" +
-                                   $"                  \u2191                   \n" +
-                                   $"             north-{north}                 \n" +
-                                   $"\u2190 west-{west}------+------{east}-east \u2192\n" +
-                                   $"             south-{south}                 \n" +
-                                   $"                  \u2193                   \n";
+        currentRoomAvailablePath = $"---------------------------------------------\n" +
+                                   $"|                    \u2191                      |\n" +
+                                   $"|                {northPath}                 |\n" +
+                                   $"|\u2190 {westPath} ------------------- {eastPath} \u2192|\n" +
+                                   $"|                {southPath}                 |\n" +
+                                   $"|                    \u2193                      |\n";
         
         
         return currentRoomAvailablePath;

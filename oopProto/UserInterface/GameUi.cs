@@ -9,54 +9,46 @@ public class GameUi
     private bool running;
     PlayerService playerService;
     RoomService roomService;
-
+    private Frame gameFrame;
+    
     public GameUi()
     {
         this.running = false;
         this.playerService = new PlayerService();
         this.roomService = new RoomService();
+        this.gameFrame = new Frame();
     }
     
     public void StartGame()
     {
         running = true;
         Console.Clear();
-        StartMenu(this.playerService, this.roomService);
+        StartMenu();
         this.Introduction();
         Console.Clear();
         
         while (this.running)
         {
-            PlayerPane();
-            Commands.SelectCommand(this.playerService, roomService);
-            
-            
-            
-            
+            gameFrame.Display(this.playerService, roomService);
+            Commands.SelectCommand(this.playerService, this.roomService, this.gameFrame);
+
+
+
         }
         
+        Console.Clear();
         Console.ReadLine();
     }
-
-    private void PlayerPane()
-    {
-        Console.WriteLine(this.playerService.GetPlayer());
-        Console.WriteLine(this.roomService.CurrentRoom);
-    }
     
-    private void StartMenu(PlayerService playerService, RoomService roomService)
+    private void StartMenu()
     {
-        //roomService.testRooms();
-        //Console.ReadKey();
-        Console.WriteLine(roomService.CurrentRoomAvailablePath());
-        Console.ReadKey();
-        
         string playerName = string.Empty;
         
         Console.WriteLine("Welcome adventurer!\n");
         playerName = PlayerName.MakePlayerName();
        
         playerService.GetPlayer().Name = playerName;
+        
     }
     
     private void Introduction()

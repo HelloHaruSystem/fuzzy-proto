@@ -27,6 +27,7 @@ public class Room
     
     // getters and setters
     public int RoomId { get => roomId; set => roomId = value; }
+    public string RoomName { get => roomName; set => roomName = value; }
     public string Description { get => description; set => description = value; }
     public int NorthId { get => northId; set => northId = value; }
     public int SouthId { get => southId; set => southId = value; }
