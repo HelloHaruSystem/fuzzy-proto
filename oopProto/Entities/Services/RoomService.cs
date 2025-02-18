@@ -1,4 +1,5 @@
-﻿using oopProto.ItemsAndInventory;
+﻿using System.Text;
+using oopProto.ItemsAndInventory;
 using oopProto.Layout;
 
 namespace oopProto.Entities.Services;
@@ -74,6 +75,27 @@ public class RoomService
             default:
                 throw new Exception("Invalid direction");
         }
+    }
+
+    public string CurrentRoomAvailablePath()
+    {
+        bool north = false, south = false, east = false, west = false;
+        string currentRoomAvailablePath = "";
+        
+        if (this.currentRoom.NorthId != 0) north = true;
+        if (this.currentRoom.SouthId != 0) south = true;
+        if (this.currentRoom.EastId != 0) east = true;
+        if (this.currentRoom.WestId != 0) west = true;
+        
+        currentRoomAvailablePath = $"Available Paths:                           \n" +
+                                   $"                  \u2191                   \n" +
+                                   $"             north-{north}                 \n" +
+                                   $"\u2190 west-{west}------+------{east}-east \u2192\n" +
+                                   $"             south-{south}                 \n" +
+                                   $"                  \u2193                   \n";
+        
+        
+        return currentRoomAvailablePath;
     }
     
     // getters and setters

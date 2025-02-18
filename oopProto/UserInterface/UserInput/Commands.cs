@@ -9,12 +9,14 @@ public class Commands
     public static void SelectCommand(PlayerService playerService, RoomService roomService)
     {
         bool validInput = false;
-        string userInput = Console.ReadLine().ToLower();
-
-        Console.WriteLine("Enter command:\n[1] to show list of commands");
+        string userInput = "";
+        
 
         while (!validInput)
         {
+            Console.Write("Enter command:\n[1] to show list of commands\n> ");
+            userInput = Console.ReadLine().ToLower();
+            
             switch (userInput)
             { 
                 case "1":

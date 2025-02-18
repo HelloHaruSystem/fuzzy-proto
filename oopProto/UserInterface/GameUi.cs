@@ -1,4 +1,6 @@
-﻿using oopProto.Entities.Services;
+﻿using oopProto.Entities.GameLogic;
+using oopProto.Entities.Services;
+using oopProto.UserInterface.UserInput;
 
 namespace oopProto.UserInterface;
 
@@ -19,18 +21,18 @@ public class GameUi
     {
         running = true;
         Console.Clear();
-        StartMenu.Start(this.playerService, this.roomService);
+        StartMenu(this.playerService, this.roomService);
         this.Introduction();
         Console.Clear();
         
         while (this.running)
         {
             PlayerPane();
+            Commands.SelectCommand(this.playerService, roomService);
             
             
             
             
-            this.running = false;
         }
         
         Console.ReadLine();
@@ -42,14 +44,34 @@ public class GameUi
         Console.WriteLine(this.roomService.CurrentRoom);
     }
     
+    private void StartMenu(PlayerService playerService, RoomService roomService)
+    {
+        //roomService.testRooms();
+        //Console.ReadKey();
+        Console.WriteLine(roomService.CurrentRoomAvailablePath());
+        Console.ReadKey();
+        
+        string playerName = string.Empty;
+        
+        Console.WriteLine("Welcome adventurer!\n");
+        playerName = PlayerName.MakePlayerName();
+       
+        playerService.GetPlayer().Name = playerName;
+    }
+    
     private void Introduction()
     {
         Console.Clear();
         Console.WriteLine($"Welcome {this.playerService.GetPlayer().Name}!");
-        Console.WriteLine($"Are you ready to explore the forgotten castle?");
+        Console.WriteLine($"Are you ready to explore the forgotten castle?\n");
         Console.WriteLine("If so...\nPress any key to continue...");
         
         Console.ReadKey();
+    }
+
+    private void ShowPaths()
+    {
+        
     }
     
 }
