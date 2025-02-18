@@ -54,6 +54,7 @@ public class RoomService
         throw new NotImplementedException();
     }
     
+    // TODO: make it so that if the player tries to go a direction that doesn't exist the program wont crash
     public void MoveRoom(String direction)
     {
         string directionString = direction.ToLower();
@@ -84,13 +85,13 @@ public class RoomService
 
         if (this.currentRoom.NorthId != 0) northPath = "North-Path"; else northPath = " No-Paths ";
         if (this.currentRoom.SouthId != 0) southPath = "South-Path"; else southPath = " No-Paths ";
-        if (this.currentRoom.EastId != 0) eastPath = "East-Path"; else eastPath = "  No-Paths";
-        if (this.currentRoom.WestId != 0) westPath = "West-Path"; else westPath = "No-Paths  ";
+        if (this.currentRoom.EastId != 0) eastPath = "East-Path"; else eastPath = " No-Paths";
+        if (this.currentRoom.WestId != 0) westPath = "West-Path"; else westPath = "No-Paths ";
         
         currentRoomAvailablePath = $"---------------------------------------------\n" +
                                    $"|                    \u2191                      |\n" +
                                    $"|                {northPath}                 |\n" +
-                                   $"|\u2190 {westPath} ----------------- {eastPath} \u2192|\n" +
+                                   $"|\u2190 {westPath} ------------------- {eastPath} \u2192|\n" +
                                    $"|                {southPath}                 |\n" +
                                    $"|                    \u2193                      |\n";
         

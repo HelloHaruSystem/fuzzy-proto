@@ -25,12 +25,11 @@ public class Frame
         PlayerWrite("Enter Command:");
         DisplayRoomName(roomService.CurrentRoom.RoomName);
         BattleFrame();
-        //battleframe();
         DirectionPane(roomService);
         PlayerPane(playerService, roomService);
     }
         
-    public void DisplayGameFrame()
+    private void DisplayGameFrame()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         
@@ -53,7 +52,7 @@ public class Frame
         Console.ForegroundColor = ConsoleColor.White;
     }
     
-    public void PlayerPane(PlayerService playerService, RoomService roomService)
+    private void PlayerPane(PlayerService playerService, RoomService roomService)
     {
         string playerInfo = playerService.GetPlayer().ToString();
         string roomInfo = roomService.CurrentRoom.ToString();
@@ -71,7 +70,7 @@ public class Frame
         Console.Write("Room description: " + roomService.CurrentRoom.Description);
     }
     
-    public void DirectionPane(RoomService roomService)
+    private void DirectionPane(RoomService roomService)
     {
         string[] pathLines = roomService.CurrentRoomAvailablePath().Split("\n");
         // int cursorX = xStart + (xEnd - xStart) / 2 - pathLines[3].Length / 2;
@@ -88,7 +87,7 @@ public class Frame
         }
     }
     
-    public void TopTextPane()
+    private void TopTextPane()
     {
         CleanPane(0, 1, 5);
         
@@ -98,12 +97,16 @@ public class Frame
         Console.Write(oneLine);
     }
     
-    public void PlayerWrite(string title)
+    private void PlayerWrite(string title)
     {
         CleanPane(0, 1, 5);
         
         Console.SetCursorPosition(xStart + 1, yStart + 1);
         Console.Write(title);
+        
+        Console.SetCursorPosition(xStart + 1, yStart + 6);
+        
+        Console.Write(oneLine);
         Console.SetCursorPosition(xStart + 2, yStart + 2);
     }
 
@@ -116,6 +119,8 @@ public class Frame
         
         Console.SetCursorPosition(xStart + 1, yStart + 1);
         Console.Write(title);
+        Console.SetCursorPosition(xStart + 1, yStart + 6);
+        Console.Write(oneLine);
 
         foreach (string line in textLines)
         {
@@ -130,7 +135,7 @@ public class Frame
     private void CleanPane(int startX, int startY,  int linesDown)
     {
         Console.ForegroundColor = ConsoleColor.Black;
-        for (int i = startY; i <= linesDown; i++)
+        for (int i = startY; i <= startY + linesDown; i++)
         {
             Console.SetCursorPosition(startX + 1, i);
             Console.Write(oneLine);
@@ -138,7 +143,7 @@ public class Frame
         Console.ForegroundColor = ConsoleColor.White;
     }
     
-    public void DisplayRoomName(string roomName)
+    private void DisplayRoomName(string roomName)
     {
         string roomInfo = "| Room: " + roomName + " |";
         int nameX = xStart + (xEnd - xStart) / 2 - roomInfo.Length / 2;
@@ -155,7 +160,7 @@ public class Frame
         
     }
     
-    public void BattleFrame()
+    private void BattleFrame()
     {
         int startX = xStart + 1, endX = xEnd - 1, startY = 9, endY = yEnd - 13;
         
@@ -178,6 +183,11 @@ public class Frame
         }
         
         Console.ForegroundColor = ConsoleColor.White;
+    }
+
+    private void InvalidInput()
+    {
+        
     }
     
 }

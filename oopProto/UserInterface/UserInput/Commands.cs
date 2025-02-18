@@ -44,7 +44,8 @@ public class Commands
                     validInput = true;
                     break;
                 default:
-                    Console.WriteLine("Invalid command");
+                    gameFrame.NpcWrite("Invalid Command!", "Please try again. Press any key to continue...");
+                    Console.ReadKey();
                     validInput = true;
                     break;
             }
