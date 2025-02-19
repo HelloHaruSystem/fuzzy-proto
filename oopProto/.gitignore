@@ -1,0 +1,16 @@
+﻿# ignore binaries
+bin/
+obj/
+
+# ignore ide files
+.vs/
+.vscode/
+.idea/
+
+# ignore docker related files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# ignore app settings
+appsettings.json
