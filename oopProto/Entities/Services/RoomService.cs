@@ -28,7 +28,7 @@ public class RoomService
     
     private void LoadRooms()
     {
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Resources/Rooms.csv");
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data/Rooms.csv");
 
         try
         {

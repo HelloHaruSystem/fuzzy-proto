@@ -5,7 +5,7 @@ public class PlayerName
 
     public static string MakePlayerName()
     {
-        string playerName = string.Empty;
+        string playerName = "";
         bool validPlayerName = false;
 
         Console.WriteLine("What is your name?");
@@ -14,11 +14,12 @@ public class PlayerName
         {
             try
             {
+                
                 playerName = Console.ReadLine();
             }
-            catch (FormatException)
+            catch (FormatException e)
             {
-                Console.WriteLine("Invalid name, please try again.");
+                Console.WriteLine("Invalid name, please try again.\n" + e.Message);
             }
 
             if (playerName.Length == 0)
