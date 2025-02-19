@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using oopProto.Entities.Repositorys;
 using oopProto.ItemsAndInventory;
 using oopProto.Layout;
 
@@ -15,9 +16,27 @@ public class RoomService
         LoadRooms();
         currentRoom = this.rooms.Find(r => r.RoomId == 1);
     }
+
+    // TODO: REMOVE AFTER TESTING!
+    public static async void testRepository()
+    {
+        RoomRepository repository = new RoomRepository();
+        
+        // await the result
+        IEnumerable<Room> rooms = await repository.GetRooms();
+        
+        // convert to list
+        List<Room> roomList = rooms.ToList();
+
+        for (int i = 0; i < roomList.Count(); i++)
+        {
+            Console.WriteLine($"Room ID: {roomList[i].RoomId}, Room name: {roomList[i].RoomName} Room description: {roomList[i].Description}\n" +
+                              $"North id: {roomList[i].NorthId}, South id: {roomList[i].SouthId}, East id: {roomList[i].EastId}, West id: {roomList[i].WestId}");
+        }
+    }
     
     // test method
-    public void testRooms()
+    public void TestRooms()
     {
         foreach (Room r in this.rooms)
         {

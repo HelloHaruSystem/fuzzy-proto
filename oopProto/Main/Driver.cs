@@ -1,4 +1,5 @@
 ﻿using oopProto.Entities.Repositorys;
+using oopProto.Entities.Services;
 using oopProto.UserInterface;
 
 namespace oopProto;
@@ -11,8 +12,12 @@ class Driver
 
         // test start \\
         
-        RoomRepository.dbTest();
+        RoomRepository.DbTest();
         Console.ReadKey();
+        
+        // test 2 start \\ TODO: fix
+        RoomService.testRepository();
+        // test 2 end  \\
         
         //  test end  \\
         
