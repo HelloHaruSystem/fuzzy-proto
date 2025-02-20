@@ -182,7 +182,7 @@ public class Frame
 
     private void PrintRoomToBattleFrame(string[] asciiArt)
     {
-        int startY = 10
+        int startY = 10;
         // int endX = 97; Will have use for these later! do not delete :)
         // int endY = 16;
         string[] art = asciiArt;
