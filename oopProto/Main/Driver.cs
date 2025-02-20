@@ -6,17 +6,17 @@ namespace oopProto;
 
 class Driver
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         GameUi ui = new GameUi();
 
         // test start \\
         
-        RoomRepository.DbTest();
+        await RoomRepository.DbTest();
         Console.ReadKey();
         
         // test 2 start \\ TODO: fix
-        RoomService.testRepository();
+        await RoomService.TestRepository();
         // test 2 end  \\
         
         //  test end  \\

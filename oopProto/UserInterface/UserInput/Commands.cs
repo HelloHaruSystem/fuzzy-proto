@@ -16,7 +16,9 @@ public class Commands
         
         while (!validInput)
         {
-            userInput = Console.ReadLine().ToLower();
+            userInput = Console.ReadLine()
+                        ?? throw new IOException();
+            userInput = userInput.ToLower();
             
             switch (userInput)
             { 

@@ -19,12 +19,9 @@ public static class ConfigHelper
     
     public static string GetConnectionString()
     {
-        string connectionString = _configuration.GetConnectionString("DefaultConnection");
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            throw new InvalidOperationException("No PostgreSQL connection string found.");
-        }
-        
+        string connectionString = _configuration.GetConnectionString("DefaultConnection")
+            ?? throw new NullReferenceException("Default connection string is null");
+
         return connectionString;
     }
 }

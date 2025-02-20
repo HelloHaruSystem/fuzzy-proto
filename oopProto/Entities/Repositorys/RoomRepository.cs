@@ -8,7 +8,7 @@ public class RoomRepository
  
     // DB TEST remove later!
     //TODO: remove when done
-    public static async void DbTest()
+    public static async Task DbTest()
     {
         string connectionString = ConfigHelper.GetConnectionString();
         
@@ -22,15 +22,14 @@ public class RoomRepository
     public async Task<IEnumerable<Room>> GetRooms() 
     {
         string sql = @"SELECT
-                        id,
-                        name,
-                        description,
-                        north_id,
-                        south_id,
-                        east_id,
-                        west_id
-                       FROM
-                        rooms"; 
+                    id,
+                    name,
+                    description,
+                    north_id,
+                    south_id,
+                    east_id,
+                    west_id
+                   FROM rooms";
         
         string connectionString = ConfigHelper.GetConnectionString();
         List<Room> rooms = new List<Room>();
@@ -39,13 +38,15 @@ public class RoomRepository
         {
             // open connection
             await using var connection = new NpgsqlConnection(connectionString);
-            // await connection.OpenAsync(); // opening the connection
+            
+            // opening the connection
+            await connection.OpenAsync(); 
 
             // create sql command
             await using var command = new NpgsqlCommand(sql, connection);
 
             // create a new data reader by executing the command
-            using var reader = await command.ExecuteReaderAsync();
+            await using var reader = await command.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())
             {
@@ -59,6 +60,8 @@ public class RoomRepository
 
                 // save to room entity
                 Room room = new Room(id, name, description, northId, southId, eastId, westId);
+
+                await connection.CloseAsync();
                 
                 rooms.Add(room);
             }
