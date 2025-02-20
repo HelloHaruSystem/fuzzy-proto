@@ -19,12 +19,14 @@ public class Frame
 
     public void Display(PlayerService playerService, RoomService roomService)
     {
+        Console.Clear();
+        PrintRoomToBattleFrame(roomService.currentArtAsArray());
+        
         DisplayGameFrame();
         
         TopTextPane();
         PlayerWrite("Enter Command:");
         DisplayRoomName(roomService.CurrentRoom.RoomName);
-        PrintRoomToBattleFrame(roomService.currentArtAsArray());
         BattleFrame();
         DirectionPane(roomService);
         PlayerPane(playerService, roomService);
@@ -178,14 +180,14 @@ public class Frame
         Console.ForegroundColor = ConsoleColor.White;
     }
 
-    // TODO: fix that alot of the ascii art is on left side
+    // TODO: fix that a lot of the ascii art is on left side
     private void PrintRoomToBattleFrame(string[] asciiArt)
     {
         int startY = 10;
         // int endX = 97; Will have use for these later! do not delete :)
         // int endY = 16;
         string[] art = asciiArt;
-        int startX = xStart + (xEnd - xStart) / 2 - art[5].Length / 2;
+        int startX = xStart + (xEnd - xStart) / 2 - art[0].Length / 2;
 
         CleanPane(0, startY, 16);
         
