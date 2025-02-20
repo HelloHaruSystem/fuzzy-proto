@@ -1,5 +1,4 @@
 ﻿using oopProto.Entities.Repositorys;
-using oopProto.Entities.Services;
 using oopProto.UserInterface;
 
 namespace oopProto;
@@ -10,6 +9,7 @@ class Driver
     {
         GameUi ui = await GameUi.CreateGameUi();
         
+        Console.Clear();
         await RoomRepository.DbTest();
         Console.ReadKey();
         

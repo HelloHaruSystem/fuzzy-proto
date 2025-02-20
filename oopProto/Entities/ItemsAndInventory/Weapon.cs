@@ -4,19 +4,22 @@ namespace oopProto.ItemsAndInventory;
 
 public class Weapon : Item
 {
+    private int id;
     private int damage;
     private int usesLeft;
     private bool isRanged;
 
-    public Weapon(string itemName, int damage, int usesLeft, bool isRanged) : base(itemName)
+    public Weapon(int id, string itemName, int damage, int usesLeft, bool isRanged) : base(itemName)
     {
-        this.itemName = itemName;
+        this.id = id;
+        this.name = itemName;
         this.damage = damage;
         this.usesLeft = usesLeft;
         this.isRanged = isRanged;
     }
     
     // getters and setters
+    public int Id { get => id; set => id = value; }
     public int Damage => this.damage;
     public int UsesLeft => this.usesLeft;
     public bool IsRanged => this.isRanged;
@@ -38,6 +41,6 @@ public class Weapon : Item
     
     public override string ToString()
     {
-        return $"{itemName}: Damage: {damage}, UsesLeft: {usesLeft}";
+        return $"{name}: Damage: {damage}, UsesLeft: {usesLeft}";
     }
 }

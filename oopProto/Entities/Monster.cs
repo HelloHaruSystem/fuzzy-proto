@@ -4,6 +4,7 @@ namespace oopProto.Entities;
 
 public class Monster : Entity
 {
+    private int id;
     private string name;
     private int strength;
     private Weapon equipedWeapon;
@@ -20,6 +21,7 @@ public class Monster : Entity
     }
     
     // getters and setters
+    public int Id { get => id; set => id = value; }
     public string Name { get => name; set => name = value; }
     public Weapon EquipedWeapon { get => equipedWeapon; set => equipedWeapon = value; }
     public int Strength { get => Strength; set => Strength = value; }
