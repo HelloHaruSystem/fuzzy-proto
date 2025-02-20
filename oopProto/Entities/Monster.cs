@@ -7,7 +7,7 @@ public class Monster : Entity
     private string name;
     private int strength;
     private Weapon equipedWeapon;
-    private int spriteId;
+    private string sprite;
     
 
     public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon) : base()
@@ -23,5 +23,5 @@ public class Monster : Entity
     public string Name { get => name; set => name = value; }
     public Weapon EquipedWeapon { get => equipedWeapon; set => equipedWeapon = value; }
     public int Strength { get => Strength; set => Strength = value; }
-    public int SpriteID { get => spriteId; set => spriteId = value; }
+    public string Sprite { get => sprite; set => sprite = value; }
 }

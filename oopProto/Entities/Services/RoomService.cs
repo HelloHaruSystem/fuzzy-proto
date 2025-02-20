@@ -24,7 +24,7 @@ public class RoomService
         throw new NotImplementedException();
     }
     
-    // TODO: make it so that if the player tries to go a direction that doesn't exist the program wont crash
+    // TODO: Figure out a way to let the player know when a non existent path is chosen
     public void MoveRoom(String direction)
     {
         string directionString = direction.ToLower();
