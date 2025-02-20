@@ -2,11 +2,12 @@
 
 public abstract class Item
 {
-     protected string itemName;
+    protected int id;
+    protected string name;
 
     protected Item(string name)
     {
-        this.itemName = name;
+        this.name = name;
     }
 
     // TODO: Implement a proper use method
@@ -14,12 +15,13 @@ public abstract class Item
     
     
     // getters and setters
-    private string ItemName => this.itemName;
+    public int Id { get => id; set => id = value; }
+    public string Name { get => name; set => name = value; }
 
     // generated equal methods and hash code methods
     protected bool Equals(Item other)
     {
-        return itemName == other.itemName;
+        return name == other.name;
     }
 
     public override bool Equals(object? obj)
@@ -32,6 +34,6 @@ public abstract class Item
 
     public override int GetHashCode()
     {
-        return itemName.GetHashCode();
+        return name.GetHashCode();
     }
 }

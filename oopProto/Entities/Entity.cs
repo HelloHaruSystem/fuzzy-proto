@@ -3,6 +3,7 @@ using oopProto.Layout;
 
 namespace oopProto.Entities;
 
+// TODO: Change name to something else that monster and player have in common
 public abstract class Entity
 {
     protected int maxHp;

@@ -1,4 +1,5 @@
-﻿using oopProto.Entities.GameLogic;
+﻿using oopProto.Entities.Factory;
+using oopProto.Entities.GameLogic;
 using oopProto.Entities.Services;
 using oopProto.UserInterface.UserInput;
 
@@ -11,17 +12,28 @@ public class GameUi
     RoomService roomService;
     private Frame gameFrame;
     
-    public GameUi()
+    private GameUi(RoomService roomService)
     {
         this.running = false;
         this.playerService = new PlayerService();
-        this.roomService = new RoomService();
+        this.roomService = roomService;
         this.gameFrame = new Frame();
+    }
+    
+    // TODO: move to its own factory class
+    public static async Task<GameUi> CreateGameUi()
+    {
+        RoomService rService = await RoomServiceFactory.CreateRoomService();
+        GameUi gameUi = new GameUi(rService);
+
+        return gameUi;
     }
     
     public void StartGame()
     {
         running = true;
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.Clear();
         StartMenu();
         this.Introduction();
@@ -32,8 +44,7 @@ public class GameUi
             gameFrame.Display(this.playerService, roomService);
             Commands.SelectCommand(this.playerService, this.roomService, this.gameFrame);
 
-
-
+            
         }
         
         Console.Clear();
@@ -59,11 +70,6 @@ public class GameUi
         Console.WriteLine("If so...\nPress any key to continue...");
         
         Console.ReadKey();
-    }
-
-    private void ShowPaths()
-    {
-        
     }
     
 }

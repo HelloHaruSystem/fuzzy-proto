@@ -11,18 +11,20 @@ public class Room
     private int southId;
     private int eastId;
     private int westId;
+    private string asciiArt;
     private List<Item> items;
 
-    public Room(int roomId, string roomName, string description, int northId, int southId, int eastId, int westId)
+    public Room(int roomId, string roomName, string description, int northId, int southId, int eastId, int westId, string asciiArt)
     {
         this.roomId = roomId;
         this.roomName = roomName;
         this.description = description;
-        this.items = new List<Item>();
         this.northId = northId;
         this.southId = southId;
         this.eastId = eastId;
         this.westId = westId;
+        this.asciiArt = asciiArt;
+        this.items = new List<Item>();
     }
     
     // getters and setters
@@ -33,6 +35,7 @@ public class Room
     public int SouthId { get => southId; set => southId = value; }
     public int EastId { get => eastId; set => eastId = value; }
     public int WestId { get => westId; set => westId = value; }
+    public string AsciiArt { get => asciiArt; set => asciiArt = value; }
     public List<Item> Items => items;
     
     // override methods

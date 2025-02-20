@@ -8,9 +8,10 @@ public class Weapon : Item
     private int usesLeft;
     private bool isRanged;
 
-    public Weapon(string itemName, int damage, int usesLeft, bool isRanged) : base(itemName)
+    public Weapon(int id, string itemName, int damage, int usesLeft, bool isRanged) : base(itemName)
     {
-        this.itemName = itemName;
+        this.id = id;
+        this.name = itemName;
         this.damage = damage;
         this.usesLeft = usesLeft;
         this.isRanged = isRanged;
@@ -38,6 +39,6 @@ public class Weapon : Item
     
     public override string ToString()
     {
-        return $"{itemName}: Damage: {damage}, UsesLeft: {usesLeft}";
+        return $"{name}: Damage: {damage}, UsesLeft: {usesLeft}";
     }
 }
