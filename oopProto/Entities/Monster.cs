@@ -10,13 +10,13 @@ public class Monster : Entity
     private string sprite;
     
 
-    public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon) : base()
+    public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon, string sprite) : base()
     {
         this.maxHp = maxHp;
         this.name = monsterName;
         this.strength = monsterStrength;
         this.equipedWeapon = equipedWeapon;
-        
+        this.sprite = sprite;
     }
     
     // getters and setters

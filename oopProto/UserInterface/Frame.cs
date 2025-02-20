@@ -182,7 +182,9 @@ public class Frame
 
     private void PrintRoomToBattleFrame(string[] asciiArt)
     {
-        int endX = 97, startY = 10, endY = 16;
+        int startY = 10
+        // int endX = 97; Will have use for these later! do not delete :)
+        // int endY = 16;
         string[] art = asciiArt;
         int startX = xStart + (xEnd - xStart) / 2 - art[0].Length / 2;
 
