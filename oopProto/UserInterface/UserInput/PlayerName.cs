@@ -15,7 +15,8 @@ public class PlayerName
             try
             {
                 
-                playerName = Console.ReadLine();
+                playerName = Console.ReadLine()
+                    ?? throw new ArgumentException("Arguements can't be empty");
             }
             catch (FormatException e)
             {

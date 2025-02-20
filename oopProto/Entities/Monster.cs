@@ -5,7 +5,7 @@ namespace oopProto.Entities;
 public class Monster : Entity
 {
     private string name;
-    int strength;
+    private int strength;
     private Weapon equipedWeapon;
     private int spriteId;
     

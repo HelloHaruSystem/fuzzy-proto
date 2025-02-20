@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using oopProto.Entities.Repositorys;
 using oopProto.ItemsAndInventory;
 using oopProto.Layout;
 
@@ -13,11 +14,30 @@ public class RoomService
     {
         rooms = new List<Room>();
         LoadRooms();
-        currentRoom = this.rooms.Find(r => r.RoomId == 1);
+        currentRoom = this.rooms.Find(r => r.RoomId == 1)
+            ?? throw new NullReferenceException();
+    }
+
+    // TODO: REMOVE AFTER TESTING!
+    public static async Task TestRepository()
+    {
+        RoomRepository repository = new RoomRepository();
+        
+        // await the result
+        IEnumerable<Room> rooms = await repository.GetRooms();
+        
+        // convert to list
+        List<Room> roomList = rooms.ToList();
+
+        for (int i = 0; i < roomList.Count(); i++)
+        {
+            Console.WriteLine($"Room ID: {roomList[i].RoomId}, Room name: {roomList[i].RoomName} Room description: {roomList[i].Description}\n" +
+                              $"North id: {roomList[i].NorthId}, South id: {roomList[i].SouthId}, East id: {roomList[i].EastId}, West id: {roomList[i].WestId}");
+        }
     }
     
     // test method
-    public void testRooms()
+    public void TestRooms()
     {
         foreach (Room r in this.rooms)
         {
@@ -62,16 +82,20 @@ public class RoomService
         switch (directionString)
         {
             case "north":
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.NorthId);
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.NorthId)
+                    ?? throw new NullReferenceException();
                 break;
             case "south":
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.SouthId);
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.SouthId)
+                    ?? throw new NullReferenceException();
                 break;
             case "east":
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.EastId);
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.EastId)
+                    ?? throw new NullReferenceException();
                 break;
             case "west":
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.WestId);
+                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.WestId)
+                    ?? throw new NullReferenceException();
                 break;
             default:
                 throw new Exception("Invalid direction");

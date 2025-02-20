@@ -2,7 +2,7 @@
 
 public class MonsterService
 {
-    List<Monster> monsters;
+    private List<Monster> monsters;
 
     public MonsterService()
     {
