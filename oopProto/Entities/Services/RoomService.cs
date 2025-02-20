@@ -32,18 +32,22 @@ public class RoomService
         switch (directionString)
         {
             case "north":
+                if (this.currentRoom.NorthId == 0) return;
                 this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.NorthId)
                     ?? throw new NullReferenceException();
                 break;
             case "south":
+                if (this.currentRoom.SouthId == 0) return;
                 this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.SouthId)
                     ?? throw new NullReferenceException();
                 break;
             case "east":
+                if (this.currentRoom.EastId == 0) return;
                 this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.EastId)
                     ?? throw new NullReferenceException();
                 break;
             case "west":
+                if (this.currentRoom.WestId == 0) return;
                 this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.WestId)
                     ?? throw new NullReferenceException();
                 break;

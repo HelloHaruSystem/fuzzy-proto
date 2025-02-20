@@ -12,18 +12,19 @@ public class GameUi
     RoomService roomService;
     private Frame gameFrame;
     
-    private GameUi()
+    private GameUi(RoomService roomService)
     {
         this.running = false;
         this.playerService = new PlayerService();
+        this.roomService = roomService;
         this.gameFrame = new Frame();
     }
     
     // TODO: move to its own factory class
     public static async Task<GameUi> CreateGameUi()
     {
-        GameUi gameUi = new GameUi();
-        gameUi.roomService = await RoomServiceFactory.CreateRoomService();
+        RoomService rService = await RoomServiceFactory.CreateRoomService();
+        GameUi gameUi = new GameUi(rService);
 
         return gameUi;
     }
@@ -31,6 +32,8 @@ public class GameUi
     public void StartGame()
     {
         running = true;
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.Clear();
         StartMenu();
         this.Introduction();
