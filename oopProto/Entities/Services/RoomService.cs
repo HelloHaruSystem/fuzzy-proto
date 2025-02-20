@@ -76,6 +76,13 @@ public class RoomService
         
         return currentRoomAvailablePath;
     }
+
+    public string[] currentArtAsArray()
+    {
+        string[] asciiArtArray = this.currentRoom.AsciiArt.Split("\n");
+        
+        return asciiArtArray;
+    }
     
     // getters and setters
     public List<Room> Rooms { get => rooms; set => rooms = value; }

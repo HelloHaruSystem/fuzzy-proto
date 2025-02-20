@@ -44,8 +44,7 @@ public class GameUi
             gameFrame.Display(this.playerService, roomService);
             Commands.SelectCommand(this.playerService, this.roomService, this.gameFrame);
 
-
-
+            
         }
         
         Console.Clear();
@@ -71,11 +70,6 @@ public class GameUi
         Console.WriteLine("If so...\nPress any key to continue...");
         
         Console.ReadKey();
-    }
-
-    private void ShowPaths()
-    {
-        
     }
     
 }

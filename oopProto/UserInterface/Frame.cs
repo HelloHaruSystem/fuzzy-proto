@@ -25,8 +25,11 @@ public class Frame
         PlayerWrite("Enter Command:");
         DisplayRoomName(roomService.CurrentRoom.RoomName);
         BattleFrame();
+        PrintRoomToBattleFrame(roomService.currentArtAsArray());
         DirectionPane(roomService);
         PlayerPane(playerService, roomService);
+        
+        
     }
         
     private void DisplayGameFrame()
@@ -73,8 +76,8 @@ public class Frame
     private void DirectionPane(RoomService roomService)
     {
         string[] pathLines = roomService.CurrentRoomAvailablePath().Split("\n");
-        // int cursorX = xStart + (xEnd - xStart) / 2 - pathLines[3].Length / 2;
-        int cursorX = (xStart + xEnd) / 2 - 20;
+        int cursorX = xStart + (xEnd - xStart) / 2 - pathLines[3].Length / 2;
+        // int cursorX = (xStart + xEnd) / 2 - 20;
         int cursorY = yEnd - 12;
         
         CleanPane(0, cursorY, 6);
@@ -130,8 +133,7 @@ public class Frame
         }
         
     }
-
-    // TODO: CleanPane seems to be bugged! fix pls
+    
     private void CleanPane(int startX, int startY,  int linesDown)
     {
         Console.ForegroundColor = ConsoleColor.Black;
@@ -140,6 +142,7 @@ public class Frame
             Console.SetCursorPosition(startX + 1, i);
             Console.Write(oneLine);
         }
+        
         Console.ForegroundColor = ConsoleColor.White;
     }
     
@@ -173,21 +176,25 @@ public class Frame
             Console.SetCursorPosition(x, endY);
             Console.Write('-');
         }
-
-        for (int y = startY; y <= endY; y++)
-        {
-            Console.SetCursorPosition(startX, y);
-            Console.Write('|');
-            Console.SetCursorPosition(endX, y);
-            Console.Write('|');
-        }
         
         Console.ForegroundColor = ConsoleColor.White;
     }
 
-    private void InvalidInput()
+    private void PrintRoomToBattleFrame(string[] asciiArt)
     {
+        int endX = 97, startY = 10, endY = 16;
+        string[] art = asciiArt;
+        int startX = xStart + (xEnd - xStart) / 2 - art[0].Length / 2;
+
+        CleanPane(0, startY, 16);
         
+        for (int i = 0; i < art.Length; i++)
+        {
+            Console.SetCursorPosition(startX, startY);
+            Console.Write(art[i]);
+            
+            startY++;
+        }
     }
     
 }

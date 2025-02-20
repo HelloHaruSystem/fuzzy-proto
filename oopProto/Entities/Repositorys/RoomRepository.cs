@@ -28,7 +28,8 @@ public class RoomRepository
                     north_id,
                     south_id,
                     east_id,
-                    west_id
+                    west_id,
+                    ascii_art
                    FROM rooms";
         
         string connectionString = ConfigHelper.GetConnectionString();
@@ -57,9 +58,10 @@ public class RoomRepository
                 int southId = reader.GetInt32(4);
                 int eastId = reader.GetInt32(5);
                 int westId = reader.GetInt32(6);
+                string asciiArt = reader.IsDBNull(7) ? string.Empty : reader.GetString(7);
 
                 // save to room entity
-                Room room = new Room(id, name, description, northId, southId, eastId, westId);
+                Room room = new Room(id, name, description, northId, southId, eastId, westId, asciiArt);
                 
                 rooms.Add(room);
             }
