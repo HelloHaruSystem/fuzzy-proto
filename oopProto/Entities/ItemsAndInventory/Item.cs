@@ -2,8 +2,8 @@
 
 public abstract class Item
 {
-    private int id;
-     protected string name;
+    protected int id;
+    protected string name;
 
     protected Item(string name)
     {

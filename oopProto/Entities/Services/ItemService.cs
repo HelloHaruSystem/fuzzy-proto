@@ -13,11 +13,6 @@ public class ItemService
             ?? new List<Item>();
     }
     
-    
-    
-    
-    
-    
     // getters and setters
     public List<Item> ListOfItems { get => listOfItems; set => listOfItems = value; }
 }

@@ -14,6 +14,7 @@ public class Monster : Entity
     public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon, string sprite) : base()
     {
         this.maxHp = maxHp;
+        this.currentHp = maxHp;
         this.name = monsterName;
         this.strength = monsterStrength;
         this.equipedWeapon = equipedWeapon;

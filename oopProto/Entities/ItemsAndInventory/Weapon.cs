@@ -4,7 +4,6 @@ namespace oopProto.ItemsAndInventory;
 
 public class Weapon : Item
 {
-    private int id;
     private int damage;
     private int usesLeft;
     private bool isRanged;
@@ -19,7 +18,6 @@ public class Weapon : Item
     }
     
     // getters and setters
-    public int Id { get => id; set => id = value; }
     public int Damage => this.damage;
     public int UsesLeft => this.usesLeft;
     public bool IsRanged => this.isRanged;
