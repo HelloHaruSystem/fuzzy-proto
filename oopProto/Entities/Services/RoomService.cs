@@ -10,64 +10,14 @@ public class RoomService
     private List<Room> rooms;
     private Room currentRoom;
 
-    public RoomService()
+    public RoomService(List<Room> rooms)
     {
-        rooms = new List<Room>();
-        LoadRooms();
+        this.rooms = rooms
+            ?? new List<Room>();
         currentRoom = this.rooms.Find(r => r.RoomId == 1)
-            ?? throw new NullReferenceException();
+                      ?? throw new NullReferenceException("Starting room with id 1 not found!");
     }
 
-    // TODO: REMOVE AFTER TESTING!
-    public static async Task TestRepository()
-    {
-        RoomRepository repository = new RoomRepository();
-        
-        // await the result
-        IEnumerable<Room> rooms = await repository.GetRooms();
-        
-        // convert to list
-        List<Room> roomList = rooms.ToList();
-
-        for (int i = 0; i < roomList.Count(); i++)
-        {
-            Console.WriteLine($"Room ID: {roomList[i].RoomId}, Room name: {roomList[i].RoomName} Room description: {roomList[i].Description}\n" +
-                              $"North id: {roomList[i].NorthId}, South id: {roomList[i].SouthId}, East id: {roomList[i].EastId}, West id: {roomList[i].WestId}");
-        }
-    }
-    
-    // test method
-    public void TestRooms()
-    {
-        foreach (Room r in this.rooms)
-        {
-            Console.Write(r.RoomId + " ");
-            Console.WriteLine($"North: {r.NorthId} South: {r.SouthId} East: {r.EastId} West: {r.WestId}");
-        }
-    }
-    
-    private void LoadRooms()
-    {
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data/Rooms.csv");
-
-        try
-        {
-            string[] lines = File.ReadAllLines(filePath);
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string[] roomLines = lines[i].Split(',');
-
-                this.rooms.Add(new Room(int.Parse(roomLines[0]), roomLines[1], roomLines[2],
-                    int.Parse(roomLines[3]), int.Parse(roomLines[4]), int.Parse(roomLines[5]),
-                    int.Parse(roomLines[6])));
-            }
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine("Error loading rooms from csv\n" + e.Message);
-        }
-    }
-    
     // TODO implement
     private void AddItemToRooms()
     {

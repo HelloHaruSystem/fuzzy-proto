@@ -1,4 +1,5 @@
-﻿using oopProto.Entities.GameLogic;
+﻿using oopProto.Entities.Factory;
+using oopProto.Entities.GameLogic;
 using oopProto.Entities.Services;
 using oopProto.UserInterface.UserInput;
 
@@ -11,12 +12,20 @@ public class GameUi
     RoomService roomService;
     private Frame gameFrame;
     
-    public GameUi()
+    private GameUi()
     {
         this.running = false;
         this.playerService = new PlayerService();
-        this.roomService = new RoomService();
         this.gameFrame = new Frame();
+    }
+    
+    // TODO: move to its own factory class
+    public static async Task<GameUi> CreateGameUi()
+    {
+        GameUi gameUi = new GameUi();
+        gameUi.roomService = await RoomServiceFactory.CreateRoomService();
+
+        return gameUi;
     }
     
     public void StartGame()

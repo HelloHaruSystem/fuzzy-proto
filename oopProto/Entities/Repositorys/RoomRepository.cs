@@ -16,7 +16,7 @@ public class RoomRepository
         await using var connection = new NpgsqlConnection(connectionString);
         await connection.OpenAsync();
         
-        Console.WriteLine("The PostgreSQL version: {0}", connection.PostgreSqlVersion);    
+        Console.WriteLine("Database successfully loaded\nRunning PostgreSQL version: {0}", connection.PostgreSqlVersion);    
     }
 
     public async Task<IEnumerable<Room>> GetRooms() 
@@ -36,7 +36,7 @@ public class RoomRepository
 
         try
         {
-            // open connection
+            // open connection // using automatically closes after try block so no need to close the connection yourself
             await using var connection = new NpgsqlConnection(connectionString);
             
             // opening the connection
@@ -60,8 +60,6 @@ public class RoomRepository
 
                 // save to room entity
                 Room room = new Room(id, name, description, northId, southId, eastId, westId);
-
-                await connection.CloseAsync();
                 
                 rooms.Add(room);
             }

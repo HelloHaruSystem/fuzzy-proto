@@ -8,16 +8,12 @@ class Driver
 {
     static async Task Main(string[] args)
     {
-        GameUi ui = new GameUi();
+        GameUi ui = await GameUi.CreateGameUi();
 
         // test start \\
         
         await RoomRepository.DbTest();
         Console.ReadKey();
-        
-        // test 2 start \\ TODO: fix
-        await RoomService.TestRepository();
-        // test 2 end  \\
         
         //  test end  \\
         
