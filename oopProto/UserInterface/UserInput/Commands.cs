@@ -1,7 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
 using oopProto.Entities.Services;
+using oopProto.ItemsAndInventory;
 using oopProto.UserInterface;
+using oopProto.UserInterface.UserInput;
 
 namespace oopProto.Entities.GameLogic;
 
@@ -46,6 +48,15 @@ public class Commands
                     SelectCommand(playerService, roomService, gameFrame);
                     validInput = true;
                     break;
+                case "use":
+                    gameFrame.ShowInventoryPane(playerService.GetPlayer().PlayerInventory);
+                    UseCommand(gameFrame, playerService);
+                    Console.ReadKey();
+                    validInput = true;
+                    break;
+                case "drop":
+                    
+                    break;
                 default:
                     gameFrame.NpcWrite("Invalid Command!", "Please try again. Press any key to continue...");
                     Console.ReadKey();
@@ -62,9 +73,47 @@ public class Commands
         StringBuilder commands = new StringBuilder();
         commands.Append("\"go north\" To go north\t \"go east\" To go east\n");
         commands.Append("\"go south\" To go south\t \"go west\" To go west\n" );
-        commands.Append("\"show inventory\" To show inventory\n> ");
-        
+        commands.Append("\"show inventory\" To show inventory\n");
+        commands.Append("\"Page 1/2 press any key to show next page...");
         gameFrame.NpcWrite("Enter Command:", commands.ToString());
+        Console.ReadKey();
+        
+        commands.Clear();
+        commands.Append("\"use\" To use an item\n");
+        commands.Append("\"drop\" To drop an item in the room\n> ");
+        gameFrame.NpcWrite("Enter Command:", commands.ToString());
+    }
+    
+    private static void UseCommand(Frame gameFrame, PlayerService playerService)
+    {
+        
+        int userInput = ItemNumber.getItemNumber(gameFrame) - 1;
+        int inventoryLength = playerService.GetPlayer().PlayerInventory.CurrentCapacity -1;
+
+        if (inventoryLength < 0 || userInput > inventoryLength)
+        {
+            gameFrame.NpcWrite("Invalid input", "Please try again. Press any key to continue...");
+        }
+        else
+        {
+            Item itemToUse = playerService.GetPlayer().PlayerInventory.Items[userInput];
+            
+            
+            if (itemToUse is Potion)
+            {
+                Potion potionToUse = (Potion)itemToUse;
+                gameFrame.NpcWrite($"You used the {potionToUse.Name}.!", $"And healed you for {potionToUse.HealingAmount}\nPress any key to continue...");
+                playerService.Heal(potionToUse.HealingAmount);
+                playerService.RemoveItem(potionToUse);
+            } 
+            else if (itemToUse is Weapon)
+            {
+                Weapon weaponToUse = (Weapon)itemToUse;
+                gameFrame.NpcWrite($"You equipped the {weaponToUse.Name}.!", $"press any key to continue...");
+                playerService.SwapWeapon(weaponToUse);
+            }
+            
+        }
     }
     
 }

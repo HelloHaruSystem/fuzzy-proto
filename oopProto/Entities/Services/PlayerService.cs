@@ -10,6 +10,22 @@ public class PlayerService
     {
         this.player = new Player();
     }
+
+    public void Heal(int healAmount)
+    {
+        this.player.CurrentHp += healAmount;
+        if (player.CurrentHp > player.MaxHp)
+        {
+            player.CurrentHp = player.MaxHp;
+        } 
+    }
+
+    public void SwapWeapon(Weapon weaponToEquip)
+    {
+        AddItem(this.player.EquipedWeapon);
+        RemoveItem(weaponToEquip);
+        this.player.EquipedWeapon = weaponToEquip;
+    }
     
     // TODO: move the Console.WriteLine() method to the ui
     public void AddItem(Item item)
@@ -39,10 +55,12 @@ public class PlayerService
         }
     }
     
-    public void RemoveItem(Item item)
+    public Item RemoveItem(Item item)
     {
         this.player.PlayerInventory.Items.Remove(item);
         this.player.PlayerInventory.CurrentCapacity--;
+        
+        return item;
     }
     
     public void AddMaxCapacity(int increasedCapacity)

@@ -217,7 +217,7 @@ public class Frame
         CleanPane(0, startY, 16);
 
 
-        if (inventory.Items.Count >= 0)
+        if (inventory.Items.Count <= 0)
         {
             Console.SetCursorPosition(startX, startY);
             Console.Write("Inventory is Empty");

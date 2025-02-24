@@ -43,6 +43,13 @@ public class GameUi
         this.Introduction();
         Console.Clear();
         
+        
+        // for testing
+        playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
+        playerService.AddItem(new Potion(2, "Major Healing Potion", 75));
+        playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
+        playerService.AddItem(new Weapon(5, "Golden Sword", 25, 256, false));
+        
         while (this.running)
         {
             gameFrame.Display(this.playerService, this.roomService);
