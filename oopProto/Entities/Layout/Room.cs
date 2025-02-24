@@ -4,43 +4,43 @@ namespace oopProto.Layout;
 
 public class Room
 {
-    private int roomId;
-    private string roomName;
-    private string description;
-    private int northId;
-    private int southId;
-    private int eastId;
-    private int westId;
-    private string asciiArt;
-    private List<Item> items;
+    private int _roomId;
+    private string _roomName;
+    private string _description;
+    private int _northId;
+    private int _southId;
+    private int _eastId;
+    private int _westId;
+    private string _asciiArt;
+    private List<Item> _items;
 
     public Room(int roomId, string roomName, string description, int northId, int southId, int eastId, int westId, string asciiArt)
     {
-        this.roomId = roomId;
-        this.roomName = roomName;
-        this.description = description;
-        this.northId = northId;
-        this.southId = southId;
-        this.eastId = eastId;
-        this.westId = westId;
-        this.asciiArt = asciiArt;
-        this.items = new List<Item>();
+        this._roomId = roomId;
+        this._roomName = roomName;
+        this._description = description;
+        this._northId = northId;
+        this._southId = southId;
+        this._eastId = eastId;
+        this._westId = westId;
+        this._asciiArt = asciiArt;
+        this._items = new List<Item>();
     }
     
     // getters and setters
-    public int RoomId { get => roomId; set => roomId = value; }
-    public string RoomName { get => roomName; set => roomName = value; }
-    public string Description { get => description; set => description = value; }
-    public int NorthId { get => northId; set => northId = value; }
-    public int SouthId { get => southId; set => southId = value; }
-    public int EastId { get => eastId; set => eastId = value; }
-    public int WestId { get => westId; set => westId = value; }
-    public string AsciiArt { get => asciiArt; set => asciiArt = value; }
-    public List<Item> Items => items;
+    public int RoomId { get => _roomId; set => _roomId = value; }
+    public string RoomName { get => _roomName; set => _roomName = value; }
+    public string Description { get => _description; set => _description = value; }
+    public int NorthId { get => _northId; set => _northId = value; }
+    public int SouthId { get => _southId; set => _southId = value; }
+    public int EastId { get => _eastId; set => _eastId = value; }
+    public int WestId { get => _westId; set => _westId = value; }
+    public string AsciiArt { get => _asciiArt; set => _asciiArt = value; }
+    public List<Item> Items => _items;
     
     // override methods
     public override string ToString()
     {
-        return $"Room name: {this.roomName}\nRoom description: {this.description}";
+        return $"Room name: {this._roomName}\nRoom description: {this._description}";
     }
 }

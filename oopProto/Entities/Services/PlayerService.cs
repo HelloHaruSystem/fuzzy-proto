@@ -4,50 +4,50 @@ namespace oopProto.Entities.Services;
 
 public class PlayerService
 {
-    private Player player;
+    private Player _player;
     
     public PlayerService()
     {
-        this.player = new Player();
+        this._player = new Player();
     }
 
     public void Heal(int healAmount)
     {
-        this.player.CurrentHp += healAmount;
-        if (player.CurrentHp > player.MaxHp)
+        this._player.CurrentHp += healAmount;
+        if (_player.CurrentHp > _player.MaxHp)
         {
-            player.CurrentHp = player.MaxHp;
+            _player.CurrentHp = _player.MaxHp;
         } 
     }
 
     public void SwapWeapon(Weapon weaponToEquip)
     {
-        AddItem(this.player.EquipedWeapon);
+        AddItem(this._player.EquipedWeapon);
         RemoveItem(weaponToEquip);
-        this.player.EquipedWeapon = weaponToEquip;
+        this._player.EquipedWeapon = weaponToEquip;
     }
     
     // TODO: move the Console.WriteLine() method to the ui
     public void AddItem(Item item)
     {
-        if (this.player.PlayerInventory.CurrentCapacity >= this.player.PlayerInventory.MaxCapacity)
+        if (this._player.PlayerInventory.CurrentCapacity >= this._player.PlayerInventory.MaxCapacity)
         {
             Console.WriteLine("Inventory is full");
         }
         else
         {
-            this.player.PlayerInventory.Items.Add(item);
-            this.player.PlayerInventory.CurrentCapacity++;
+            this._player.PlayerInventory.Items.Add(item);
+            this._player.PlayerInventory.CurrentCapacity++;
         }
     }
     
     // TODO: move the Console.WriteLine() method to the ui
     public void SwapItems(Item itemToReplace, Item newItem)
     {
-        if (this.player.PlayerInventory.Items.Contains(itemToReplace))
+        if (this._player.PlayerInventory.Items.Contains(itemToReplace))
         {
-            this.player.PlayerInventory.Items.Remove(itemToReplace);
-            this.player.PlayerInventory.Items.Add(newItem);
+            this._player.PlayerInventory.Items.Remove(itemToReplace);
+            this._player.PlayerInventory.Items.Add(newItem);
         }
         else
         {
@@ -57,28 +57,28 @@ public class PlayerService
     
     public Item RemoveItem(Item item)
     {
-        this.player.PlayerInventory.Items.Remove(item);
-        this.player.PlayerInventory.CurrentCapacity--;
+        this._player.PlayerInventory.Items.Remove(item);
+        this._player.PlayerInventory.CurrentCapacity--;
         
         return item;
     }
     
     public void AddMaxCapacity(int increasedCapacity)
     {
-        this.player.PlayerInventory.MaxCapacity += increasedCapacity;
+        this._player.PlayerInventory.MaxCapacity += increasedCapacity;
     }
 
     public bool IsInventoryEmpty()
     {
-        return this.player.PlayerInventory.CurrentCapacity == 0;
+        return this._player.PlayerInventory.CurrentCapacity == 0;
     }
     
     // getters and setters
-    public Player GetPlayer() => this.player;
+    public Player GetPlayer() => this._player;
     
     public void SetPlayerName(String playerName)
     {
-        this.player.Name = playerName;
+        this._player.Name = playerName;
     }
     
     

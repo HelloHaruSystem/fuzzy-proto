@@ -4,27 +4,27 @@ namespace oopProto.Entities;
 
 public class Monster : Entity
 {
-    private int id;
-    private string name;
-    private int strength;
-    private Weapon equipedWeapon;
-    private string sprite;
+    private int _id;
+    private string _name;
+    private int _strength;
+    private Weapon _equipedWeapon;
+    private string _sprite;
     
 
-    public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon, string sprite) : base()
+    public Monster(int maxHp, string monsterName, int monsterStrength, Weapon equipedWeapon, string sprite)
     {
         this.maxHp = maxHp;
         this.currentHp = maxHp;
-        this.name = monsterName;
-        this.strength = monsterStrength;
-        this.equipedWeapon = equipedWeapon;
-        this.sprite = sprite;
+        this._name = monsterName;
+        this._strength = monsterStrength;
+        this._equipedWeapon = equipedWeapon;
+        this._sprite = sprite;
     }
     
     // getters and setters
-    public int Id { get => id; set => id = value; }
-    public string Name { get => name; set => name = value; }
-    public Weapon EquipedWeapon { get => equipedWeapon; set => equipedWeapon = value; }
-    public int Strength { get => Strength; set => Strength = value; }
-    public string Sprite { get => sprite; set => sprite = value; }
+    public int Id { get => _id; set => _id = value; }
+    public string Name { get => _name; set => _name = value; }
+    public Weapon EquipedWeapon { get => _equipedWeapon; set => _equipedWeapon = value; }
+    public int Strength { get => _strength; set => _strength = value; }
+    public string Sprite { get => _sprite; set => _sprite = value; }
 }

@@ -1,27 +1,30 @@
-﻿using System.Text;
-using oopProto.Entities.Repositorys;
-using oopProto.ItemsAndInventory;
+﻿using oopProto.ItemsAndInventory;
 using oopProto.Layout;
 
 namespace oopProto.Entities.Services;
 
 public class RoomService
 {
-    private List<Room> rooms;
-    private Room currentRoom;
+    private List<Room> _rooms;
+    private Room _currentRoom;
 
     public RoomService(List<Room> rooms)
     {
-        this.rooms = rooms
-            ?? new List<Room>();
-        currentRoom = this.rooms.Find(r => r.RoomId == 1)
+        this._rooms = rooms;
+        _currentRoom = this._rooms.Find(r => r.RoomId == 1)
                       ?? throw new NullReferenceException("Starting room with id 1 not found!");
     }
 
-    // TODO implement
-    private void AddItemToRooms()
+    
+    public void AddItemToRoom(Item item)
     {
-        throw new NotImplementedException();
+        this._currentRoom.Items.Add(item);
+    }
+
+    public Item RemoveItemFromRoom(Item item)
+    {
+        this._currentRoom.Items.Remove(item);
+        return item;
     }
     
     // TODO: Figure out a way to let the player know when a non existent path is chosen
@@ -32,23 +35,23 @@ public class RoomService
         switch (directionString)
         {
             case "north":
-                if (this.currentRoom.NorthId == 0) return;
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.NorthId)
+                if (this._currentRoom.NorthId == 0) return;
+                this._currentRoom = this._rooms.Find(r => r.RoomId == this._currentRoom.NorthId)
                     ?? throw new NullReferenceException();
                 break;
             case "south":
-                if (this.currentRoom.SouthId == 0) return;
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.SouthId)
+                if (this._currentRoom.SouthId == 0) return;
+                this._currentRoom = this._rooms.Find(r => r.RoomId == this._currentRoom.SouthId)
                     ?? throw new NullReferenceException();
                 break;
             case "east":
-                if (this.currentRoom.EastId == 0) return;
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.EastId)
+                if (this._currentRoom.EastId == 0) return;
+                this._currentRoom = this._rooms.Find(r => r.RoomId == this._currentRoom.EastId)
                     ?? throw new NullReferenceException();
                 break;
             case "west":
-                if (this.currentRoom.WestId == 0) return;
-                this.currentRoom = this.rooms.Find(r => r.RoomId == this.currentRoom.WestId)
+                if (this._currentRoom.WestId == 0) return;
+                this._currentRoom = this._rooms.Find(r => r.RoomId == this._currentRoom.WestId)
                     ?? throw new NullReferenceException();
                 break;
             default:
@@ -61,10 +64,10 @@ public class RoomService
         string northPath = "", southPath = "", eastPath = "", westPath = "";
         string currentRoomAvailablePath = "";
 
-        if (this.currentRoom.NorthId != 0) northPath = "North-Path"; else northPath = " No-Paths ";
-        if (this.currentRoom.SouthId != 0) southPath = "South-Path"; else southPath = " No-Paths ";
-        if (this.currentRoom.EastId != 0) eastPath = "East-Path"; else eastPath = " No-Paths";
-        if (this.currentRoom.WestId != 0) westPath = "West-Path"; else westPath = "No-Paths ";
+        if (this._currentRoom.NorthId != 0) northPath = "North-Path"; else northPath = " No-Paths ";
+        if (this._currentRoom.SouthId != 0) southPath = "South-Path"; else southPath = " No-Paths ";
+        if (this._currentRoom.EastId != 0) eastPath = "East-Path"; else eastPath = " No-Paths";
+        if (this._currentRoom.WestId != 0) westPath = "West-Path"; else westPath = "No-Paths ";
         
         currentRoomAvailablePath = $"---------------------------------------------\n" +
                                    $"|                    \u2191                      |\n" +
@@ -77,14 +80,14 @@ public class RoomService
         return currentRoomAvailablePath;
     }
 
-    public string[] currentArtAsArray()
+    public string[] CurrentArtAsArray()
     {
-        string[] asciiArtArray = this.currentRoom.AsciiArt.Split("\n");
+        string[] asciiArtArray = this._currentRoom.AsciiArt.Split("\n");
         
         return asciiArtArray;
     }
     
     // getters and setters
-    public List<Room> Rooms { get => rooms; set => rooms = value; }
-    public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
+    public List<Room> Rooms { get => _rooms; set => _rooms = value; }
+    public Room CurrentRoom { get => _currentRoom; set => _currentRoom = value; }
 }

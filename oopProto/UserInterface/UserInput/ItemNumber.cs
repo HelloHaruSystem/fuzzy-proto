@@ -2,7 +2,7 @@
 
 public class ItemNumber
 {
-    public static int getItemNumber(Frame gameFrame)
+    public static int GetItemNumber(Frame gameFrame)
     {
         string userInput = "";
         int itemNumber = 0;

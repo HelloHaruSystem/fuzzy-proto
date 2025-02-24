@@ -1,6 +1,6 @@
 ﻿namespace oopProto.Entities.Services;
 
-public interface Weapons
+public interface IWeapons
 {
     public int Hit();
 }
