@@ -5,14 +5,11 @@ public abstract class Item
     protected int id;
     protected string name;
 
-    protected Item(string name)
+    protected Item(int id, string name)
     {
+        this.id = id;
         this.name = name;
     }
-
-    // TODO: Implement a proper use method
-    public abstract void Use();
-    
     
     // getters and setters
     public int Id { get => id; set => id = value; }
