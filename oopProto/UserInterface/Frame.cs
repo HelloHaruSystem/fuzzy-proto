@@ -1,4 +1,5 @@
 ﻿using oopProto.Entities.Services;
+using oopProto.ItemsAndInventory;
 
 namespace oopProto.UserInterface;
 
@@ -197,6 +198,40 @@ public class Frame
             Console.Write(art[i]);
             
             startY++;
+        }
+    }
+
+    // TODO: Implement Show item pane
+    public void ShowItemPane()
+    {
+        
+    }
+
+    public void ShowInventoryPane(Inventory inventory)
+    {
+        int startY = 10;
+        int startX = (xStart + (xEnd - xStart) / 2) - 12;
+        
+        List<Item> items = inventory.Items;
+
+        CleanPane(0, startY, 16);
+
+
+        if (inventory.Items.Count >= 0)
+        {
+            Console.SetCursorPosition(startX, startY);
+            Console.Write("Inventory is Empty");
+        }
+        else
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+            
+                Console.SetCursorPosition(startX, startY);
+                Console.Write($"Item {i + 1, 2}: {items[i]}");
+            
+                startY++;
+            }
         }
     }
     

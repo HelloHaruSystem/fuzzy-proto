@@ -8,7 +8,7 @@ public class Weapon : Item
     private int usesLeft;
     private bool isRanged;
 
-    public Weapon(int id, string itemName, int damage, int usesLeft, bool isRanged) : base(itemName)
+    public Weapon(int id, string itemName, int damage, int usesLeft, bool isRanged) : base(id, itemName)
     {
         this.id = id;
         this.name = itemName;
@@ -16,26 +16,16 @@ public class Weapon : Item
         this.usesLeft = usesLeft;
         this.isRanged = isRanged;
     }
-    
+
+    public override void Use(Player player)
+    {
+        throw new NotImplementedException();
+    }
+
     // getters and setters
     public int Damage => this.damage;
     public int UsesLeft => this.usesLeft;
     public bool IsRanged => this.isRanged;
-    
-    // override methods
-    // TODO: add a proper use method
-    public override void Use()
-    {
-        
-        
-        usesLeft--;
-        if (usesLeft == 0)
-        {
-            
-        }
-        
-        throw new NotImplementedException();
-    }
     
     public override string ToString()
     {

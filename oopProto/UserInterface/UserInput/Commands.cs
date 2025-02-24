@@ -42,7 +42,8 @@ public class Commands
                     validInput = true;
                     break;
                 case "show inventory":
-                    playerService.ShowInventory();
+                    gameFrame.ShowInventoryPane(playerService.GetPlayer().PlayerInventory);
+                    SelectCommand(playerService, roomService, gameFrame);
                     validInput = true;
                     break;
                 default:

@@ -11,21 +11,6 @@ public class PlayerService
         this.player = new Player();
     }
     
-    // TODO: move Console.Write() and Console.WriteLine() methods to the ui
-    public void ShowInventory()
-    {
-        Console.WriteLine("Items:");
-        for (int i = 0; i < this.player.PlayerInventory.Items.Count; i++)
-        {
-            if (i % 5 == 0)
-            {
-                Console.WriteLine();
-            }
-
-            Console.Write($"[1]: {this.player.PlayerInventory.Items[i]}\t");
-        }
-    }
-    
     // TODO: move the Console.WriteLine() method to the ui
     public void AddItem(Item item)
     {
@@ -64,6 +49,11 @@ public class PlayerService
     {
         this.player.PlayerInventory.MaxCapacity += increasedCapacity;
     }
+
+    public bool IsInventoryEmpty()
+    {
+        return this.player.PlayerInventory.CurrentCapacity == 0;
+    }
     
     // getters and setters
     public Player GetPlayer() => this.player;
@@ -72,5 +62,6 @@ public class PlayerService
     {
         this.player.Name = playerName;
     }
+    
     
 }
