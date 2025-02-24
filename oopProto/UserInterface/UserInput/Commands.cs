@@ -156,6 +156,7 @@ public class Commands
             playerService.AddItem(roomService.RemoveItemFromRoom(itemToPickUp));
             
             gameFrame.NpcWrite($"You picked up {itemToPickUp.Name}", "Please try again. Press any key to continue...\n> ");
+            Console.ReadKey();
         }
     }
     
