@@ -1,4 +1,6 @@
-﻿namespace oopProto.ItemsAndInventory;
+﻿using oopProto.Entities;
+
+namespace oopProto.ItemsAndInventory;
 
 public class Potion : Item
 {
@@ -9,6 +11,13 @@ public class Potion : Item
         this.Id = id;
         this.Name = name;
         
+    }
+
+    // TODO: add something to the ui that tells the player how much they healed for!
+    public override void Use(Player player)
+    {
+        player.CurrentHp += healingAmount;
+        if (player.CurrentHp > player.MaxHp) player.CurrentHp = player.MaxHp;
     }
     
     // getters and setters

@@ -1,4 +1,5 @@
 ﻿using oopProto.Entities.Services;
+using oopProto.ItemsAndInventory;
 
 namespace oopProto.UserInterface;
 
@@ -195,6 +196,42 @@ public class Frame
         {
             Console.SetCursorPosition(startX, startY);
             Console.Write(art[i]);
+            
+            startY++;
+        }
+    }
+
+    // TODO: Implement Show item pane
+    public void ShowItemPane()
+    {
+        
+    }
+
+    public void ShowInventoryPane(Inventory inventory)
+    {
+        int startY = 10;
+        int startX1 = xStart + 2;
+        int startX2 = (xStart + (xEnd - xStart) / 2) + 2;
+        
+        List<Item> items = inventory.Items;
+
+        CleanPane(0, startY, 16);
+        
+        // left side
+        for (int i = 0; i < 5; i++)
+        {
+            Console.SetCursorPosition(startX1, startY);
+            Console.Write($"Item {i + 1}: {items[i]}");
+            
+            startY++;
+        }
+        
+        startY = 10;
+        // right side
+        for (int i = 5; i < 10; i++)
+        {
+            Console.SetCursorPosition(startX2, startY);
+            Console.Write($"Item {i + 1}: {items[i]}");
             
             startY++;
         }

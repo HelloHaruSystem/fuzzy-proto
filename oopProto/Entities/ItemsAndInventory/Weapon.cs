@@ -16,7 +16,12 @@ public class Weapon : Item
         this.usesLeft = usesLeft;
         this.isRanged = isRanged;
     }
-    
+
+    public override void Use(Player player)
+    {
+        throw new NotImplementedException();
+    }
+
     // getters and setters
     public int Damage => this.damage;
     public int UsesLeft => this.usesLeft;

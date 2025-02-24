@@ -1,4 +1,6 @@
-﻿namespace oopProto.ItemsAndInventory;
+﻿using oopProto.Entities;
+
+namespace oopProto.ItemsAndInventory;
 
 public abstract class Item
 {
@@ -10,12 +12,19 @@ public abstract class Item
         this.id = id;
         this.name = name;
     }
+
+    public abstract void Use(Player player);
     
     // getters and setters
     public int Id { get => id; set => id = value; }
     public string Name { get => name; set => name = value; }
 
     // generated equal methods and hash code methods
+    public override string ToString()
+    {
+        return this.name;
+    }
+    
     protected bool Equals(Item other)
     {
         return name == other.name;
