@@ -1,6 +1,6 @@
 ﻿namespace oopProto.Entities.Services;
 
-public interface Items
+public interface IItems
 {
     public void Use();
 }

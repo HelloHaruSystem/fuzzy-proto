@@ -2,11 +2,11 @@
 
 public class MonsterService
 {
-    private List<Monster> monsters;
+    private List<Monster> _monsters;
 
     public MonsterService()
     {
-        this.monsters = LoadMonsters();
+        this._monsters = LoadMonsters();
     }
 
     // TODO load monsters

@@ -8,19 +8,19 @@ namespace oopProto.UserInterface;
 
 public class GameUi
 {
-    private bool running;
-    PlayerService playerService;
-    RoomService roomService;
-    ItemService itemService;
-    private Frame gameFrame;
+    private bool _running;
+    private PlayerService _playerService;
+    private RoomService _roomService;
+    private ItemService _itemService;
+    private Frame _gameFrame;
     
     private GameUi(RoomService roomService,ItemService itemService)
     {
-        this.running = false;
-        this.playerService = new PlayerService();
-        this.roomService = roomService;
-        this.itemService = itemService;
-        this.gameFrame = new Frame();
+        this._running = false;
+        this._playerService = new PlayerService();
+        this._roomService = roomService;
+        this._itemService = itemService;
+        this._gameFrame = new Frame();
     }
     
     // TODO: move to its own factory class
@@ -35,7 +35,7 @@ public class GameUi
     
     public void StartGame()
     {
-        running = true;
+        _running = true;
         Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         Console.Clear();
@@ -43,10 +43,17 @@ public class GameUi
         this.Introduction();
         Console.Clear();
         
-        while (this.running)
+        
+        // for testing
+        _playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
+        _playerService.AddItem(new Potion(2, "Major Healing Potion", 75));
+        _playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
+        _playerService.AddItem(new Weapon(5, "Golden Sword", 25, 256, false));
+        
+        while (this._running)
         {
-            gameFrame.Display(this.playerService, this.roomService);
-            Commands.SelectCommand(this.playerService, this.roomService, this.gameFrame);
+            _gameFrame.Display(this._playerService, this._roomService);
+            Commands.SelectCommand(this._playerService, this._roomService, this._gameFrame);
 
             
         }
@@ -62,14 +69,14 @@ public class GameUi
         Console.WriteLine("Welcome adventurer!\n");
         playerName = PlayerName.MakePlayerName();
        
-        playerService.GetPlayer().Name = playerName;
+        _playerService.GetPlayer().Name = playerName;
         
     }
     
     private void Introduction()
     {
         Console.Clear();
-        Console.WriteLine($"Welcome {this.playerService.GetPlayer().Name}!");
+        Console.WriteLine($"Welcome {this._playerService.GetPlayer().Name}!");
         Console.WriteLine($"Are you ready to explore the forgotten castle?\n");
         Console.WriteLine("If so...\nPress any key to continue...");
         
