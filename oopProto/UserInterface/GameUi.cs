@@ -1,6 +1,7 @@
 ﻿using oopProto.Entities.Factory;
 using oopProto.Entities.GameLogic;
 using oopProto.Entities.Services;
+using oopProto.ItemsAndInventory;
 using oopProto.UserInterface.UserInput;
 
 namespace oopProto.UserInterface;
@@ -10,13 +11,15 @@ public class GameUi
     private bool running;
     PlayerService playerService;
     RoomService roomService;
+    ItemService itemService;
     private Frame gameFrame;
     
-    private GameUi(RoomService roomService)
+    private GameUi(RoomService roomService,ItemService itemService)
     {
         this.running = false;
         this.playerService = new PlayerService();
         this.roomService = roomService;
+        this.itemService = itemService;
         this.gameFrame = new Frame();
     }
     
@@ -24,7 +27,8 @@ public class GameUi
     public static async Task<GameUi> CreateGameUi()
     {
         RoomService rService = await RoomServiceFactory.CreateRoomService();
-        GameUi gameUi = new GameUi(rService);
+        ItemService iService = await ItemServiceFactory.CreateItemService();
+        GameUi gameUi = new GameUi(rService, iService);
 
         return gameUi;
     }
@@ -41,7 +45,7 @@ public class GameUi
         
         while (this.running)
         {
-            gameFrame.Display(this.playerService, roomService);
+            gameFrame.Display(this.playerService, this.roomService);
             Commands.SelectCommand(this.playerService, this.roomService, this.gameFrame);
 
             

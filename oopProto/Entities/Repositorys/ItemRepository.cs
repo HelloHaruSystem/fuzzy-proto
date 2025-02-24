@@ -91,8 +91,9 @@ public class ItemRepository
     public async Task<IEnumerable<Item>> GetAllItems()
     {
         List<Item> items = new List<Item>();
-        items.Concat(await GetWeapons());
-        items.Concat(await GetPotions());
+        
+        items.AddRange(await GetPotions());
+        items.AddRange(await GetWeapons());
         
         return items;
     } 

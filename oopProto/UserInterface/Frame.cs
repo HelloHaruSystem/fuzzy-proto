@@ -210,30 +210,28 @@ public class Frame
     public void ShowInventoryPane(Inventory inventory)
     {
         int startY = 10;
-        int startX1 = xStart + 2;
-        int startX2 = (xStart + (xEnd - xStart) / 2) + 2;
+        int startX = (xStart + (xEnd - xStart) / 2) - 12;
         
         List<Item> items = inventory.Items;
 
         CleanPane(0, startY, 16);
-        
-        // left side
-        for (int i = 0; i < 5; i++)
+
+
+        if (inventory.Items.Count >= 0)
         {
-            Console.SetCursorPosition(startX1, startY);
-            Console.Write($"Item {i + 1}: {items[i]}");
-            
-            startY++;
+            Console.SetCursorPosition(startX, startY);
+            Console.Write("Inventory is Empty");
         }
-        
-        startY = 10;
-        // right side
-        for (int i = 5; i < 10; i++)
+        else
         {
-            Console.SetCursorPosition(startX2, startY);
-            Console.Write($"Item {i + 1}: {items[i]}");
+            for (int i = 0; i < items.Count; i++)
+            {
             
-            startY++;
+                Console.SetCursorPosition(startX, startY);
+                Console.Write($"Item {i + 1, 2}: {items[i]}");
+            
+                startY++;
+            }
         }
     }
     

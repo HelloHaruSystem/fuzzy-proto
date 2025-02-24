@@ -1,4 +1,7 @@
-﻿using oopProto.Entities.Repositorys;
+﻿using oopProto.Entities.Factory;
+using oopProto.Entities.Repositorys;
+using oopProto.Entities.Services;
+using oopProto.ItemsAndInventory;
 using oopProto.UserInterface;
 
 namespace oopProto;
