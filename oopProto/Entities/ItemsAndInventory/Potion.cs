@@ -6,11 +6,11 @@ public class Potion : Item
 {
     private int healingAmount;
 
-    public Potion(int id, string name) : base(id, name)
+    public Potion(int id, string name, int healingAmount) : base(id, name)
     {
         this.Id = id;
         this.Name = name;
-        
+        this.healingAmount = healingAmount;
     }
 
     // TODO: add something to the ui that tells the player how much they healed for!
