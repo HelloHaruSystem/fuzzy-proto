@@ -9,7 +9,7 @@ public class PickUpItemInput
         
         while (!validInput)
         {
-            gameFrame.NpcWrite("Do you want to pick up a item?", "[y] for yes\n[n] for no\n> ");
+            gameFrame.NpcWrite("Do you want to pick up an item?", "[y] for yes\n[n] for no\n> ");
             userInput = Console.ReadLine()
                         ?? throw new ArgumentException("Arguements can't be empty");
             userInput = userInput.ToLower();
