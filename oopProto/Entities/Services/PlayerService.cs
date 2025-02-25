@@ -8,7 +8,7 @@ public class PlayerService
     
     public PlayerService()
     {
-        this._player = new Player();
+        this._player = new Player(1, "player", 200, 20, 10, 5, 0, new Weapon(1, "Wooden Sword", 5, 256, false));
     }
 
     public void Heal(int healAmount)
@@ -22,9 +22,9 @@ public class PlayerService
 
     public void SwapWeapon(Weapon weaponToEquip)
     {
-        AddItem(this._player.EquipedWeapon);
+        AddItem(this._player.EquippedWeapon);
         RemoveItem(weaponToEquip);
-        this._player.EquipedWeapon = weaponToEquip;
+        this._player.EquippedWeapon = weaponToEquip;
     }
     
     // TODO: move the Console.WriteLine() method to the ui

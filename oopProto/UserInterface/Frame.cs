@@ -1,4 +1,5 @@
-﻿using oopProto.Entities.Services;
+﻿using oopProto.Entities;
+using oopProto.Entities.Services;
 using oopProto.ItemsAndInventory;
 
 namespace oopProto.UserInterface;
@@ -7,17 +8,93 @@ public class Frame
 {
     
     // for ui
-    const int X_START = 0;
-    const int X_END = 100;
-    const int Y_START = 0;
-    const int Y_END = 40;
-    const string ONE_LINE = "---------------------------------------------------------------------------------------------------";
+    private const int X_START = 0;
+    private const int X_END = 100;
+    private const int Y_START = 0;
+    private const int Y_END = 40;
+    private const string ONE_LINE = "---------------------------------------------------------------------------------------------------";
 
     public Frame()
     {
         
     }
 
+    // battle relevant methods \\
+    public void BattleStart(Monster monster)
+    {
+        int startY = 10;
+        
+        CleanPane(0, startY, 16); 
+        DisplayMonsterSprite(monster); 
+        DisplayPlayerSprite();
+        DisplayPlayerAndBossHp(monster);
+        }
+
+    private void DisplayPlayerAndBossHp(Monster monster)
+    {
+        Console.SetCursorPosition(20, 11);
+        Console.Write($"{monster.Name}");
+        Console.SetCursorPosition(20, 12);
+        Console.Write($"{monster.CurrentHp} / {monster.MaxHp}");
+    }
+
+    private void DisplayMonsterSprite(Monster monster)
+    {
+        string[] monsterArt = TestTest();
+        int MaxLength = LongestPartOfSprite(monsterArt);
+        
+        int startX = 30;
+        int startY = 11;
+
+        for (int i = 0; i < monsterArt.Length; i++)
+        {
+            Console.SetCursorPosition(startX, startY);
+            Console.Write(monsterArt[i]);
+
+            startY++;
+        }
+    }
+
+    public string[] TestTest()
+    {
+        string test = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000 , -‐―― ､\n" +
+                 "\u3000\u3000\u3000\u3000\u3000\u3000／Ｏ\u3000\u3000\u3000 \u3000 ヽ､\u3000,-、\n" +
+                 "\u3000\u3000\u3000\u3000\u3000/ｒ‐,\u3000\u3000\u3000\u3000\u3000\u3000 \u3000 Ｖ\u3000l\n" +
+                 "\u3000\u3000\u3000 ／/ /\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000L_ `ｰ-、\n" +
+                 "\u3000\u3000 /／／, '／\u3000\u3000\u3000\u3000\u3000＼\u3000 ＼＼\u3000ヽ\n" +
+                 "\u3000 /\u3000し'\u3000 \u3000\u25cf\u3000\u3000\u3000\u3000\u3000\u25cf\u3000\u3000\u3000 ヽ l \u3000ｌ\n" +
+                 "\u3000ｌ\u3000\u3000\u3000\u3000\u3000\u3000\u3000 （__人_） \u3000\u3000\u3000\u3000\u3000ｌ .|\u3000 |\n" +
+                 "\u3000ヽ、\u3000\u3000\u3000 \u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000 ノ /\u3000 l\n" +
+                 "\u3000\u3000\u3000`ー-､＿ﾆ二二ﾆ-―=ﾆ二／ ／\n\u3000\u3000\u3000 \u3000_ノ _/\u3000\u2227\u3000l\u3000ヽ` ､＿＿_ノ\n" +
+                 "\u3000\u3000\u3000 （\u3000 (/\u3000/ｌ .ｌ \u2227\u3000 iヽ、`､\n" +
+                 "\u3000\u3000\u3000\u3000 )\u3000ｌ\u3000l\u3000〉' 人ヽ\u3000ｌ \u3000 ） ヽ\n" +
+                 "\u3000\u3000\u3000\u3000 し'l\u3000 V\u3000入 V\u3000 ｌ\u3000 /\u3000/\n" +
+                 "\u3000\u3000\u3000\u3000\u3000\u3000L_/\u3000/\u3000）ｌ\u3000 /\u3000（__/\n" +
+                 "\u3000\u3000\u3000\u3000\u3000\u3000\u3000 し'\u3000 L|\u3000 ｌ\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000ヽ､_）";
+
+        string[] monsterArt = test.Split("\n");
+        return monsterArt;
+    }
+
+    private void DisplayPlayerSprite()
+    {
+        
+    }
+
+    public void PlayerWonBattle()
+    {
+        NpcWrite("You won the battle!", "yayyy");
+        Console.ReadKey();
+    }
+
+    public void PlayerLostBattle()
+    {
+        NpcWrite("You lost the battle!", "noooo");
+        Console.ReadKey();
+    }
+    // battle relevant method end \\
+    
+    
     public void Display(PlayerService playerService, RoomService roomService)
     {
         Console.Clear();
@@ -180,15 +257,15 @@ public class Frame
         
         Console.ForegroundColor = ConsoleColor.White;
     }
-
-    // TODO: fix that a lot of the ascii art is on left side
+    
     private void PrintRoomToBattleFrame(string[] asciiArt)
     {
         int startY = 10;
         // int endX = 97; Will have use for these later! do not delete :)
         // int endY = 16;
         string[] art = asciiArt;
-        int startX = X_START + (X_END - X_START) / 2 - art[0].Length / 2;
+        int maxLength = LongestPartOfSprite(art);
+        int startX = X_START + (X_END - X_START) / 2 - maxLength / 2;
 
         CleanPane(0, startY, 16);
         
@@ -199,6 +276,21 @@ public class Frame
             
             startY++;
         }
+    }
+
+    private int LongestPartOfSprite(string[] asciiArt)
+    {
+        int maxLength = asciiArt[0].Length;
+
+        for (int i = 1; i < asciiArt.Length; i++)
+        {
+            if (asciiArt[i].Length > maxLength)
+            {
+                maxLength = asciiArt[i].Length;
+            }   
+        }
+        
+        return maxLength;
     }
 
     // TODO: Implement Show item pane

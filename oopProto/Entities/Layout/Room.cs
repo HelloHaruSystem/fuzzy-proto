@@ -1,4 +1,5 @@
-﻿using oopProto.ItemsAndInventory;
+﻿using oopProto.Entities;
+using oopProto.ItemsAndInventory;
 
 namespace oopProto.Layout;
 
@@ -13,6 +14,7 @@ public class Room
     private int _westId;
     private string _asciiArt;
     private List<Item> _items;
+    private Monster? _monster = null;
 
     public Room(int roomId, string roomName, string description, int northId, int southId, int eastId, int westId, string asciiArt)
     {
@@ -36,7 +38,9 @@ public class Room
     public int EastId { get => _eastId; set => _eastId = value; }
     public int WestId { get => _westId; set => _westId = value; }
     public string AsciiArt { get => _asciiArt; set => _asciiArt = value; }
+    public Monster? Monster { get => _monster; set => _monster = value; }
     public List<Item> Items => _items;
+    
     
     // override methods
     public override string ToString()

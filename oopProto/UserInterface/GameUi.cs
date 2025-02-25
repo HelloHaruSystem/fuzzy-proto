@@ -1,4 +1,5 @@
-﻿using oopProto.Entities.Factory;
+﻿using oopProto.Entities;
+using oopProto.Entities.Factory;
 using oopProto.Entities.GameLogic;
 using oopProto.Entities.Services;
 using oopProto.ItemsAndInventory;
@@ -13,6 +14,8 @@ public class GameUi
     private RoomService _roomService;
     private ItemService _itemService;
     private Frame _gameFrame;
+    private Monster? _chasingMonster = null;
+    private int _chaseCounter;
     
     private GameUi(RoomService roomService,ItemService itemService)
     {
@@ -21,6 +24,8 @@ public class GameUi
         this._roomService = roomService;
         this._itemService = itemService;
         this._gameFrame = new Frame();
+        
+        this._chaseCounter = 0;
     }
     
     // TODO: move to its own factory class
@@ -49,13 +54,26 @@ public class GameUi
         _playerService.AddItem(new Potion(2, "Major Healing Potion", 75));
         _playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
         _playerService.AddItem(new Weapon(5, "Golden Sword", 25, 256, false));
+        _roomService.AddMonsterToRoom(2, new Monster(10, "Slime", 25, 2, 5, 5, 0,
+            new Weapon(20, "wep test", 20, 256, false), ""));
         
+        // TODO: MAKE MAIN GAME LOOP MORE NEAT ASAP PLEASE!
         while (this._running)
         {
             _gameFrame.Display(this._playerService, this._roomService);
-            Commands.SelectCommand(this._playerService, this._roomService, this._gameFrame);
-
+            IsThereAChasingMonster();
             
+            if (IsMonsterInRoom())
+            {
+                if (NewBattle())
+                {
+                    // if player fled
+                    this._chasingMonster = this._roomService.CurrentRoom.Monster;
+                }
+            }
+            
+            Commands.SelectCommand(this._playerService, this._roomService, this._gameFrame);
+            _chaseCounter++;
         }
         
         Console.Clear();
@@ -81,6 +99,39 @@ public class GameUi
         Console.WriteLine("If so...\nPress any key to continue...");
         
         Console.ReadKey();
+    }
+
+    private bool IsMonsterInRoom()
+    {
+        if (this._roomService.CurrentRoom.Monster != null)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
+    private bool NewBattle()
+    {
+        Battle battle = new Battle(this._gameFrame, this._playerService, this._roomService, this._roomService.CurrentRoom.Monster)
+                        ?? throw new NullReferenceException();
+        bool fled = battle.StartBattle();
+
+        return fled;
+    }
+
+    private void IsThereAChasingMonster()
+    {
+        if (this._chasingMonster != null && this._chaseCounter % 3 == 0)
+        {
+            Battle chaseBattle = new Battle(this._gameFrame, this._playerService, this._roomService, this._chasingMonster);
+            
+            _gameFrame.NpcWrite($" You Where chased down by {this._chasingMonster.Name}", " Engaging in battle be ready\n" +
+                " Press any key to continue...\n >");
+            Console.ReadKey();
+            
+            chaseBattle.StartBattle();
+        }
     }
     
 }
