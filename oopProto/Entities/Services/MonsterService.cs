@@ -1,4 +1,6 @@
-﻿namespace oopProto.Entities.Services;
+﻿using oopProto.ItemsAndInventory;
+
+namespace oopProto.Entities.Services;
 
 public class MonsterService
 {
@@ -17,9 +19,16 @@ public class MonsterService
     
     public int Attack(Monster monster)
     {
-        int dealtDmg = monster.Strength + monster.EquipedWeapon.Damage;
+        int dealtDmg = monster.Strength + monster.EquippedWeapon.Damage;
        
         return dealtDmg;
     }
+
+    // TODO: implement
+    public Weapon dropWeapon()
+    {
+        throw new NotImplementedException();
+    } 
+    
     
 }
