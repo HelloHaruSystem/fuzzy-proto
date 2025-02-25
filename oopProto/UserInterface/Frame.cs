@@ -1,4 +1,5 @@
-﻿using oopProto.Entities.Services;
+﻿using oopProto.Entities;
+using oopProto.Entities.Services;
 using oopProto.ItemsAndInventory;
 
 namespace oopProto.UserInterface;
@@ -7,17 +8,55 @@ public class Frame
 {
     
     // for ui
-    const int X_START = 0;
-    const int X_END = 100;
-    const int Y_START = 0;
-    const int Y_END = 40;
-    const string ONE_LINE = "---------------------------------------------------------------------------------------------------";
+    private const int X_START = 0;
+    private const int X_END = 100;
+    private const int Y_START = 0;
+    private const int Y_END = 40;
+    private const string ONE_LINE = "---------------------------------------------------------------------------------------------------";
 
     public Frame()
     {
         
     }
 
+    // battle relevant methods \\
+    public void BattleStart(Monster monster)
+    {
+        int startY = 10;
+        
+        CleanPane(0, startY, 16); 
+        DisplayMonsterSprite(); 
+        DisplayPlayerSprite();
+        DisplayPlayerAndBossHp();
+        }
+
+    private void DisplayPlayerAndBossHp()
+    {
+        
+    }
+
+    private void DisplayMonsterSprite()
+    {
+        
+    }
+
+    private void DisplayPlayerSprite()
+    {
+        
+    }
+
+    public void PlayerWonBattle()
+    {
+        
+    }
+
+    public void PlayerLostBattle()
+    {
+        
+    }
+    // battle relevant method end \\
+    
+    
     public void Display(PlayerService playerService, RoomService roomService)
     {
         Console.Clear();
@@ -180,8 +219,7 @@ public class Frame
         
         Console.ForegroundColor = ConsoleColor.White;
     }
-
-    // TODO: fix that a lot of the ascii art is on left side
+    
     private void PrintRoomToBattleFrame(string[] asciiArt)
     {
         int startY = 10;

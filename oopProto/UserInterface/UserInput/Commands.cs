@@ -160,7 +160,7 @@ public class Commands
         }
     }
     
-    private static void UseCommand(Frame gameFrame, PlayerService playerService)
+    public static void UseCommand(Frame gameFrame, PlayerService playerService)
     {
         
         int userInput = ItemNumber.GetItemNumber(gameFrame) - 1;
