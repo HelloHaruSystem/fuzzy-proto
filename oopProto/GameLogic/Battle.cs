@@ -48,5 +48,4 @@ public class Battle
         return damageAsInt;
     }
     
-    
 }

@@ -188,7 +188,8 @@ public class Frame
         // int endX = 97; Will have use for these later! do not delete :)
         // int endY = 16;
         string[] art = asciiArt;
-        int startX = X_START + (X_END - X_START) / 2 - art[0].Length / 2;
+        int maxLength = LongestPartOfSprite(art);
+        int startX = X_START + (X_END - X_START) / 2 - maxLength / 2;
 
         CleanPane(0, startY, 16);
         
@@ -199,6 +200,21 @@ public class Frame
             
             startY++;
         }
+    }
+
+    private int LongestPartOfSprite(string[] asciiArt)
+    {
+        int maxLength = asciiArt[0].Length;
+
+        for (int i = 1; i < asciiArt.Length; i++)
+        {
+            if (asciiArt[i].Length > maxLength)
+            {
+                maxLength = asciiArt[i].Length;
+            }   
+        }
+        
+        return maxLength;
     }
 
     // TODO: Implement Show item pane
