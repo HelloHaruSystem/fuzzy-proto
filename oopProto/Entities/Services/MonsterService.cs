@@ -17,13 +17,6 @@ public class MonsterService
         throw new NotImplementedException();
     }
     
-    public int Attack(Monster monster)
-    {
-        int dealtDmg = monster.Strength + monster.EquippedWeapon.Damage;
-       
-        return dealtDmg;
-    }
-
     // TODO: implement
     public Weapon dropWeapon()
     {
