@@ -86,6 +86,23 @@ public class RoomService
         
         return asciiArtArray;
     }
+
+    // TODO: find a better way to add monsters to rooms
+    public void AddMonsterToRoom(int roomId, Monster monster)
+    {
+        foreach (Room r in this._rooms)
+        {
+            if (r.RoomId == roomId)
+            {
+                r.Monster = monster;
+            }
+        }
+    }
+
+    public void RemoveMonsterFromCurrentRoom()
+    {
+        _currentRoom.Monster = null;
+    }
     
     // getters and setters
     public List<Room> Rooms { get => _rooms; set => _rooms = value; }

@@ -8,40 +8,51 @@ public class Battle
 {
     private Frame _gameFrame;
     private PlayerService _playerService;
+    private RoomService _roomService;
     private Monster _monster;
     private Random _random;
     private bool _isBattleOver;
+    private bool _fledFromBattle;
 
-    public Battle(Frame gameFrame, PlayerService playerService, Monster monster)
+    public Battle(Frame gameFrame, PlayerService playerService, RoomService roomService, Monster monster)
     {
         this._gameFrame = gameFrame;
+        // add a start sequence
         this._playerService = playerService;
+        this._roomService = roomService;
         this._monster = monster;
         
         this._random = new Random();
         this._isBattleOver = true;
+        this._fledFromBattle = false;
     }
     
-    public void StartBattle(Monster monster)
+    public bool StartBattle()
     {
         this._isBattleOver = false;
 
         while (!this._isBattleOver)
         {
-            this._gameFrame.BattleStart(monster);
+            this._gameFrame.Display(this._playerService, this._roomService);
+            this._gameFrame.BattleStart(this._monster);
             BattleCommand.SelectBattleCommand(this, this._playerService, this._monster, this._gameFrame);
 
             if (IsMonsterDefeated())
             {
                 this._gameFrame.PlayerWonBattle();
+                this._roomService.RemoveMonsterFromCurrentRoom();
+                this._isBattleOver = true;
             }
 
             if (IsPlayerDefeated())
             {
                 this._gameFrame.PlayerLostBattle();
+                this._isBattleOver = true;
             }
-            
         }
+        this._gameFrame.Display(this._playerService, this._roomService);
+        
+        return this._fledFromBattle;
     }
 
     public bool IsMiss(Entity defender)
@@ -95,4 +106,5 @@ public class Battle
     
     // getters and setters
     public bool IsBattleOver { get => _isBattleOver; set => _isBattleOver = value; }
+    public bool FledFromBattle { get => _fledFromBattle; set => _fledFromBattle = value; }
 }

@@ -12,7 +12,7 @@ public class BattleCommand
         bool validInput = false;
         string userInput = "";
         
-        gameFrame.NpcWrite("Enter Command:", "[1] to show list of commands\n> ");
+        gameFrame.NpcWrite("Enter Battle Command:", "[1] to show list of commands\n> ");
         
         while (!validInput)
         {
@@ -25,6 +25,7 @@ public class BattleCommand
                 case "1":
                     ShowBattleCommands(gameFrame);
                     break;
+                
                 case "attack":
                     if (battle.PlayerGoesFirst(monster))
                     {
@@ -35,7 +36,9 @@ public class BattleCommand
                         MonsterGoesFirst(battle, playerService, monster, gameFrame);
                     }
                     validInput = true;
+                    Console.ReadKey();
                     break;
+                
                 case "run":
                     if (battle.AttemptRun())
                     {
@@ -43,18 +46,24 @@ public class BattleCommand
                     }
                     else
                     {
-                        gameFrame.NpcWrite("You attempt to run from the battle...", "but failed....!");
+                        gameFrame.NpcWrite("You attempt to run from the battle...", "but failed....!\nPress any key to continue...");
                     }
                     validInput = true;
+                    Console.ReadKey();
                     break;
+                
                 case "use":
+                    gameFrame.ShowInventoryPane(playerService.GetPlayer().PlayerInventory);
                     Commands.UseCommand(gameFrame, playerService);
+                    Console.ReadKey();
+                    gameFrame.BattleStart(monster);
                     MonsterAttack(battle, playerService, monster, gameFrame);
                     validInput = true;
-                    break;
-                default:
-                    gameFrame.NpcWrite("Invalid Command!", "Please try again. Press any key to continue...");
                     Console.ReadKey();
+                    break;
+                
+                default:
+                    gameFrame.NpcWrite("Invalid Command!", "Please try again. Press any key to continue...\n> ");
                     validInput = true;
                     break;
             }
@@ -65,10 +74,9 @@ public class BattleCommand
     {
         StringBuilder commands = new StringBuilder();
         commands.Append("\"attack\" To attack\t \"run\" To run from the battle\n");
-        commands.Append("\"use\" To use an item from your inventory or to equip another weapon\n" );
+        commands.Append("\"use\" To use an item from your inventory or to equip another weapon\n> " );
        
         gameFrame.NpcWrite("Enter Command:", commands.ToString());
-        Console.ReadKey();
     }
 
     private static void PlayerAttack(Battle battle, PlayerService playerService, Monster monster, Frame gameFrame)
@@ -78,13 +86,13 @@ public class BattleCommand
 
         if (missOrDodge)
         {
-            gameFrame.NpcWrite($"You missed your attack!", $"{monster.Name} was able to avoid your attack!");
+            gameFrame.NpcWrite($" You missed your attack!", $" {monster.Name} was able to avoid your attack!\n Press any key to continue...\n> ");
         }
         else
         {
             int damage = battle.CalculateDamage(playerService.GetPlayer(), monster);
             monster.ReceiveDamage(damage);
-            gameFrame.NpcWrite($"You attacked the {monster.Name}!", $"And dealt {damage} damage to the {monster.Name}!"); 
+            gameFrame.NpcWrite($" You attacked the {monster.Name}!", $" And dealt {damage} damage to the {monster.Name}!\n Press any key to continue...\n> "); 
         }
     }
 
@@ -95,17 +103,19 @@ public class BattleCommand
         
         if (missOrDodge)
         {
-            gameFrame.NpcWrite("You Dodged the attack", $"You were able to dodge the {monster.Name}'s attack!");
+            gameFrame.NpcWrite(" You Dodged the attack", $" You were able to dodge the {monster.Name}'s attack!\n Press any key to continue...\n> ");
         }
         
         int damage = battle.CalculateDamage(monster, playerService.GetPlayer());
         playerService.GetPlayer().ReceiveDamage(damage);
-        gameFrame.NpcWrite($"oh No {monster.Name}", $"And dealt {damage} damage to You!");
+        gameFrame.NpcWrite($" oh No {monster.Name} attacked you", $" And dealt {damage} damage to You!\n press any key to continue...\n> ");
     }
 
     private static void PlayerGoesFirst(Battle battle, PlayerService playerService, Monster monster, Frame gameFrame)
     {
         PlayerAttack(battle, playerService, monster, gameFrame);
+        Console.ReadKey();
+        
         if (monster.CurrentHp != 0)
         {
             MonsterAttack(battle, playerService, monster, gameFrame);   
@@ -115,6 +125,8 @@ public class BattleCommand
     private static void MonsterGoesFirst(Battle battle, PlayerService playerService, Monster monster, Frame gameFrame)
     {
         MonsterAttack(battle, playerService, monster, gameFrame);
+        Console.ReadKey();
+        
         if (playerService.GetPlayer().CurrentHp != 0)
         {
             PlayerAttack(battle, playerService, monster, gameFrame);   
@@ -123,7 +135,8 @@ public class BattleCommand
 
     private static void Run(Battle battle, Monster monster, Frame gameFrame)
     {
-        gameFrame.NpcWrite($"You fled...", $"You successfully fled from {monster.Name}");
+        gameFrame.NpcWrite($" You fled...", $" You successfully fled from {monster.Name}\n Press any key to continue...\n> ");
         battle.IsBattleOver = true;
+        battle.FledFromBattle = true;
     }
 }

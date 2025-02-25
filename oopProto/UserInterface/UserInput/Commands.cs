@@ -162,7 +162,6 @@ public class Commands
     
     public static void UseCommand(Frame gameFrame, PlayerService playerService)
     {
-        
         int userInput = ItemNumber.GetItemNumber(gameFrame) - 1;
         int inventoryLength = playerService.GetPlayer().PlayerInventory.CurrentCapacity -1;
 
