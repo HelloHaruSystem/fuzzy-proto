@@ -15,7 +15,7 @@ public class GameUi
     private ItemService _itemService;
     private Frame _gameFrame;
     private Monster? _chasingMonster = null;
-    private int _chaseCounter;
+    private int _turnCounter;
     
     private GameUi(RoomService roomService,ItemService itemService)
     {
@@ -25,7 +25,7 @@ public class GameUi
         this._itemService = itemService;
         this._gameFrame = new Frame();
         
-        this._chaseCounter = 0;
+        this._turnCounter = 0;
     }
     
     // TODO: move to its own factory class
@@ -48,7 +48,6 @@ public class GameUi
         this.Introduction();
         Console.Clear();
         
-        
         // for testing
         _playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
         _playerService.AddItem(new Potion(2, "Major Healing Potion", 75));
@@ -65,15 +64,11 @@ public class GameUi
             
             if (IsMonsterInRoom())
             {
-                if (NewBattle())
-                {
-                    // if player fled
-                    this._chasingMonster = this._roomService.CurrentRoom.Monster;
-                }
+                NewBattle();
             }
             
             Commands.SelectCommand(this._playerService, this._roomService, this._gameFrame);
-            _chaseCounter++;
+            _turnCounter++;
         }
         
         Console.Clear();
@@ -111,18 +106,23 @@ public class GameUi
         return false;
     }
 
-    private bool NewBattle()
+    private void NewBattle()
     {
         Battle battle = new Battle(this._gameFrame, this._playerService, this._roomService, this._roomService.CurrentRoom.Monster)
                         ?? throw new NullReferenceException();
         bool fled = battle.StartBattle();
 
-        return fled;
+        // if player fled
+        if (fled)
+        {
+            this._chasingMonster = this._roomService.CurrentRoom.Monster;
+            
+        }
     }
 
     private void IsThereAChasingMonster()
     {
-        if (this._chasingMonster != null && this._chaseCounter % 3 == 0)
+        if (this._chasingMonster != null && this._turnCounter % 4 == 0)
         {
             Battle chaseBattle = new Battle(this._gameFrame, this._playerService, this._roomService, this._chasingMonster);
             

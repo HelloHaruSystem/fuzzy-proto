@@ -83,13 +83,14 @@ public class Frame
 
     public void PlayerWonBattle()
     {
-        NpcWrite("You won the battle!", "yayyy");
+        NpcWrite(" You won the battle!", " yayyy");
         Console.ReadKey();
     }
 
+    // TODO: implement that the palyer can load previous save, start over or exit the game
     public void PlayerLostBattle()
     {
-        NpcWrite("You lost the battle!", "noooo");
+        NpcWrite(" You lost the battle!", " noooo");
         Console.ReadKey();
     }
     // battle relevant method end \\

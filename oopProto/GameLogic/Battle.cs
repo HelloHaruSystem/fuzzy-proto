@@ -40,7 +40,12 @@ public class Battle
             if (IsMonsterDefeated())
             {
                 this._gameFrame.PlayerWonBattle();
-                this._roomService.RemoveMonsterFromCurrentRoom();
+                this._gameFrame.NpcWrite($" The monster Dropped {this._monster.EquippedWeapon}", "It landed somewhere in the room\n" +
+                    " If you searced for it you might find it\n" +
+                    " press any key to continue...");
+                Console.ReadKey();
+                this._roomService.AddItemToRoom(this._monster.EquippedWeapon);
+                this._roomService.RemoveMonsterFromRoom(this._monster);
                 this._isBattleOver = true;
             }
 
