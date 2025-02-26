@@ -99,9 +99,16 @@ public class RoomService
         }
     }
 
-    public void RemoveMonsterFromCurrentRoom()
+    public void RemoveMonsterFromRoom(Monster monster)
     {
-        _currentRoom.Monster = null;
+        foreach (Room r in this._rooms)
+        {
+            if (r.Monster.Equals(monster))
+            {
+                r.Monster = null;
+                return;
+            }
+        }
     }
     
     // getters and setters

@@ -34,13 +34,19 @@ public class Battle
         while (!this._isBattleOver)
         {
             this._gameFrame.Display(this._playerService, this._roomService);
-            this._gameFrame.BattleStart(this._monster);
+            this._gameFrame.BattlePaneUpdate(this._monster);
             BattleCommand.SelectBattleCommand(this, this._playerService, this._monster, this._gameFrame);
 
+            // TODO: move the NpcWrite method call to the user interface somewhere
             if (IsMonsterDefeated())
             {
                 this._gameFrame.PlayerWonBattle();
-                this._roomService.RemoveMonsterFromCurrentRoom();
+                this._gameFrame.NpcWrite($" The monster Dropped {this._monster.EquippedWeapon}", " It landed somewhere in the room\n" +
+                    " If you searced for it you might find it\n" +
+                    " press any key to continue...");
+                Console.ReadKey();
+                this._roomService.AddItemToRoom(this._monster.EquippedWeapon);
+                this._roomService.RemoveMonsterFromRoom(this._monster);
                 this._isBattleOver = true;
             }
 
@@ -83,7 +89,7 @@ public class Battle
     {
         int cannotFleeChance = this._random.Next(1, 101);
         
-        return cannotFleeChance <= 25;
+        return cannotFleeChance >= 25;
     }
 
     private bool IsMonsterDefeated()
