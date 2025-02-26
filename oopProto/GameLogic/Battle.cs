@@ -89,7 +89,7 @@ public class Battle
     {
         int cannotFleeChance = this._random.Next(1, 101);
         
-        return cannotFleeChance <= 25;
+        return cannotFleeChance >= 25;
     }
 
     private bool IsMonsterDefeated()

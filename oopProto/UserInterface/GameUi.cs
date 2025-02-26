@@ -53,7 +53,7 @@ public class GameUi
         _playerService.AddItem(new Potion(2, "Major Healing Potion", 75));
         _playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
         _playerService.AddItem(new Weapon(5, "Golden Sword", 25, 256, false));
-        _roomService.AddMonsterToRoom(2, new Monster(10, "Slime", 25, 2, 5, 5, 0,
+        _roomService.AddMonsterToRoom(2, new Monster(10, "Slime", 75, 2, 5, 5, 0,
             new Weapon(20, "wep test", 20, 256, false), ""));
         
         // TODO: MAKE MAIN GAME LOOP MORE NEAT ASAP PLEASE!

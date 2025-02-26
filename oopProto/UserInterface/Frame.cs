@@ -6,7 +6,6 @@ namespace oopProto.UserInterface;
 
 public class Frame
 {
-    
     // for ui
     private const int X_START = 0;
     private const int X_END = 100;
@@ -36,16 +35,47 @@ public class Frame
         Console.Write($"{monster.Name}");
         Console.SetCursorPosition(20, 12);
         Console.Write($"{monster.CurrentHp} / {monster.MaxHp}");
+        // TODO: implement bar to to display hp
+        Console.SetCursorPosition(20, 13);
+        PrintHpBar(monster);
+        Console.SetCursorPosition(X_START + 1, Y_START + 5);
+    }
+
+    private void PrintHpBar(Entity entity)
+    {
+        int fullHp = entity.MaxHp;
+        int currentHp = entity.CurrentHp;
+        double percentHp = 0.0;
+        
+        // check for 0 to avoid dividing by 0
+        if (currentHp != 0)
+        {
+            percentHp = ((1.0 * entity.CurrentHp) / entity.MaxHp) * 100;
+            
+            // round to the nearest multiple of 10
+            percentHp = Math.Round(percentHp / 10) * 10;
+        }
+
+        if (percentHp > 0)
+        {
+            Console.BackgroundColor = ConsoleColor.Green;
+            for (int i = 0; i < percentHp; i += 10)
+            {
+                Console.Write(" ");
+            }
+            
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
     }
 
     private void DisplayMonsterSprite(Monster monster)
     {
         string[] monsterArt = TestTest();
-        int MaxLength = LongestPartOfSprite(monsterArt);
+        int maxLength = LongestPartOfSprite(monsterArt);
         
         int startX = 30;
         int startY = 11;
-
+        
         for (int i = 0; i < monsterArt.Length; i++)
         {
             Console.SetCursorPosition(startX, startY);
@@ -55,6 +85,7 @@ public class Frame
         }
     }
 
+    // monster sprite test
     public string[] TestTest()
     {
         string test = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000 , -‐―― ､\n" +
@@ -76,6 +107,7 @@ public class Frame
         return monsterArt;
     }
 
+    // TODO: implement 
     private void DisplayPlayerSprite()
     {
         
@@ -87,7 +119,7 @@ public class Frame
         Console.ReadKey();
     }
 
-    // TODO: implement that the palyer can load previous save, start over or exit the game
+    // TODO: implement that the player can load previous save, start over or exit the game
     public void PlayerLostBattle()
     {
         NpcWrite(" You lost the battle!", " noooo");
@@ -136,7 +168,8 @@ public class Frame
     
     private void PlayerPane(PlayerService playerService, RoomService roomService)
     {
-        string playerInfo = playerService.GetPlayer().ToString();
+        Player player = playerService.GetPlayer();
+        string playerInfo = player.ToString();
         string roomInfo = roomService.CurrentRoom.ToString();
         
         CleanPane(0, Y_END - 6, 5);
@@ -147,6 +180,11 @@ public class Frame
         Console.Write("Player Info:");
         Console.SetCursorPosition(X_START + 3, Y_END - 4);
         Console.Write(playerInfo);
+        // hp bar
+        Console.SetCursorPosition(X_START + 3, Y_END - 3);
+        Console.Write("\t\t");
+        PrintHpBar(player);
+        PrintHpBar(player);
         
         Console.SetCursorPosition(X_START + 3, Y_END - 1);
         Console.Write("Room description: " + roomService.CurrentRoom.Description);
