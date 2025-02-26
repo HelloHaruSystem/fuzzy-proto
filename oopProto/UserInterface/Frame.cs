@@ -61,6 +61,14 @@ public class Frame
             Console.BackgroundColor = ConsoleColor.Green;
             for (int i = 0; i < percentHp; i += 10)
             {
+                if (percentHp <= 70 && percentHp > 30)
+                {
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                } else if (percentHp <= 30)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                } 
+                
                 Console.Write(" ");
             }
             
