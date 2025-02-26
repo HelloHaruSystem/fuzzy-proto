@@ -110,13 +110,14 @@ public class GameUi
     {
         Battle battle = new Battle(this._gameFrame, this._playerService, this._roomService, this._roomService.CurrentRoom.Monster)
                         ?? throw new NullReferenceException();
+        this._gameFrame.NpcWrite("A Monster Has appeared!", "Press any key to engage it combat...\n> ");
+        Console.ReadKey();
+        
         bool fled = battle.StartBattle();
-
         // if player fled
         if (fled)
         {
             this._chasingMonster = this._roomService.CurrentRoom.Monster;
-            
         }
     }
 
@@ -124,14 +125,22 @@ public class GameUi
     {
         if (this._chasingMonster != null && this._turnCounter % 4 == 0)
         {
-            Battle chaseBattle = new Battle(this._gameFrame, this._playerService, this._roomService, this._chasingMonster);
+            // remove chaseMonster if already defeated
+            if (this._chasingMonster.CurrentHp == 0)
+            {
+                this._chasingMonster = null;
+            }
+            // if not start battle
+            else
+            {
+                Battle chaseBattle = new Battle(this._gameFrame, this._playerService, this._roomService, this._chasingMonster);
             
-            _gameFrame.NpcWrite($" You Where chased down by {this._chasingMonster.Name}", " Engaging in battle be ready\n" +
-                " Press any key to continue...\n >");
-            Console.ReadKey();
+                _gameFrame.NpcWrite($" You Where chased down by {this._chasingMonster.Name}", " Engaging it in battle be ready\n" +
+                    " Press any key to continue...\n> ");
+                Console.ReadKey();
             
-            chaseBattle.StartBattle();
+                chaseBattle.StartBattle();
+            }
         }
     }
-    
 }

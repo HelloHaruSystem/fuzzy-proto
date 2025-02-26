@@ -20,7 +20,7 @@ public class Frame
     }
 
     // battle relevant methods \\
-    public void BattleStart(Monster monster)
+    public void BattlePaneUpdate(Monster monster)
     {
         int startY = 10;
         

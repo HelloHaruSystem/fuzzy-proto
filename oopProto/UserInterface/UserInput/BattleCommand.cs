@@ -36,6 +36,7 @@ public class BattleCommand
                         MonsterGoesFirst(battle, playerService, monster, gameFrame);
                     }
                     validInput = true;
+                    gameFrame.BattlePaneUpdate(monster);
                     Console.ReadKey();
                     break;
                 
@@ -47,6 +48,8 @@ public class BattleCommand
                     else
                     {
                         gameFrame.NpcWrite("You attempt to run from the battle...", "but failed....!\nPress any key to continue...");
+                        Console.ReadKey();
+                        MonsterAttack(battle, playerService, monster, gameFrame);
                     }
                     validInput = true;
                     Console.ReadKey();
@@ -56,7 +59,7 @@ public class BattleCommand
                     gameFrame.ShowInventoryPane(playerService.GetPlayer().PlayerInventory);
                     Commands.UseCommand(gameFrame, playerService);
                     Console.ReadKey();
-                    gameFrame.BattleStart(monster);
+                    gameFrame.BattlePaneUpdate(monster);
                     MonsterAttack(battle, playerService, monster, gameFrame);
                     validInput = true;
                     Console.ReadKey();
@@ -65,6 +68,7 @@ public class BattleCommand
                 default:
                     gameFrame.NpcWrite("Invalid Command!", "Please try again. Press any key to continue...\n> ");
                     validInput = true;
+                    Console.ReadKey();
                     break;
             }
         }

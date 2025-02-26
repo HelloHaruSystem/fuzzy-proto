@@ -34,13 +34,14 @@ public class Battle
         while (!this._isBattleOver)
         {
             this._gameFrame.Display(this._playerService, this._roomService);
-            this._gameFrame.BattleStart(this._monster);
+            this._gameFrame.BattlePaneUpdate(this._monster);
             BattleCommand.SelectBattleCommand(this, this._playerService, this._monster, this._gameFrame);
 
+            // TODO: move the NpcWrite method call to the user interface somewhere
             if (IsMonsterDefeated())
             {
                 this._gameFrame.PlayerWonBattle();
-                this._gameFrame.NpcWrite($" The monster Dropped {this._monster.EquippedWeapon}", "It landed somewhere in the room\n" +
+                this._gameFrame.NpcWrite($" The monster Dropped {this._monster.EquippedWeapon}", " It landed somewhere in the room\n" +
                     " If you searced for it you might find it\n" +
                     " press any key to continue...");
                 Console.ReadKey();
