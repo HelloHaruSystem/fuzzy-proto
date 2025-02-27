@@ -1,6 +1,7 @@
 ﻿using oopProto.Entities;
 using oopProto.Entities.Factory;
 using oopProto.Entities.GameLogic;
+using oopProto.Entities.Repositorys;
 using oopProto.Entities.Services;
 using oopProto.ItemsAndInventory;
 using oopProto.UserInterface.UserInput;
@@ -13,27 +14,32 @@ public class GameUi
     private PlayerService _playerService;
     private RoomService _roomService;
     private ItemService _itemService;
+    private MonsterService _monsterService;
     private Frame _gameFrame;
     private Monster? _chasingMonster = null;
     private int _turnCounter;
     
-    private GameUi(RoomService roomService,ItemService itemService)
+    private GameUi(RoomService roomService,ItemService itemService, MonsterService monsterService, PlayerService playerService)
     {
         this._running = false;
-        this._playerService = new PlayerService();
-        this._roomService = roomService;
-        this._itemService = itemService;
+        this._turnCounter = 0;
         this._gameFrame = new Frame();
         
-        this._turnCounter = 0;
+        this._roomService = roomService;
+        this._itemService = itemService;
+        this._monsterService = monsterService;
+        this._playerService = playerService;
     }
     
     // TODO: move to its own factory class
     public static async Task<GameUi> CreateGameUi()
     {
-        RoomService rService = await RoomServiceFactory.CreateRoomService();
         ItemService iService = await ItemServiceFactory.CreateItemService();
-        GameUi gameUi = new GameUi(rService, iService);
+        MonsterService mService = await MonsterServiceFactory.CreateMonsterService(iService);
+        RoomService rService = await RoomServiceFactory.CreateRoomService();
+        rService.LoadMonstersToRooms(mService);
+        PlayerService pService = await PlayerServiceFactory.CreatePlayerService(iService);
+        GameUi gameUi = new GameUi(rService, iService, mService, pService);
 
         return gameUi;
     }
@@ -44,17 +50,16 @@ public class GameUi
         Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         Console.Clear();
-        StartMenu();
+        // TODO: rework StartMenu()
+        // StartMenu();
         this.Introduction();
         Console.Clear();
         
         // for testing
-        _playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
-        _playerService.AddItem(new Potion(2, "Major Healing Potion", 75));
-        _playerService.AddItem(new Potion(2, "Minor Healing Potion", 25));
-        _playerService.AddItem(new Weapon(5, "Golden Sword", 25, 256, false));
-        _roomService.AddMonsterToRoom(2, new Monster(10, "Slime", 75, 2, 5, 5, 0,
-            new Weapon(20, "wep test", 20, 256, false), ""));
+        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 2));
+        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 3));
+        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 4));
+        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 1));
         
         // TODO: MAKE MAIN GAME LOOP MORE NEAT ASAP PLEASE!
         while (this._running)

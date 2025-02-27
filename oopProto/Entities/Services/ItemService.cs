@@ -12,6 +12,17 @@ public class ItemService
         this._listOfItems = loadedItems
             ?? new List<Item>();
     }
+
+    public Weapon? GetWeapon(int weaponId)
+    {
+        Item weapon = this._listOfItems.Find(w => w.Id == weaponId);
+
+        if (weapon is Weapon)
+        {
+            return (Weapon)weapon;
+        }
+        return null;
+    }
     
     // getters and setters
     public List<Item> ListOfItems { get => _listOfItems; set => _listOfItems = value; }

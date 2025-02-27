@@ -6,9 +6,9 @@ public class PlayerService
 {
     private Player _player;
     
-    public PlayerService()
+    public PlayerService(Player player)
     {
-        this._player = new Player(1, "player", 200, 20, 10, 5, 0, new Weapon(1, "Wooden Sword", 5, 256, false));
+        this._player = player ?? throw new ArgumentNullException(nameof(player));
     }
 
     public void Heal(int healAmount)

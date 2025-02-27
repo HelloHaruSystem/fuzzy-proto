@@ -99,6 +99,14 @@ public class RoomService
         }
     }
 
+    public void LoadMonstersToRooms(MonsterService monsterService)
+    {
+        foreach (Monster m in monsterService.Monsters)
+        { 
+            AddMonsterToRoom(m.RoomId, m);
+        }
+    }
+
     public void RemoveMonsterFromRoom(Monster monster)
     {
         foreach (Room r in this._rooms)

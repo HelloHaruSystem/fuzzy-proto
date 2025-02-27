@@ -16,7 +16,7 @@ public abstract class Entity
     protected int _avoidance;
     protected Weapon _equippedWeapon;
 
-    protected Entity(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon)
+    protected Entity(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon, int currentHp)
     {
         this._id = id;
         this._name = name;
@@ -26,8 +26,7 @@ public abstract class Entity
         this._speed = speed;
         this._avoidance = avoidance;
         this._equippedWeapon = equippedWeapon;
-        
-        this._currentHp = this._maxHp;
+        this._currentHp = currentHp;
     }
     
     public void ReceiveDamage(int damage)

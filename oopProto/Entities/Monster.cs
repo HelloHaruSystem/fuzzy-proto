@@ -5,15 +5,18 @@ namespace oopProto.Entities;
 public class Monster : Entity
 {
     private string _sprite;
+    private int _roomId;
     
-    public Monster(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon, string sprite) 
-        : base(id, name, maxHp, strength, defense, speed, avoidance, equippedWeapon)
+    public Monster(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon, string sprite, int roomId, int currentHp) 
+        : base(id, name, maxHp, strength, defense, speed, avoidance, equippedWeapon, currentHp)
     {
         this._sprite = sprite;
+        this._roomId = roomId;
     }
     
     // getters and setters
     public string Sprite { get => _sprite; set => _sprite = value; }
+    public int RoomId { get => _roomId; set => _roomId = value; }
 
     // generated Equals and has code methods for comparing objects
     private sealed class MonsterEqualityComparer : IEqualityComparer<Monster>
