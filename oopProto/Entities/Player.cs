@@ -8,8 +8,8 @@ public sealed class Player : Entity
     private  Inventory _playerInventory;
    
     // TODO: rework this contractor were you set name and id this will be used later when saving and loading game
-    public Player(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon) 
-        : base(id, name, maxHp, strength, defense, speed, avoidance, equippedWeapon)
+    public Player(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon, int currentHp) 
+        : base(id, name, maxHp, strength, defense, speed, avoidance, equippedWeapon, currentHp)
     { 
         this._playerInventory = new Inventory();
     }

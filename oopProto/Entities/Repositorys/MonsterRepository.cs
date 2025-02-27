@@ -52,7 +52,7 @@ public class MonsterRepository
                 int roomId = reader.GetInt32(9);
 
                 // save to room entity
-                Monster monster = new Monster(id, name, maxHp, strength, defense, speed, avoidance, itemService.GetWeapon(weaponId), sprite, roomId);
+                Monster monster = new Monster(id, name, maxHp, strength, defense, speed, avoidance, itemService.GetWeapon(weaponId), sprite, roomId, maxHp);
                 
                 monsterList.Add(monster);
             }

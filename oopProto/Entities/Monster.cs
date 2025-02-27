@@ -7,8 +7,8 @@ public class Monster : Entity
     private string _sprite;
     private int _roomId;
     
-    public Monster(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon, string sprite, int roomId) 
-        : base(id, name, maxHp, strength, defense, speed, avoidance, equippedWeapon)
+    public Monster(int id, string name, int maxHp, int strength, int defense, int speed, int avoidance, Weapon equippedWeapon, string sprite, int roomId, int currentHp) 
+        : base(id, name, maxHp, strength, defense, speed, avoidance, equippedWeapon, currentHp)
     {
         this._sprite = sprite;
         this._roomId = roomId;

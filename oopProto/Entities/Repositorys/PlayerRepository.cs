@@ -48,7 +48,7 @@ public class PlayerRepository
                 int weaponId = reader.GetInt32(7);
 
                 // save to room entity
-                player = new Player(id, name, maxHp, strength, defense, speed, avoidance, itemService.GetWeapon(weaponId));
+                player = new Player(id, name, maxHp, strength, defense, speed, avoidance, itemService.GetWeapon(weaponId), maxHp);
             }
         }
         catch (NpgsqlException e)
