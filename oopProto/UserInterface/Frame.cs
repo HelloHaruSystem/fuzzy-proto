@@ -33,9 +33,10 @@ public class Frame
     {
         Console.SetCursorPosition(20, 11);
         Console.Write($"{monster.Name}");
+        
         Console.SetCursorPosition(20, 12);
         Console.Write($"{monster.CurrentHp} / {monster.MaxHp}");
-        // TODO: implement bar to to display hp
+   
         Console.SetCursorPosition(20, 13);
         PrintHpBar(monster);
         Console.SetCursorPosition(X_START + 1, Y_START + 5);
