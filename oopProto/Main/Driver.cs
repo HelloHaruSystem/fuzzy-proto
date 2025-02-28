@@ -8,7 +8,7 @@ class Driver
 {
     static async Task Main(string[] args)
     {
-        GameUi ui = await GameUiFactory.CreateGameUiFromSave();
+        GameUi ui = await  LoadOrNew.StartNewOrLoad();
         
         Console.Clear();
         await RoomRepository.DbTest();
