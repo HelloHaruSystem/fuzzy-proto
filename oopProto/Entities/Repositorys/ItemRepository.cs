@@ -132,7 +132,7 @@ public class ItemRepository
     public async Task<IEnumerable<Item>> GetRoomItems(ItemService itemService, int currentPlayerId)
     {
         string sql = @"SELECT
-                        player_id,
+                        save_id,
                         item_id,
                         room_id
                        FROM items_in_room_or_inventory";
@@ -150,11 +150,11 @@ public class ItemRepository
 
             while (await reader.ReadAsync())
             {
-                int playerId = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                int saveID = reader.GetInt32(0);
                 int itemId = reader.GetInt32(1);
                 int roomId = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
 
-                if (playerId == currentPlayerId)
+                if (saveID == currentPlayerId)
                 {
                     Item item = itemService.GetItemCopy(itemId);
                     if (item != null)
