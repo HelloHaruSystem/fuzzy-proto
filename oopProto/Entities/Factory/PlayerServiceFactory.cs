@@ -6,7 +6,7 @@ namespace oopProto.Entities.Factory;
 
 public class PlayerServiceFactory
 {
-    public static async Task<PlayerService> CreatePlayerService(ItemService itemService)
+    public static async Task<PlayerService> CreatePlayerServiceFromSave(ItemService itemService)
     {
         PlayerRepository repository = new PlayerRepository();
         ItemRepository itemRepository = new ItemRepository();
@@ -22,6 +22,13 @@ public class PlayerServiceFactory
         {
             playerService.AddItem(item);
         }
+        
+        return playerService;
+    }
+    
+    public static PlayerService CreatePlayerServiceFromScratch(ItemService itemService, Player newplayer)
+    {
+        PlayerService playerService = new PlayerService(newplayer);
         
         return playerService;
     }
