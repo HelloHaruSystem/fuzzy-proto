@@ -55,12 +55,6 @@ public class GameUi
         this.Introduction();
         Console.Clear();
         
-        // for testing
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 2));
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 3));
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 4));
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 1));
-        
         // TODO: MAKE MAIN GAME LOOP MORE NEAT ASAP PLEASE!
         while (this._running)
         {
