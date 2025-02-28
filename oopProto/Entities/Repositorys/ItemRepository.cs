@@ -111,11 +111,15 @@ public class ItemRepository
                 int itemId = reader.GetInt32(0);
                 int playerId = reader.GetInt32(1);
 
-                Item item = itemService.GetItemCopy(itemId);
-                if (item != null)
+                if (playerId == currentPlayerId)
                 {
-                    playerItemList.Add(item);
+                    Item item = itemService.GetItemCopy(itemId);
+                    if (item != null)
+                    {
+                        playerItemList.Add(item);
+                    }    
                 }
+                
             }
         } catch (NpgsqlException e)
         {

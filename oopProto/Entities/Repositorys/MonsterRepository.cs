@@ -65,4 +65,46 @@ public class MonsterRepository
 
         return monsterList;
     }
+
+    public async Task<IEnumerable<Monster>> LoadMonstersToRooms(int currentPlayerId, RoomService roomService, MonsterService monsterService)
+    {
+        string sql = @"SELECT
+                        id,
+                        room_id,
+                        current_hp,
+                        player_id
+                       FROM monsters_in_a_room";
+
+        string connectionString = ConfigHelper.GetConnectionString();
+        List<Monster> monsterList = new List<Monster>();
+
+        try
+        {
+            await using var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            await using var command = new NpgsqlCommand(sql, connection);
+            await using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                int id = reader.GetInt32(0);
+                int roomId = reader.GetInt32(1);
+                int currentHp = reader.GetInt32(2);
+                int playerId = reader.GetInt32(3);
+
+                if (currentPlayerId == playerId)
+                {
+                    Monster monster = monsterService.GetMonsterCopy(id, roomId, currentHp);
+                    monsterList.Add(monster);
+                }
+            }
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine("Error: {0}", e.Message);
+        }
+        
+        return monsterList;
+    }
 }
