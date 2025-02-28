@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using oopProto.Entities.Services;
 using oopProto.ItemsAndInventory;
 
 namespace oopProto.Entities.Repositorys;
@@ -87,6 +88,89 @@ public class ItemRepository
         return weaponList;
     }
 
+    public async Task<IEnumerable<Item>> GetPlayerItems(ItemService itemService, int currentPlayerId)
+    {
+        string sql = @"SELECT
+                        item_id,
+                        player_id
+                       FROM items_in_room_or_inventory";
+
+        string connectionString = ConfigHelper.GetConnectionString();
+        List<Item> playerItemList = new List<Item>();
+
+        try
+        {
+            await using var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            await using var command = new NpgsqlCommand(sql, connection);
+            await using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                int itemId = reader.GetInt32(0);
+                int playerId = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
+
+                if (playerId == currentPlayerId)
+                {
+                    Item item = itemService.GetItemCopy(itemId);
+                    if (item != null)
+                    {
+                        playerItemList.Add(item);
+                    }    
+                }
+                
+            }
+        } catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error: {e.Message}");
+        }
+
+        return playerItemList;
+    }
+    
+    public async Task<IEnumerable<Item>> GetRoomItems(ItemService itemService, int currentPlayerId)
+    {
+        string sql = @"SELECT
+                        save_id,
+                        item_id,
+                        room_id
+                       FROM items_in_room_or_inventory";
+
+        string connectionString = ConfigHelper.GetConnectionString();
+        List<Item> roomItemList = new List<Item>();
+        
+        try
+        {
+            await using var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            await using var command = new NpgsqlCommand(sql, connection);
+            await using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                int saveID = reader.GetInt32(0);
+                int itemId = reader.GetInt32(1);
+                int roomId = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+
+                if (saveID == currentPlayerId)
+                {
+                    Item item = itemService.GetItemCopy(itemId);
+                    if (item != null)
+                    {
+                        item.RoomId = roomId;
+                        roomItemList.Add(item);
+                    }    
+                }
+            }
+        } catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error: {e.Message}");
+        }
+
+        return roomItemList;
+    }
 
     public async Task<IEnumerable<Item>> GetAllItems()
     {

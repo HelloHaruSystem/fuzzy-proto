@@ -1,4 +1,5 @@
-﻿using oopProto.ItemsAndInventory;
+﻿using oopProto.Entities.Repositorys;
+using oopProto.ItemsAndInventory;
 using oopProto.Layout;
 
 namespace oopProto.Entities.Services;
@@ -99,11 +100,47 @@ public class RoomService
         }
     }
 
-    public void LoadMonstersToRooms(MonsterService monsterService)
+    public void LoadDefaultMonstersToRooms(MonsterService monsterService)
     {
         foreach (Monster m in monsterService.Monsters)
         { 
             AddMonsterToRoom(m.RoomId, m);
+        }
+    }
+
+    public async Task LoadMonstersToRooms(int currentPlayerId, MonsterService monsterService)
+    {
+        MonsterRepository monsterRepository = new MonsterRepository();
+        IEnumerable<Monster> loadCurrentMonsters = await monsterRepository.LoadMonstersToRooms(currentPlayerId, this, monsterService);
+        List<Monster> loadedMonsterList = loadCurrentMonsters.ToList();
+
+        foreach (Room r in this._rooms)
+        {
+            foreach (Monster m in loadedMonsterList)
+            {
+                if (r.RoomId == m.RoomId)
+                {
+                    r.Monster = m;
+                }
+            }
+        }
+    }
+
+    public async Task LoadItemsToRooms(ItemService itemService, int currentPlayerId)
+    {
+        ItemRepository itemRepository = new ItemRepository();
+        IEnumerable<Item> loadedItems = await itemRepository.GetRoomItems(itemService,currentPlayerId);
+        List<Item> loadedItemList = loadedItems.ToList();
+
+        foreach (Room r in this._rooms)
+        {
+            foreach (Item i in loadedItemList)
+            {
+                if (r.RoomId == i.RoomId)
+                {
+                    r.Items.Add(i);
+                }
+            }
         }
     }
 

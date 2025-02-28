@@ -37,9 +37,12 @@ public class GameUi
         ItemService iService = await ItemServiceFactory.CreateItemService();
         MonsterService mService = await MonsterServiceFactory.CreateMonsterService(iService);
         RoomService rService = await RoomServiceFactory.CreateRoomService();
-        rService.LoadMonstersToRooms(mService);
+        rService.LoadDefaultMonstersToRooms(mService);
         PlayerService pService = await PlayerServiceFactory.CreatePlayerService(iService);
         GameUi gameUi = new GameUi(rService, iService, mService, pService);
+        
+        // test
+        await rService.LoadItemsToRooms(iService, pService.GetPlayer().Id);
 
         return gameUi;
     }
@@ -54,12 +57,6 @@ public class GameUi
         // StartMenu();
         this.Introduction();
         Console.Clear();
-        
-        // for testing
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 2));
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 3));
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 4));
-        _playerService.AddItem(_itemService.ListOfItems.Find(i => i.Id == 1));
         
         // TODO: MAKE MAIN GAME LOOP MORE NEAT ASAP PLEASE!
         while (this._running)

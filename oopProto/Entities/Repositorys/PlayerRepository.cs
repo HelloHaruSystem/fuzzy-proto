@@ -59,4 +59,33 @@ public class PlayerRepository
 
         return player;
     }
+
+    public static int GetMaxId()
+    {
+        int maxId = 0;
+        
+        string sql = @"SELECT MAX(id) FROM player";
+        
+        string connectionString = ConfigHelper.GetConnectionString();
+
+        try
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var command = new NpgsqlCommand(sql, connection);
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                maxId =reader.IsDBNull(0) ? 1 : reader.GetInt32(0);
+            }
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine("Error: {0}", e.Message);
+        }
+        
+        return maxId;
+    }
 }

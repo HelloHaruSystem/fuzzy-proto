@@ -6,6 +6,7 @@ public abstract class Item
 {
     protected int id;
     protected string name;
+    private int _roomId;
 
     protected Item(int id, string name)
     {
@@ -18,6 +19,7 @@ public abstract class Item
     // getters and setters
     public int Id { get => id; set => id = value; }
     public string Name { get => name; set => name = value; }
+    public int RoomId { get => _roomId; set => _roomId = value; }
 
     // generated equal methods and hash code methods
     public override string ToString()
