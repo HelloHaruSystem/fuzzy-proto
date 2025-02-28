@@ -1,11 +1,6 @@
 ﻿using oopProto.Entities;
-using oopProto.Entities.Factory;
 using oopProto.Entities.GameLogic;
-using oopProto.Entities.Repositorys;
 using oopProto.Entities.Services;
-using oopProto.ItemsAndInventory;
-using oopProto.UserInterface.UserInput;
-
 namespace oopProto.UserInterface;
 
 public class GameUi
@@ -19,7 +14,7 @@ public class GameUi
     private Monster? _chasingMonster = null;
     private int _turnCounter;
     
-    private GameUi(RoomService roomService,ItemService itemService, MonsterService monsterService, PlayerService playerService)
+    public GameUi(RoomService roomService,ItemService itemService, MonsterService monsterService, PlayerService playerService)
     {
         this._running = false;
         this._turnCounter = 0;
@@ -29,22 +24,6 @@ public class GameUi
         this._itemService = itemService;
         this._monsterService = monsterService;
         this._playerService = playerService;
-    }
-    
-    // TODO: move to its own factory class
-    public static async Task<GameUi> CreateGameUi()
-    {
-        ItemService iService = await ItemServiceFactory.CreateItemService();
-        MonsterService mService = await MonsterServiceFactory.CreateMonsterService(iService);
-        RoomService rService = await RoomServiceFactory.CreateRoomService();
-        rService.LoadDefaultMonstersToRooms(mService);
-        PlayerService pService = await PlayerServiceFactory.CreatePlayerService(iService);
-        GameUi gameUi = new GameUi(rService, iService, mService, pService);
-        
-        // test
-        await rService.LoadItemsToRooms(iService, pService.GetPlayer().Id);
-
-        return gameUi;
     }
     
     public void StartGame()
@@ -75,17 +54,6 @@ public class GameUi
         
         Console.Clear();
         Console.ReadLine();
-    }
-    
-    private void StartMenu()
-    {
-        string playerName = string.Empty;
-        
-        Console.WriteLine("Welcome adventurer!\n");
-        playerName = PlayerName.MakePlayerName();
-       
-        _playerService.GetPlayer().Name = playerName;
-        
     }
     
     private void Introduction()
