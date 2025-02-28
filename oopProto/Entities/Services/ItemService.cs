@@ -38,7 +38,9 @@ public class ItemService
                 itemToCopyFrom.UsesLeft, itemToCopyFrom.IsRanged);
             
             return copyItem;
-        } else if (item is Potion)
+        } 
+        
+        if (item is Potion)
         {
             Potion itemToCopyFrom = (Potion)item;
             Potion copyItem = new Potion(itemToCopyFrom.Id, itemToCopyFrom.Name, itemToCopyFrom.HealingAmount);

@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using oopProto.Entities.Repositorys;
+﻿using oopProto.Entities.Repositorys;
 using oopProto.ItemsAndInventory;
 using oopProto.Layout;
 
@@ -122,6 +121,24 @@ public class RoomService
                 if (r.RoomId == m.RoomId)
                 {
                     r.Monster = m;
+                }
+            }
+        }
+    }
+
+    public async Task LoadItemsToRooms(ItemService itemService, int currentPlayerId)
+    {
+        ItemRepository itemRepository = new ItemRepository();
+        IEnumerable<Item> loadedItems = await itemRepository.GetRoomItems(itemService,currentPlayerId);
+        List<Item> loadedItemList = loadedItems.ToList();
+
+        foreach (Room r in this._rooms)
+        {
+            foreach (Item i in loadedItemList)
+            {
+                if (r.RoomId == i.RoomId)
+                {
+                    r.Items.Add(i);
                 }
             }
         }
