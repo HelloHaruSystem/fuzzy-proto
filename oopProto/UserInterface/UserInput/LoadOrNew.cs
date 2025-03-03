@@ -1,4 +1,5 @@
 ﻿using oopProto.Entities.Factory;
+using oopProto.UserInterface.UserInput;
 
 namespace oopProto.UserInterface;
 
@@ -9,13 +10,14 @@ public class LoadOrNew
         GameUi? ui = null;
         string userInput = "";
         bool validInput = false;
-        
+
+        Console.Clear();
         Console.WriteLine("Welcome to the Oop game!\nDo you want to load an existing game?\nOr start a new game?");
 
         while (!validInput)
         {
             Console.WriteLine("Enter [1] to start a new game");
-            Console.WriteLine("Enter [2] to load an existing game\n> ");
+            Console.Write("Enter [2] to load an existing game\n> ");
             userInput = Console.ReadLine();
             
             switch (userInput)
@@ -25,7 +27,8 @@ public class LoadOrNew
                     validInput = true;
                     break;
                 case "2":
-                    ui = await GameUiFactory.CreateGameUiFromSave();
+                    int gameId = await LoadPlayer.PlayerSelection();
+                    ui = await GameUiFactory.CreateGameUiFromSave(gameId);
                     validInput = true;
                     break;
                 default:

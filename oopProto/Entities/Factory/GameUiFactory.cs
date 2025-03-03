@@ -6,15 +6,15 @@ namespace oopProto.Entities.Factory;
 
 public class GameUiFactory
 {
-    public static async Task<GameUi> CreateGameUiFromSave()
+    public static async Task<GameUi> CreateGameUiFromSave(int playerId)
     {
         ItemService iService = await ItemServiceFactory.CreateItemService();
         MonsterService mService = await MonsterServiceFactory.CreateMonsterService(iService);
         RoomService rService = await RoomServiceFactory.CreateRoomService();
-        PlayerService pService = await PlayerServiceFactory.CreatePlayerServiceFromSave(iService);
+        PlayerService pService = await PlayerServiceFactory.CreatePlayerServiceFromSave(playerId, iService);
         
-        await rService.LoadMonstersToRooms(pService.GetPlayer().Id, mService);
-        await rService.LoadItemsToRooms(iService, pService.GetPlayer().Id);
+        await rService.LoadMonstersToRooms(playerId, mService);
+        await rService.LoadItemsToRooms(iService, playerId);
         
         GameUi gameUi = new GameUi(rService, iService, mService, pService);
 

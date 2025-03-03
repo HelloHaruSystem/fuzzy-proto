@@ -95,6 +95,7 @@ public class BattleCommand
         else
         {
             int damage = battle.CalculateDamage(playerService.GetPlayer(), monster);
+            playerService.GetPlayer().EquippedWeapon.Use(playerService.GetPlayer());
             monster.ReceiveDamage(damage);
             gameFrame.NpcWrite($" You attacked the {monster.Name}!", $" And dealt {damage} damage to the {monster.Name}!\n Press any key to continue...\n> "); 
         }

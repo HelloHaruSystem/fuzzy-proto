@@ -19,7 +19,7 @@ public class Weapon : Item
 
     public override void Use(Player player)
     {
-        throw new NotImplementedException();
+        player.EquippedWeapon._usesLeft--;
     }
 
     // getters and setters

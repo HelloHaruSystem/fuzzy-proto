@@ -9,9 +9,10 @@ namespace oopProto.Entities.GameLogic;
 
 public class Commands
 {
-    public static void SelectCommand(PlayerService playerService, RoomService roomService, Frame gameFrame)
+    public static bool SelectCommand(PlayerService playerService, RoomService roomService, Frame gameFrame)
     {
         bool validInput = false;
+        bool gameNotOver = true;
         string userInput = "";
         
         gameFrame.NpcWrite("Enter Command:", "[1] to show list of commands\n> ");
@@ -64,6 +65,11 @@ public class Commands
                     SearchCommand(roomService, gameFrame, playerService);
                     validInput = true;
                     break;
+                case "exit":
+                    ExitCommand(gameFrame);
+                    validInput = true;
+                    gameNotOver = false;
+                    break;
                 default:
                     gameFrame.NpcWrite("Invalid Command!", "Please try again. Press any key to continue...");
                     Console.ReadKey();
@@ -71,6 +77,8 @@ public class Commands
                     break;
             }
         }
+
+        return gameNotOver;
     }
 
     private static void ShowCommands(Frame gameFrame)
@@ -79,14 +87,23 @@ public class Commands
         commands.Append("\"go north\" To go north\t \"go east\" To go east\n");
         commands.Append("\"go south\" To go south\t \"go west\" To go west\n" );
         commands.Append("\"show inventory\" To show inventory\n");
-        commands.Append("\"Page 1/2 press any key to show next page...");
+        commands.Append("Page 1/3 press any key to show next page...");
         gameFrame.NpcWrite("Enter Command:", commands.ToString());
         Console.ReadKey();
         
         commands.Clear();
+        
         commands.Append("\"use\" To use an item\n");
         commands.Append("\"drop\" To drop an item in the room\n");
-        commands.Append("\"search\" To Search the current room for items\n> ");
+        commands.Append("\"search\" To Search the current room for items\n");
+        commands.Append("Page 2/3 press any key to show next page...");
+        gameFrame.NpcWrite("Enter Command:", commands.ToString());
+        Console.ReadKey();
+
+        commands.Clear();
+        commands.Append("\"save game\" To save your current progress and exit\n");
+        commands.Append("\"exit\" To exit the game without saving\n");
+        commands.Append("Page 3/3\n> ");
         gameFrame.NpcWrite("Enter Command:", commands.ToString());
     }
 
@@ -140,7 +157,7 @@ public class Commands
         }
     }
 
-    public static void PickUpItem(Frame gameFrame, PlayerService playerService, RoomService roomService)
+    private static void PickUpItem(Frame gameFrame, PlayerService playerService, RoomService roomService)
     {
         gameFrame.ShowRoomItemsPane(roomService);
         int userInput = ItemNumber.GetItemNumber(gameFrame) - 1;
@@ -188,6 +205,12 @@ public class Commands
                 playerService.SwapWeapon(weaponToUse);
             }
         }
+    }
+
+    private static void ExitCommand(Frame gameFrame)
+    {
+        gameFrame.NpcWrite("Thanks for playing!", "Exiting...\nPress any key to continue...\n> ");
+        Console.ReadKey();
     }
     
 }
