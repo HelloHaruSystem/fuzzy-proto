@@ -11,10 +11,10 @@ public class GameUiFactory
         ItemService iService = await ItemServiceFactory.CreateItemService();
         MonsterService mService = await MonsterServiceFactory.CreateMonsterService(iService);
         RoomService rService = await RoomServiceFactory.CreateRoomService();
-        PlayerService pService = await PlayerServiceFactory.CreatePlayerServiceFromSave(playerId, iService);
+        PlayerService pService = await PlayerServiceFactory.CreatePlayerServiceFromSave(playerId, iService, rService);
         
         await rService.LoadMonstersToRooms(playerId, mService);
-        await rService.LoadItemsToRooms(iService, playerId);
+        await rService.LoadItemsToRooms(playerId, iService);
         
         GameUi gameUi = new GameUi(rService, iService, mService, pService);
 
@@ -31,7 +31,7 @@ public class GameUiFactory
         PlayerService pService = PlayerServiceFactory.CreatePlayerServiceFromScratch(iService, newPlayer);
         
         rService.LoadDefaultMonstersToRooms(mService);
-        await rService.LoadItemsToRooms(iService, pService.GetPlayer().Id);
+        await rService.LoadItemsToRooms(pService.GetPlayer().Id, iService);
         
         GameUi gameUi = new GameUi(rService, iService, mService, pService);
         

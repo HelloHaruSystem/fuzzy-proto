@@ -180,6 +180,79 @@ public class ItemRepository
         items.AddRange(await GetWeapons());
         
         return items;
-    } 
+    }
+
+    public void DeleteItemFromRoom(Item item, int roomId)
+    {
+        string sql = @$"
+                                    DELETE FROM items_in_room_or_inventory
+                                    WHERE ctid = (
+                                        SELECT ctid FROM items_in_room_or_inventory
+                                            WHERE item_id = {item.Id} AND room_id = {roomId}
+                                            ORDER BY ctid
+                                            LIMIT 1);";
+        
+        string connectionString = ConfigHelper.GetConnectionString();
+        
+        try
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var command = new NpgsqlCommand(sql, connection);
+            
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error deleting item: {e.Message}");
+        }
+    }
+    
+    public void DeleteItemFromInventory(Item item, int playerId)
+    {
+        string sql = @$"
+                                    DELETE FROM items_in_room_or_inventory
+                                    WHERE ctid = (
+                                        SELECT ctid FROM items_in_room_or_inventory
+                                            WHERE item_id = {item.Id} AND player_id = {playerId}
+                                            ORDER BY ctid
+                                            LIMIT 1);";
+        
+        string connectionString = ConfigHelper.GetConnectionString();
+        
+        try
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var command = new NpgsqlCommand(sql, connection);
+            
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error deleting item: {e.Message}");
+        }
+    }
+    
+    public void AddItemToInventory(Item item, int playerId)
+    {
+        string sql = @$"INSERT INTO items_in_room_or_inventory (save_id, item_id, player_id)
+                        VALUES ({playerId}, {item.Id}, {playerId});";
+        
+        string connectionString = ConfigHelper.GetConnectionString();
+        
+        try
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var command = new NpgsqlCommand(sql, connection);
+            
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error deleting item: {e.Message}");
+        }
+    }
     
 }

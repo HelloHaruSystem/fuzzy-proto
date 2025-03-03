@@ -40,7 +40,7 @@ public class PlayerRepository
         return playerNames;
     }
     
-    public async Task<Player>? GetPlayer(int playerId, ItemService itemService) 
+    public async Task<Player>? GetPlayer(int playerId, ItemService itemService, RoomService roomService) 
     {
         string sql = @$"SELECT
                     id,
@@ -50,7 +50,9 @@ public class PlayerRepository
                     defense,
                     speed,
                     avoidance,
-                    weapon_id
+                    weapon_id,
+                    current_hp,
+                    current_room_id                    
                    FROM player
                    WHERE id = {playerId}";
         
@@ -81,9 +83,12 @@ public class PlayerRepository
                 int speed = reader.GetInt32(5);
                 int avoidance = reader.GetInt32(6);
                 int weaponId = reader.GetInt32(7);
+                int currentHp = reader.GetInt32(8);
+                int currentRoomId = reader.GetInt32(9);
 
                 // save to room entity
-                player = new Player(id, name, maxHp, strength, defense, speed, avoidance, itemService.GetWeapon(weaponId), maxHp);
+                player = new Player(id, name, maxHp, strength, defense, speed, avoidance, itemService.GetWeapon(weaponId), currentHp);
+                roomService.FindAndSetCurrentRoom(currentRoomId);
             }
         }
         catch (NpgsqlException e)
@@ -122,5 +127,95 @@ public class PlayerRepository
         }
         
         return maxId;
+    }
+
+    public void SavePlayer(Player player, RoomService roomService)
+    {
+        string sql = @"
+        UPDATE player
+        SET 
+            name = @name,
+            max_hp = @maxHp,
+            strength = @strength,
+            defense = @defense,
+            speed = @speed,
+            avoidance = @avoidance,
+            weapon_id = @weaponId,
+            current_hp = @currentHp,
+            current_room_id = @currentRoomId
+        WHERE id = @id";
+
+        string connectionString = ConfigHelper.GetConnectionString();
+
+        try
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var command = new NpgsqlCommand(sql, connection);
+            
+            command.Parameters.AddWithValue("@id", player.Id);
+            command.Parameters.AddWithValue("@name", player.Name); 
+            command.Parameters.AddWithValue("@maxHp", player.MaxHp);
+            command.Parameters.AddWithValue("@strength", player.Strength);
+            command.Parameters.AddWithValue("@defense", player.Defense);
+            command.Parameters.AddWithValue("@speed", player.Speed);
+            command.Parameters.AddWithValue("@avoidance", player.Avoidance);
+            command.Parameters.AddWithValue("@weaponId", player.EquippedWeapon?.Id ?? (object)DBNull.Value); 
+            command.Parameters.AddWithValue("@currentHp", player.CurrentHp);
+            command.Parameters.AddWithValue("@currentRoomId", roomService.CurrentRoom?.RoomId ?? (object)DBNull.Value);
+            
+            command.ExecuteNonQuery();
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error: {e.Message}");
+            throw; // Re-throw the exception if necessary
+        }
+    }
+
+    public void CreatePlayer(Player player)
+    {
+        string sql = @"
+        INSERT INTO player (id, name, max_hp, strength, defense, speed, avoidance, weapon_id, current_hp, current_room_id)
+        VALUES (
+            @id,
+            @name,
+            @maxHp,
+            @strength,
+            @defense,
+            @speed,
+            @avoidance,
+            @weaponId,
+            @currentHp,
+            @currentRoomId)";
+
+        string connectionString = ConfigHelper.GetConnectionString();
+
+        try
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var command = new NpgsqlCommand(sql, connection);
+            
+            command.Parameters.AddWithValue("@id", player.Id);
+            command.Parameters.AddWithValue("@name", player.Name); 
+            command.Parameters.AddWithValue("@maxHp", player.MaxHp);
+            command.Parameters.AddWithValue("@strength", player.Strength);
+            command.Parameters.AddWithValue("@defense", player.Defense);
+            command.Parameters.AddWithValue("@speed", player.Speed);
+            command.Parameters.AddWithValue("@avoidance", player.Avoidance);
+            command.Parameters.AddWithValue("@weaponId", player.EquippedWeapon?.Id ?? (object)DBNull.Value); 
+            command.Parameters.AddWithValue("@currentHp", player.CurrentHp);
+            command.Parameters.AddWithValue("@currentRoomId", 1);
+            
+            command.ExecuteNonQuery();
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error: {e.Message}");
+            throw;
+        }
     }
 }

@@ -126,7 +126,7 @@ public class RoomService
         }
     }
 
-    public async Task LoadItemsToRooms(ItemService itemService, int currentPlayerId)
+    public async Task LoadItemsToRooms(int currentPlayerId, ItemService itemService)
     {
         ItemRepository itemRepository = new ItemRepository();
         IEnumerable<Item> loadedItems = await itemRepository.GetRoomItems(itemService,currentPlayerId);
@@ -152,6 +152,17 @@ public class RoomService
             {
                 r.Monster = null;
                 return;
+            }
+        }
+    }
+
+    public void FindAndSetCurrentRoom(int roomId)
+    {
+        foreach (Room r in this._rooms)
+        {
+            if (r.RoomId == roomId)
+            {
+                this._currentRoom = r;
             }
         }
     }

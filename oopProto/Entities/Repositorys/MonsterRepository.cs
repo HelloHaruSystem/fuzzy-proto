@@ -107,4 +107,30 @@ public class MonsterRepository
         
         return monsterList;
     }
+    
+    public void DeleteMonsterFromRoom(Monster monster)
+    {
+        string sql = @$"
+                                    DELETE FROM monsters_in_a_room
+                                    WHERE ctid = (
+                                        SELECT ctid FROM monsters_in_a_room
+                                            WHERE id = {monster.Id} AND room_id = {monster.RoomId}
+                                            ORDER BY ctid
+                                            LIMIT 1);";
+        
+        string connectionString = ConfigHelper.GetConnectionString();
+        
+        try
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var command = new NpgsqlCommand(sql, connection);
+            
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error deleting item: {e.Message}");
+        }
+    }
 }
