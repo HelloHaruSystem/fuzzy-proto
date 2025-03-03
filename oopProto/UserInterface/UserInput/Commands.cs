@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using oopProto.Entities.Repositorys;
 using oopProto.Entities.Services;
 using oopProto.ItemsAndInventory;
 using oopProto.Layout;
@@ -64,6 +65,11 @@ public class Commands
                 case "search":
                     SearchCommand(roomService, gameFrame, playerService);
                     validInput = true;
+                    break;
+                case "save game":
+                    SaveAndExitCommand(gameFrame, playerService, roomService);
+                    validInput = true;
+                    gameNotOver = false;
                     break;
                 case "exit":
                     ExitCommand(gameFrame);
@@ -159,6 +165,7 @@ public class Commands
 
     private static void PickUpItem(Frame gameFrame, PlayerService playerService, RoomService roomService)
     {
+        ItemRepository repository = new ItemRepository();
         gameFrame.ShowRoomItemsPane(roomService);
         int userInput = ItemNumber.GetItemNumber(gameFrame) - 1;
         int roomItemListLength = roomService.CurrentRoom.Items.Count;
@@ -173,12 +180,15 @@ public class Commands
             playerService.AddItem(roomService.RemoveItemFromRoom(itemToPickUp));
             
             gameFrame.NpcWrite($"You picked up {itemToPickUp.Name}", "Please try again. Press any key to continue...\n> ");
+            repository.DeleteItemFromRoom(itemToPickUp, roomService.CurrentRoom.RoomId);
+            repository.AddItemToInventory(itemToPickUp, playerService.GetPlayer().Id);
             Console.ReadKey();
         }
     }
     
     public static void UseCommand(Frame gameFrame, PlayerService playerService)
     {
+        ItemRepository repository = new ItemRepository();
         int userInput = ItemNumber.GetItemNumber(gameFrame) - 1;
         int inventoryLength = playerService.GetPlayer().PlayerInventory.CurrentCapacity -1;
 
@@ -204,6 +214,8 @@ public class Commands
                 gameFrame.NpcWrite($"You equipped the {weaponToUse.Name}.!", $"press any key to continue...");
                 playerService.SwapWeapon(weaponToUse);
             }
+
+            repository.DeleteItemFromInventory(itemToUse, playerService.GetPlayer().Id);
         }
     }
 
@@ -212,5 +224,16 @@ public class Commands
         gameFrame.NpcWrite("Thanks for playing!", "Exiting...\nPress any key to continue...\n> ");
         Console.ReadKey();
     }
-    
+
+    private static void SaveAndExitCommand(Frame gameFrame, PlayerService playerService, RoomService roomService)
+    {
+        PlayerRepository repository = new PlayerRepository();
+        repository.SavePlayer(playerService.GetPlayer(), roomService);
+        
+        Console.Clear();
+        Console.WriteLine("Saving your progress...");
+        Thread.Sleep(1000);
+        
+        ExitCommand(gameFrame);
+    }
 }

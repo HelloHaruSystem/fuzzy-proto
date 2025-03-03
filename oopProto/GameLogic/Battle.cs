@@ -1,4 +1,5 @@
-﻿using oopProto.Entities.Services;
+﻿using oopProto.Entities.Repositorys;
+using oopProto.Entities.Services;
 using oopProto.UserInterface;
 using oopProto.UserInterface.UserInput;
 
@@ -96,6 +97,8 @@ public class Battle
     {
         if (this._monster.CurrentHp == 0)
         {
+            MonsterRepository repository = new MonsterRepository();
+            repository.DeleteMonsterFromRoom(this._monster);
             return true;
         }
         return false;

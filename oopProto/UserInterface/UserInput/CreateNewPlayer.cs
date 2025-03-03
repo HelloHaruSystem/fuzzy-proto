@@ -8,6 +8,8 @@ public class CreateNewPlayer
 {
     public static Player CreatenewPlayer()
     {
+        PlayerRepository pRepository = new PlayerRepository();
+        ItemRepository itemRepository = new ItemRepository();
         bool statsReroll = true;
         Player player;
         
@@ -70,6 +72,9 @@ public class CreateNewPlayer
         
         player = new Player(playerId, playerName, stats[0], stats[1], stats[2], stats[3], stats[4], startingWeapon, currentHp);
         player.PlayerInventory = inventory;
+        
+        pRepository.CreatePlayer(player);
+        itemRepository.AddItemToInventory(minorPotion, player.Id);
         
         return player;
     }

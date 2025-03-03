@@ -6,11 +6,11 @@ namespace oopProto.Entities.Factory;
 
 public class PlayerServiceFactory
 {
-    public static async Task<PlayerService> CreatePlayerServiceFromSave(int playerId, ItemService itemService)
+    public static async Task<PlayerService> CreatePlayerServiceFromSave(int playerId, ItemService itemService, RoomService roomService)
     {
         PlayerRepository repository = new PlayerRepository();
         ItemRepository itemRepository = new ItemRepository();
-        Player loadedPlayer = await repository.GetPlayer(playerId, itemService) ??
+        Player loadedPlayer = await repository.GetPlayer(playerId, itemService, roomService) ??
                               throw new KeyNotFoundException("Player not found");
         
         IEnumerable<Item> loadedItems = await itemRepository.GetPlayerItems(itemService, loadedPlayer.Id);
