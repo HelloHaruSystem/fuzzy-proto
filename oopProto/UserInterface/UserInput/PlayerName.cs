@@ -8,7 +8,7 @@ public class PlayerName
         string playerName = "";
         bool validPlayerName = false;
 
-        Console.WriteLine("What is your name?");
+        Console.Write("What is your name?\n> ");
 
         while (!validPlayerName)
         {

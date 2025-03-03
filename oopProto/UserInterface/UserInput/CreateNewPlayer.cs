@@ -28,6 +28,7 @@ public class CreateNewPlayer
         playerId = PlayerRepository.GetMaxId() + 1;
         
         // name 
+        Console.Clear();
         Console.WriteLine("Welcome adventurer!\n");
         playerName = PlayerName.MakePlayerName();
         
@@ -36,35 +37,35 @@ public class CreateNewPlayer
         {
             stats = RollStats();
 
-            Console.WriteLine("Rolling your stats!");
+            Console.WriteLine("\nRolling your stats!");
             Console.WriteLine("Your stats:");
-            Console.WriteLine($"HP: {stats[0], 10}");
-            Console.WriteLine($"Strength: {stats[1], 10}");
-            Console.WriteLine($"Defense: {stats[2], 10}");
-            Console.WriteLine($"Speed: {stats[3], 10}");
-            Console.WriteLine($"Avoidance: {stats[4], 10}\n");
+            Console.WriteLine($"HP:           {stats[0], 3}");
+            Console.WriteLine($"Strength:     {stats[1], 3}");
+            Console.WriteLine($"Defense:      {stats[2], 3}");
+            Console.WriteLine($"Speed:        {stats[3], 3}");
+            Console.WriteLine($"Avoidance:    {stats[4], 3}\n");
 
-            Console.WriteLine("Do you want to reroll or go with thee stats?\n" +
+            Console.Write("Do you want to reroll or go with thee stats?\n" +
                               "[1] to keep stats\n" +
-                              "[2] to reroll");
+                              "[2] to reroll\n> ");
             
             string userInput = Console.ReadLine();
 
             switch (userInput)
             {
                 case "1":
-                    Console.WriteLine("Keepings stats...");
+                    Console.WriteLine("\nKeepings stats...");
                     statsReroll = false;
                     break;
                 case "2":
-                    Console.WriteLine("Rerolling stats...");
+                    Console.WriteLine("\nRerolling stats...");
                     break;
                 default:
-                    Console.WriteLine("Invalid input. rerolling stats!");
+                    Console.WriteLine("\nInvalid input. rerolling stats!");
                     break;
             }
             
-            currentHp += stats[0];
+            currentHp = stats[0];
         }
         
         player = new Player(playerId, playerName, stats[0], stats[1], stats[2], stats[3], stats[4], startingWeapon, currentHp);

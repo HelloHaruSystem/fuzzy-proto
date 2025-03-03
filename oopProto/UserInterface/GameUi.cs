@@ -61,7 +61,7 @@ public class GameUi
         Console.Clear();
         Console.WriteLine($"Welcome {this._playerService.GetPlayer().Name}!");
         Console.WriteLine($"Are you ready to explore the forgotten castle?\n");
-        Console.WriteLine("If so...\nPress any key to continue...");
+        Console.Write("If so...\nPress any key to continue...\n> ");
         
         Console.ReadKey();
     }
