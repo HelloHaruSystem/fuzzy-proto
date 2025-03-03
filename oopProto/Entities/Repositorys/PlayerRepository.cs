@@ -1,14 +1,48 @@
 ﻿using Npgsql;
 using oopProto.Entities.Services;
-using oopProto.ItemsAndInventory;
 
 namespace oopProto.Entities.Repositorys;
 
 public class PlayerRepository
 {
-    public async Task<Player>? GetPlayer(ItemService itemService) 
+    public async Task<IEnumerable<string>> GetPlayerNameAndID()
     {
         string sql = @"SELECT
+                    id,
+                    name
+                   FROM player";
+        
+        List<string> playerNames = new List<string>();
+        string connectionString = ConfigHelper.GetConnectionString();
+
+        try
+        {
+            await using var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+            
+            await using var command = new NpgsqlCommand(sql, connection);
+            await using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                int id = reader.GetInt32(0);
+                string name = reader.GetString(1);
+                
+                string player = $"Id: {id} | Name: {name}";
+                playerNames.Add(player);
+            }
+        }
+        catch (NpgsqlException e)
+        {
+            Console.WriteLine($"Error loading from database {e.Message}");
+        }
+        
+        return playerNames;
+    }
+    
+    public async Task<Player>? GetPlayer(int playerId, ItemService itemService) 
+    {
+        string sql = @$"SELECT
                     id,
                     name,
                     max_hp,
@@ -17,7 +51,8 @@ public class PlayerRepository
                     speed,
                     avoidance,
                     weapon_id
-                   FROM player";
+                   FROM player
+                   WHERE id = {playerId}";
         
         string connectionString = ConfigHelper.GetConnectionString();
         Player? player = null;

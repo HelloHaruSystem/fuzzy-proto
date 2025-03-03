@@ -1,4 +1,5 @@
 ﻿using oopProto.Entities.Factory;
+using oopProto.UserInterface.UserInput;
 
 namespace oopProto.UserInterface;
 
@@ -26,7 +27,8 @@ public class LoadOrNew
                     validInput = true;
                     break;
                 case "2":
-                    ui = await GameUiFactory.CreateGameUiFromSave();
+                    int gameId = await LoadPlayer.PlayerSelection();
+                    ui = await GameUiFactory.CreateGameUiFromSave(gameId);
                     validInput = true;
                     break;
                 default:
