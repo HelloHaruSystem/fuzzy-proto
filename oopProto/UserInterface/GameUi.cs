@@ -32,8 +32,7 @@ public class GameUi
         Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         Console.Clear();
-        // TODO: rework StartMenu()
-        // StartMenu();
+        
         this.Introduction();
         Console.Clear();
         
@@ -48,12 +47,11 @@ public class GameUi
                 NewBattle();
             }
             
-            Commands.SelectCommand(this._playerService, this._roomService, this._gameFrame);
+            this._running = Commands.SelectCommand(this._playerService, this._roomService, this._gameFrame);
             _turnCounter++;
         }
         
         Console.Clear();
-        Console.ReadLine();
     }
     
     private void Introduction()
@@ -64,6 +62,11 @@ public class GameUi
         Console.Write("If so...\nPress any key to continue...\n> ");
         
         Console.ReadKey();
+    }
+
+    public void CloseGame()
+    {
+        this._running = false;
     }
 
     private bool IsMonsterInRoom()
